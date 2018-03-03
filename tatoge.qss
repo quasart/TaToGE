@@ -52,4 +52,8 @@ Counter QPushButton, CountDown QPushButton {
    margin: 5px 0px;
 }
 
+Dice:disabled {
+ color: hsv(%1,100%,70%);
+ margin: 5px;
+}
 

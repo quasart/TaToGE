@@ -12,7 +12,8 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
   - `CountDown`/`Sequence` steps follower
 - Widgets to generate random:
   - `Dice`
-  - `CardDrawer` for draw without replacement (Note that draw *with* replacement can be performed in `Dice` widget by setting `Count` parameter greater than 1.)
+  - `DiceCup` to roll a group of dice
+  - `CardDrawer` for draw without replacement (Note that draw *with* replacement can be performed with `DiceCup` widget)
 - General status saving/loading (in json format)
 
 
@@ -35,6 +36,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 - Keyboard navigation does not trigger auto-scroll in AddEquipmentDialog.
 - Command line help is not translated.
+- TODO : Counter increments serialization
 
 ## Build dependency
 

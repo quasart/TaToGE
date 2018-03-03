@@ -11,6 +11,7 @@ HEADERS += MainWindow.h   Table.h   AddEquipmentDialog.h   JsonCodec.h
 HEADERS += widgets/CardDrawer.h
 HEADERS += widgets/Counter.h
 HEADERS += widgets/Dice.h
+HEADERS += widgets/DiceCup.h
 HEADERS += widgets/Sequence.h
 HEADERS += widgets/Timer.h
 HEADERS += AppOptions.h

@@ -3,6 +3,7 @@
 #include "widgets/Timer.h"
 #include "widgets/Counter.h"
 #include "widgets/Dice.h"
+#include "widgets/DiceCup.h"
 #include "widgets/Sequence.h"
 #include "widgets/CardDrawer.h"
 
@@ -62,24 +63,58 @@ QJsonArray makeQJsonArray(std::vector<T> const & v)
 	return array;
 }
 
+Dice * createDice(QJsonObject const & item)
+{
+	Dice * dice = nullptr;
+
+	if (item.contains("List"))
+	{
+		dice = new Dice( JsonCodec::asStringVector(item["List"]) );
+	}
+	else
+	{
+		dice = new Dice( item["NbSides"].toInt(6) );
+		dice->setFirstFace( item["FirstFace"].toInt(1) );
+	}
+
+	dice->setRollDuration( item["RollDuration"].toDouble(1.5) );
+	return dice;
+}
+
+QJsonObject buildDiceJson(Dice const * d)
+{
+	QJsonObject item;
+	item["Type"] = "Dice";
+	if (d->faceLabels().empty())
+	{
+		item["NbSides"] = d->nbSides();
+		item["FirstFace"] = d->firstFace();
+	}
+	else
+	{
+		item["List"] = makeQJsonArray( d->faceLabels() );
+	}
+	item["RollDuration"] = d->rollDuration();
+	return item;
+}
+
 QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 {
 	QJsonObject item;
 
 	if (Dice const * dice = qobject_cast<Dice const*>(&widget))
 	{
-		if (dice->faceLabels().empty())
+		item = buildDiceJson(dice);
+	}
+	else if (DiceCup const * dicecup = qobject_cast<DiceCup const*>(&widget))
+	{
+		QJsonArray dice_array;
+		for ( Dice * d : dicecup->dices() )
 		{
-			item["Type"] = "Dice";
-			item["NbSides"] = dice->nbSides();
+			dice_array.push_back( buildDiceJson(d) );
 		}
-		else
-		{
-			item["Type"] = "Sortition";
-			item["List"] = makeQJsonArray( dice->faceLabels() );
-		}
-		item["Count"] = dice->count();
-		item["RollDuration"] = dice->rollDuration();
+		item["Type"] = "DiceCup";
+		item["List"] = dice_array;
 	}
 	else if (Timer const * timer = qobject_cast<Timer const*>(&widget))
 	{
@@ -124,6 +159,11 @@ QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 		item["Type"] = "Label";
 		item["Text"] = label->text();
 	}
+	else
+	{
+		qWarning() << "Unexpected widget during serialization: " << &widget;
+		item["Type"] = "Space";
+	}
 
 	if (!widget.whatsThis().isEmpty())
 	{
@@ -144,17 +184,29 @@ QWidget * JsonCodec::createWidget(QJsonObject const & item)
 	QString const type = item["Type"].toString("<UNDEFINED>");
 	if (type == "Dice")
 	{
-		Dice * dice = new Dice( item["NbSides"].toInt(6),
-				item["Count"].toInt(1) );
-		dice->setRollDuration( item["RollDuration"].toDouble(1.5) );
-		pWidget = dice; 
+		const int count = item["Count"].toInt(1);
+		if (count==1)
+		{
+			pWidget = createDice(item);
+		}
+		else
+		{
+			DiceCup * dg = new DiceCup();
+			for (int i=0; i<count && i<20; ++i)
+			{
+				dg->addDice( createDice(item) );
+			}
+			pWidget = dg;
+		}
 	}
-	else if (type == "Sortition")
+	else if (type == "DiceCup")
 	{
-		Dice * dice = new Dice( asStringVector(item["List"]),
-				item["Count"].toInt(1) );
-		dice->setRollDuration( item["RollDuration"].toDouble(1.5) );
-		pWidget = dice; 
+		DiceCup * dg = new DiceCup();
+		for (QJsonValueRef group_elem : item["List"].toArray())
+		{
+			dg->addDice( createDice(group_elem.toObject()) );
+		}
+		pWidget = dg;
 	}
 	else if (type == "Timer")
 	{

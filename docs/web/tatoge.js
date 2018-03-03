@@ -165,7 +165,6 @@
     switch (json_obj.Type)
     {
       case "Dice":      html += new_dice(json_obj); break;
-      case "Sortition": html += new_dice(json_obj); break;
       case "Timer":     html += new_timer(json_obj); break;
       case "Counter":   html += new_counter(json_obj); break;
       case "Label":     html += "<div class='widget-content'>"+json_obj.Text+"</div>"; break;
@@ -272,8 +271,8 @@
     add_radio("6-sided dice", {Type:"Dice", NbSides:6, Name:"d6"});
     add_radio("8-sided dice", {Type:"Dice", NbSides:8, Name:"d8"});
     add_radio("20-sided dice", {Type:"Dice", NbSides:20, Name:"d20"});
-    add_radio("Fudge dice", {Type:"Sortition", List:["-"," ","+"], Name:"dF"});
-    add_radio("Poker dice", {Type:"Sortition", List:["9","10","Jack","Queen","King","Ace"], Name:"dP"});
+    add_radio("Fudge dice", {Type:"Dice", List:["-"," ","+"], Name:"dF"});
+    add_radio("Poker dice", {Type:"Dice", List:["9","10","Jack","Queen","King","Ace"], Name:"dP"});
     add_radio("30-second sandtimer", {Type:"Timer", Duration:30, Name:"30s"});
     add_radio("1-minute sandtimer", {Type:"Timer", Duration:60, Name:"1min"});
 
@@ -297,7 +296,7 @@
                        "Better not tell you now",
                        "Cannot predict now",
                        "Concentrate and ask again"];
-    add_radio("Magic 8 Ball", {Type:"Sortition", List:magic_list, Name:"8Ball"});
+    add_radio("Magic 8 Ball", {Type:"Dice", List:magic_list, Name:"8Ball"});
     //add_radio("Space", {type:"Space"});
   });
 

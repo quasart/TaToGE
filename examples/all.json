@@ -11,6 +11,14 @@
     "Count": 3
   },
   {
+    "Type": "DiceCup",
+    "Name": "RDV",
+    "List": [   {"List": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]},
+                {"NbSides":24,"FirstFace":0},
+                {"NbSides":60,"FirstFace":0},
+                {"NbSides":60,"FirstFace":0} ]
+  },
+  {
     "Type": "Counter",
     "Name": "Compteur"
   },
@@ -30,7 +38,7 @@
     "List": [ "x1", "x2", "x4", "x8", "x16", "x32", "x64" ]
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "Name": "Boule 8",
     "List": [ "Essaye plus tard",
                "Essaye encore",

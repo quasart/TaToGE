@@ -17,7 +17,7 @@
     "Type": "Space"
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "Name": "Courte paille",
     "List": [ "Verveine", "Wilfried" ]
   },

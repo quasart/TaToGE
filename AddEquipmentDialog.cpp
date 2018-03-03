@@ -19,11 +19,12 @@ QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
 	int count = 1;
 	int nb_faces = 6;
 	bool is_fudge = false;
+	bool is_poker = false;
 
 	QRegularExpression re("^ *"
 			"([1-9])?"
 			" *[Dd] *"
-			"([1-9][0-9]*)?([Ff])?"
+			"([1-9][0-9]*)?([FfPp])?"
 			" *$",
 			QRegularExpression::CaseInsensitiveOption);
 	QRegularExpressionMatch match = re.match(code);
@@ -47,6 +48,10 @@ QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
 		{
 			is_fudge = true;
 		}
+		if (flag == "P" || flag == "p")
+		{
+			is_poker = true;
+		}
 	}
 	else
 	{
@@ -66,7 +71,11 @@ QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
 	}
 	else if (is_fudge)
 	{
-		return QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{" ","-","+"}}, {"Count",count}};
+		return QJsonObject{{"Type","Dice"}, {"List",QJsonArray{" ","-","+"}}, {"Count",count}};
+	}
+	else if (is_poker)
+	{
+		return QJsonObject{{"Type","Dice"}, {"List",QJsonArray{"9","10","J","Q","K","A"}}, {"Count",count}};
 	}
 	else
 	{
@@ -162,7 +171,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 	, m_RadioGridLayout(new QGridLayout)
 	, m_NameInput( new QLineEdit )
 	, m_DiceCodeInput( new QLineEdit("2d6") )
-	, m_DurationInput( new QTimeEdit({0,1,0}) )
+	, m_DurationInput( new QTimeEdit({0,2,0}) )
 	, m_CountDownInput( new QSpinBox )
 	, m_SequenceInput( new QLineEdit(tr("Spring;Summer;Automn;Winter")) )
 	, m_SortitionInput( new QLineEdit(tr("Rock;Paper;Scissors")) )
@@ -227,9 +236,9 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 		addRadio( tr("6-sided die"),   parseDiceCode("d6"), "dice6", tr("The classic one...") );
 		addRadio( tr("8-sided die"),   parseDiceCode("d8"), "dice8" );
 		addRadio( tr("20-sided die"),  parseDiceCode("d20"), "dice20" );
-		addRadio( tr("2 dice"),        parseDiceCode("2d6"), "dice2d6" );
 		addRadio( tr("4 Fudge dice"),  parseDiceCode("4dF") , "dice4df", tr("Used in Fudge role-playing system.") );
-		addRadio( tr("Other dice"),    QJsonObject{{"Type","Dice"}}, "custom", tr("'2d6' means two 6-sided dice."), m_DiceCodeInput );
+		addRadio( tr("5 Poker dice"),  parseDiceCode("5dP") , "dice5dp" );
+		addRadio( tr("Other dice"),    QJsonObject{{"Type","Dice"}, {"Form","DiceCode"}}, "custom", tr("'2d6' means two 6-sided dice."), m_DiceCodeInput );
 		addSeparator();
 
 		addRadio( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}}, "sandtimer" );
@@ -237,8 +246,8 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 		addRadio( tr("Other SandTimer"),     QJsonObject{{"Type","Timer"}}, "custom", tr("Duration (mm:ss)"), m_DurationInput );
 		addSeparator();
 
-		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}}, "coin" );
-		addRadio( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"RollDuration",5}, {"List",QJsonArray{"0",
+		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Dice"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}}, "coin" );
+		addRadio( tr("Roulette"),      QJsonObject{{"Type","Dice"}, {"RollDuration",5}, {"List",QJsonArray{"0",
 			 "1 " + tr("red odd low"    ),  "2 " + tr("black even low" ),  "3 " + tr("red odd low"    ),
 			 "4 " + tr("black even low" ),  "5 " + tr("red odd low"    ),  "6 " + tr("black even low" ),
 			 "7 " + tr("red odd low"    ),  "8 " + tr("black even low" ),  "9 " + tr("red odd low"    ),
@@ -251,7 +260,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 			"28 " + tr("black even high"), "29 " + tr("black odd high" ), "30 " + tr("red even high"  ),
 			"31 " + tr("black odd high" ), "32 " + tr("red even high"  ), "33 " + tr("black odd high" ),
 			"34 " + tr("red even high"  ), "35 " + tr("black odd high" ), "36 " + tr("red even high"  ) }}}, "roulette" );
-		addRadio( tr("Magic 8 Ball"), QJsonObject{{"Type","Sortition"}, {"List", QJsonArray{
+		addRadio( tr("Magic 8 Ball"), QJsonObject{{"Type","Dice"}, {"List", QJsonArray{
 			tr("It is certain"),
 			tr("It is decidedly so"),
 			tr("Without a doubt"),
@@ -272,7 +281,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 			tr("Better not tell you now"),
 			tr("Cannot predict now"),
 			tr("Concentrate and ask again") }}} , "8ball", tr("This magic item can answer any question."));
-		addRadio( tr("Custom sortition"), QJsonObject{{"Type","Sortition"}}, "custom", tr("List of possibilities, separated by semicolons (';')"), m_SortitionInput );
+		addRadio( tr("Custom sortition"), QJsonObject{{"Type","Dice"}, {"Form","Sortition"}}, "custom", tr("List of possibilities, separated by semicolons (';')"), m_SortitionInput );
 		addSeparator();
 
 		addRadio( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List",QJsonArray{"x1","x2","x4","x8","x16","x32","x64"}}} , "videau", tr("This one is used in Backgammon."));
@@ -281,7 +290,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 
 		addRadio( tr("Card deck"), QJsonObject{{"Type","CardDrawer"}, {"Cards",cards_array()}, {"NbDrawing",5}, {"DrawingTime",0}}, "cards" );
 		addRadio( tr("Loto"), QJsonObject{{"Type","CardDrawer"}, {"DeckSize",49}, {"NbDrawing",6}}, "loto" );
-		addRadio( tr("Snail racing"), QJsonObject{{"Type","CardDrawer"}, {"NbDrawing",5}}, "custom", tr("Names of snails, separated by semicolons (';')"), m_RacersInput );
+		addRadio( tr("Snail racing"), QJsonObject{{"Type","CardDrawer"}, {"NbDrawing",5}, {"Form","Racers"}}, "custom", tr("Names of snails, separated by semicolons (';')"), m_RacersInput );
 		addSeparator();
 
 		addRadio( tr("Empty space"), QJsonObject{{"Type","Space"}} , "space", tr("Just to leave some empty room on the table."));
@@ -312,8 +321,8 @@ void AddEquipmentDialog::accept()
 	{
 		out["Duration"] =  QTime{0,0,0}.secsTo( m_DurationInput->time() );
 	}
-	else if (out["Type"] == "Sortition"
-		&& !out.contains("List"))
+	else if (out["Type"] == "Dice"
+		&& out["Form"] == "Sortition")
 	{
 		out["List"] = parseNameList(m_SortitionInput->text(), &ok);
 		if (ok)
@@ -339,7 +348,7 @@ void AddEquipmentDialog::accept()
 		}
 	}
 	else if (out["Type"] == "Dice"
-		&& !out.contains("NbSides") && !out.contains("Count"))
+		&& out["Form"] == "DiceCode")
 	{
 		out = parseDiceCode(m_DiceCodeInput->text(), &ok);
 		if (ok)
@@ -352,8 +361,7 @@ void AddEquipmentDialog::accept()
 		}
 	}
 	else if (out["Type"] == "CardDrawer"
-		&& !out.contains("Cards")
-		&& !out.contains("DeckSize"))
+		&& out["Form"] == "Racers")
 	{
 		out["Cards"] = parseNameList(m_RacersInput->text(), &ok);
 		if (ok)

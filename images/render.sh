@@ -14,5 +14,6 @@ convert -render -density 95 -verbose -background transparent images/icons.svg -c
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+256+64 +repage images/dice4df.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+320+64 +repage images/counter.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+384+64 +repage images/custom.png
+convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+448+64 +repage images/dice5dp.png
 
 convert -render -density 95 -verbose -background transparent images/tatoge.svg -define icon:auto-resize=64,48,32,16 package/windows/tatoge.ico

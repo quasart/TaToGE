@@ -4,8 +4,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Web version introduced
+- `DiceCup` widget
 - `RollDuration` parameter for `Dice` widget
 - `DrawingTime` parameter for `CardDrawer` widget
+- `FirstFace` parameter for `Dice` widget
+### Removed
+- `Sortition` alias for `Dice` not accepted any more
 
 ## [0.2.0] - 2019-02-09
 ### Added

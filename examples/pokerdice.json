@@ -4,23 +4,23 @@
     "Text" : "<center><b>Poker Dice</b></center>"
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   },
   {
-    "Type": "Sortition",
+    "Type": "Dice",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   }
 ]

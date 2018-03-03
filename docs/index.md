@@ -27,6 +27,7 @@ Source code is released under [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.
 | - SandTimer                                   |   ✔   |   ✔   |
 | - Counter                                     |   ✔   |   ✔   |
 | - Dice                                        |   ✔   |   ✔   |
+| - DiceCup                                     |   ✔   |       |
 | - Sequence/CountDown follower                 |   ✔   |       |
 | - Cards to draw                               |   ✔   |       |
 | Stretched layout                              |   ✔   |   ✔   |

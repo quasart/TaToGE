@@ -12,7 +12,8 @@
   },
   {
     "Type": "Dice",
-    "NbSides": 1000
+    "NbSides": 900,
+    "FirstFace": 101
   },
   {
     "Type": "Label",
