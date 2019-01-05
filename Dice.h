@@ -13,7 +13,7 @@ class Dice : public QPushButton
 Q_OBJECT
 
 public:
-	explicit Dice(QWidget * parent, size_t face_nb = 6)
+	explicit Dice(size_t face_nb = 6, QWidget * parent = nullptr)
 		: QPushButton(QString::number(face_nb), parent)
 		, m_FaceCount(face_nb)
 		, m_Timer(this)
@@ -26,10 +26,12 @@ public:
 		}
 		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
 		connect(this, SIGNAL(clicked()), this, SLOT(roll()));
+
+		QPushButton::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	}
 
-	explicit Dice(QWidget * parent, std::vector<QString> faces)
-		: Dice(parent, faces.size())
+	explicit Dice(std::vector<QString> faces, QWidget * parent = nullptr)
+		: Dice(faces.size(), parent)
 	{
 		m_FaceLabels = faces;
 		QPushButton::setText(faces.back());

@@ -4,7 +4,7 @@ TARGET = uGameTools
 INCLUDEPATH += .
 QT += widgets
 SOURCES += main.cpp
-HEADERS += Timer.h Counter.h Dice.h Sequence.h
+HEADERS += Timer.h Counter.h Dice.h Sequence.h Window.h
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings

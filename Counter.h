@@ -11,7 +11,7 @@ class Counter : public QHBoxLayout
 Q_OBJECT
 
 public:
-	explicit Counter(QWidget * parent, int init = 0, std::vector<unsigned short> increments = {1,5,10} )
+	explicit Counter(int init = 0, std::vector<unsigned short> increments = {1,5,10}, QWidget * parent = nullptr)
 		: m_Value(init)
 		, m_Label(parent)
 	{

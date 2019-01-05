@@ -4,27 +4,31 @@ This project provides a bunch of simple widgets to emulate basic tools needed wh
 
 It focuses on simplicity.
 
-## Tools featured
+## Features
 
-- SandTimer (Duration)
-- Counter (Increment steps)
-- Dice (Face number/face names)
-- Sequence/CountDown follow up
+- Widgets:
+  - SandTimer
+  - Counter
+  - Dice (with possibility to name faces)
+  - Sequence/CountDown follower
+- Template file loading (in json format)
+
+
+# Developer guide
 
 ## Improvement ideas
 
-- Template file loading
 - Mobile compatibility
 - New widgets:
    - Multiple Dices
    - Score table
 - "New game" button for general reset
 - Color
+- game status save
 
+## Build command
 
-# Developer guide
-
-## To build
+Needs Qt5 and C++ compiler.
 
 ```
 qmake
@@ -34,3 +38,7 @@ make
 ## Known issues
 
 - Composite Widgets should inherit from QWidget
+
+
+
+

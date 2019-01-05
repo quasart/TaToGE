@@ -10,7 +10,7 @@ class Sequence : public QHBoxLayout
 Q_OBJECT
 
 public:
-	explicit Sequence(QWidget * parent, std::vector<QString> labels)
+	explicit Sequence(std::vector<QString> labels, QWidget * parent = nullptr)
 		: QHBoxLayout(parent)
 		, m_Label(*new QLabel(parent))
 		, m_TurnLabels(labels)
@@ -86,11 +86,11 @@ class CountDown : public QHBoxLayout
 Q_OBJECT
 
 public:
-	explicit CountDown(QWidget * parent, size_t init)
+	explicit CountDown(size_t max_value, QWidget * parent = nullptr)
 		: QHBoxLayout(parent)
 		, m_Label(*new QLabel(parent))
-		, m_MaxValue(init)
-		, m_Value(init)
+		, m_MaxValue(max_value)
+		, m_Value(max_value)
 	{
 		{
 			QPushButton * btn = new QPushButton("<", parent);
@@ -100,7 +100,7 @@ public:
 			connect(btn, &QPushButton::clicked, this, &CountDown::previous);
 		}
 
-		m_Label.setText(QString::number(init));
+		m_Label.setText(QString::number(max_value));
 		m_Label.setAlignment(Qt::AlignCenter);
 		m_Label.setMinimumWidth(40);
 		QHBoxLayout::addWidget(&m_Label);

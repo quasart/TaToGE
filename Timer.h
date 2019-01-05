@@ -10,11 +10,12 @@ class Timer : public QProgressBar
 	Q_OBJECT
 
 	public:
-		explicit Timer(QWidget * parent, size_t duration_sec = 30)
+		explicit Timer(size_t duration_sec = 30, QWidget * parent = nullptr )
 			: QProgressBar(parent)
 			, m_Timer(this)
 		{
 			QProgressBar::setMaximum(duration_sec * 1000);
+			QProgressBar::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 			connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
 		}
