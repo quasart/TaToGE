@@ -1,0 +1,8 @@
+.qmake.stash
+moc_*
+*.o
+uGameTools
+*~
+core
+*.core
+Makefile

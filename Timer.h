@@ -5,12 +5,12 @@
 #include <chrono>
 #include <iostream>
 
-class Hourglass : public QProgressBar
+class Timer : public QProgressBar
 {
 	Q_OBJECT
 
 	public:
-		explicit Hourglass(QWidget * parent, size_t duration_sec = 30)
+		explicit Timer(QWidget * parent, size_t duration_sec = 30)
 			: QProgressBar(parent)
 			, m_Timer(this)
 		{
@@ -53,6 +53,8 @@ class Hourglass : public QProgressBar
 	protected:
 		void mouseReleaseEvent(QMouseEvent *event) override
 		{
+			Q_UNUSED(event);
+
 			if (isRunning()) {
 				stop();
 			}
@@ -76,7 +78,6 @@ public slots:
 		{
 			QProgressBar::setValue( max );
 			m_Timer.stop();
-			std::cout << "stop ! "<< std::endl;
 			//TODO play sound
 		}
 		else
