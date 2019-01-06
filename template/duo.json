@@ -2,18 +2,21 @@
   {
     "Type": "Counter",
     "Name": "Verveine",
+    "Style": "color: darkyellow;",
     "Value": 0,
     "Increments": [ 1, 5, 10 ]
   },
   {
     "Type": "Counter",
     "Name": "Wilfried",
+    "Style": "color: darkgreen;",
     "Value": 0,
     "Increments": [ 1, 5, 10 ]
   },
   {
     "Type": "Dice",
     "Name": "Dé 6",
+    "Style": "color: red;",
     "Faces": 6
   },
   {

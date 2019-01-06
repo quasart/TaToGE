@@ -23,7 +23,6 @@ It focuses on simplicity.
    - Multiple Dices
    - Score table
 - "New game" button for general reset
-- Color
 - game status save
 
 ## Build command

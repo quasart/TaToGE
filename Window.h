@@ -99,44 +99,61 @@ public:
 			QJsonObject const item = i.toObject();
 			QString name = item["Name"].toString("");
 			QString type = item["Type"].toString("unknown");
+			QWidget * pWidget = nullptr;
+			QLayout * pLayout = nullptr;
 
 			if (type == "Dice")
 			{
 				if ( item["Faces"].isArray() )
 				{
-					std::vector<QString> face_list = asStringVector(item["Faces"]);
-					addRow( name, new Dice(face_list));
+					pWidget = new Dice( asStringVector(item["Faces"]) );
 				}
 				else
 				{
-					addRow( name, new Dice( item["Faces"].toInt(6) ) );
+					pWidget = new Dice( item["Faces"].toInt(6) );
 				}
 			}
 			else if (type == "Timer")
 			{
-				addRow( name, new Timer( item["Duration"].toInt(30) ) );
+				pWidget = new Timer( item["Duration"].toInt(30) );
 			}
 			else if (type == "Counter")
 			{
 				// TODO parameters
-				addRow( name, new Counter( 
+				pLayout = new Counter( 
 							item["Value"].toInt(0)
-							//TODO asIntVector(item["Faces"])
-							));
+							//TODO asIntVector(item["Increments"])
+							);
 			}
 			else if (type == "CountDown")
 			{
-				addRow( name, new CountDown( item["MaxValue"].toInt() ) );
+				pLayout = new CountDown( item["MaxValue"].toInt() );
 			}
 			else if (type == "Sequence")
 			{
 				std::vector<QString> list = asStringVector(item["List"]);
-				addRow( name, new Sequence(list) );
+				pLayout = new Sequence(list);
 			}
 			else
 			{
 				std::cout << "Unexpected Widget type." << std::endl;
 			}
+
+
+			if (pWidget)
+			{
+				addRow( name, pWidget );
+				// TODO: check injection risk.
+				if ( item.contains("Style") && item["Style"].isString() )
+				{
+					pWidget->setStyleSheet( item["Style"].toString() );
+				}
+			}
+			else if (pLayout)
+			{
+				addRow( name, pLayout );
+			}
+
 		}
 
 	}
