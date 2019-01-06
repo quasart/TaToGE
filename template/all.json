@@ -1,0 +1,33 @@
+[
+  {
+    "Type": "Sequence",
+    "Name": "Phase",
+    "List": [ "Introduction", "Thèse", "Antithèse", "Conclusion" ]
+  },
+  {
+    "Type": "Counter",
+    "Name": "Score",
+    "Value": 0,
+    "Increments": [ 1, 5, 10 ]
+  },
+  {
+    "Type": "Dice",
+    "Name": "Dé 6",
+    "Faces": 6
+  },
+  {
+    "Type": "Dice",
+    "Name": "Courte paille",
+    "Faces": [ "Verveine", "Wilfried" ]
+  },
+  {
+    "Type": "CountDown",
+    "Name": "Vies restantes",
+    "MaxValue": 10
+  },
+  {
+    "Type": "Timer",
+    "Name": "Je m'ennuie",
+    "Duration": 60
+  }
+]

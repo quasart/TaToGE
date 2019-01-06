@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QFont>
 #include <QFile>
+#include <QResizeEvent>
 
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -140,4 +141,20 @@ public:
 
 	}
 
+protected:
+	void resizeEvent(QResizeEvent* event)
+	{
+		static const size_t initial_x = QWidget::sizeHint().width();
+		static const size_t initial_y = QWidget::sizeHint().height();
+
+		float const x_ratio = (float)event->size().width() / initial_x;
+		float const y_ratio = (float)event->size().height() / initial_y;
+		float const ratio = std::min(x_ratio,y_ratio);
+
+		QFont f = font();
+		f.setPointSize( 10 * ratio );
+		setFont(f);
+
+		QWidget::resizeEvent(event);
+	}
 };

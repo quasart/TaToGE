@@ -50,6 +50,10 @@ protected:
 			QPushButton * btn = new QPushButton(txt);
 			btn->setFixedWidth(30);
 
+			QFont f = btn->font();
+			f.setPointSize( 10 );
+			btn->setFont(f);
+
 			QHBoxLayout::addWidget(btn, Qt::AlignCenter);
 			connect(btn, &QPushButton::clicked, [=]{ this->updateValue(i); } );
 	}

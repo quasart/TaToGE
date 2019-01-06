@@ -50,7 +50,6 @@ private:
 	std::atomic<size_t> m_RollTime;
 	std::default_random_engine m_Generator;
 
-protected:
 
 signals:
 
