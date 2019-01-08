@@ -143,7 +143,6 @@ public:
 			if (pWidget)
 			{
 				addRow( name, pWidget );
-				// TODO: check injection risk.
 				if ( item.contains("Style") && item["Style"].isString() )
 				{
 					pWidget->setStyleSheet( item["Style"].toString() );
@@ -159,18 +158,17 @@ public:
 	}
 
 protected:
-	void resizeEvent(QResizeEvent* event)
+	void resizeEvent(QResizeEvent* event) override
 	{
+		QWidget::ensurePolished();
 		static const size_t initial_x = QWidget::sizeHint().width();
 		static const size_t initial_y = QWidget::sizeHint().height();
+		static const QFont initial_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
 
 		float const x_ratio = (float)event->size().width() / initial_x;
 		float const y_ratio = (float)event->size().height() / initial_y;
-		float const ratio = std::min(x_ratio,y_ratio);
-
-		QFont f = font();
-		f.setPointSize( 10 * ratio );
-		setFont(f);
+		size_t const point_size = (size_t) (initial_font.pointSize() * std::min(x_ratio,y_ratio));
+		QWidget::setStyleSheet("* { font-size: " + QString::number(point_size) + "pt; }" );
 
 		QWidget::resizeEvent(event);
 	}

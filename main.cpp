@@ -9,7 +9,7 @@ int main( int argc, char **argv )
 
 	Window window;
 
-	QString filename = argc>1 ? argv[1] : "template/duo.json";
+	QString filename = argc>1 ? argv[1] : "template/all.json";
 	window.loadJSON(filename);
 
 	window.show();
