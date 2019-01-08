@@ -36,7 +36,6 @@ make
 
 ## Known issues
 
-- Composite Widgets should inherit from QWidget
 
 
 

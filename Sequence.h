@@ -5,14 +5,14 @@
 
 #include <iostream>
 
-class Sequence : public QHBoxLayout
+class Sequence : public QWidget
 {
 Q_OBJECT
 
 public:
 	explicit Sequence(std::vector<QString> labels, QWidget * parent = nullptr)
-		: QHBoxLayout(parent)
-		, m_Label(*new QLabel(parent))
+		: QWidget(parent)
+		, m_Label(*new QLabel)
 		, m_TurnLabels(labels)
 		, m_Value(0)
 	{
@@ -21,24 +21,28 @@ public:
 			throw std::runtime_error("No label provided for Sequence serie.");
 		}
 
+		QWidget::setLayout(new QHBoxLayout(this));
+		QWidget::layout()->setSpacing(0);
+		QWidget::layout()->setContentsMargins(0,0,0,0);
+
 		{
 			QPushButton * btn = new QPushButton("<", parent);
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
-			QHBoxLayout::addWidget(btn);
+			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &Sequence::previous);
 		}
 
 		m_Label.setText(labels.front());
 		m_Label.setAlignment(Qt::AlignCenter);
 		m_Label.setMinimumWidth(80);
-		QHBoxLayout::addWidget(&m_Label);
+		QWidget::layout()->addWidget(&m_Label);
 
 		{
 			QPushButton * btn = new QPushButton(">", parent);
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
-			QHBoxLayout::addWidget(btn);
+			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &Sequence::next);
 		}
 
@@ -81,35 +85,39 @@ public slots:
 
 
 
-class CountDown : public QHBoxLayout
+class CountDown : public QWidget
 {
 Q_OBJECT
 
 public:
 	explicit CountDown(size_t max_value, QWidget * parent = nullptr)
-		: QHBoxLayout(parent)
-		, m_Label(*new QLabel(parent))
+		: QWidget(parent)
+		, m_Label(*new QLabel)
 		, m_MaxValue(max_value)
 		, m_Value(max_value)
 	{
+		QWidget::setLayout(new QHBoxLayout(this));
+		QWidget::layout()->setSpacing(0);
+		QWidget::layout()->setContentsMargins(0,0,0,0);
+
 		{
 			QPushButton * btn = new QPushButton("<", parent);
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
-			QHBoxLayout::addWidget(btn);
+			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &CountDown::previous);
 		}
 
 		m_Label.setText(QString::number(max_value));
 		m_Label.setAlignment(Qt::AlignCenter);
 		m_Label.setMinimumWidth(40);
-		QHBoxLayout::addWidget(&m_Label);
+		QWidget::layout()->addWidget(&m_Label);
 
 		{
 			QPushButton * btn = new QPushButton(">", parent);
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
-			QHBoxLayout::addWidget(btn);
+			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &CountDown::next);
 		}
 

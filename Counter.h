@@ -6,15 +6,20 @@
 
 #include <iostream>
 
-class Counter : public QHBoxLayout
+class Counter : public QWidget 
 {
 Q_OBJECT
 
 public:
 	explicit Counter(int init = 0, std::vector<unsigned short> increments = {1,5,10}, QWidget * parent = nullptr)
-		: m_Value(init)
-		, m_Label(parent)
+		: QWidget(parent)
+		, m_Value(init)
+		, m_Label(*new QLabel)
 	{
+		QWidget::setLayout(new QHBoxLayout(this));
+		QWidget::layout()->setSpacing(0);
+		QWidget::layout()->setContentsMargins(0,0,0,0);
+
 		for (int i : increments)
 		{
 			addIncrButton(-i);
@@ -24,9 +29,8 @@ public:
 		m_Label.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 		m_Label.setMinimumWidth(50);
 		m_Label.setAlignment( Qt::AlignCenter );
-		QHBoxLayout::addWidget( &m_Label );
-		QHBoxLayout::setSpacing(2);
 
+		QWidget::layout()->addWidget( &m_Label );
 		for (int i : increments)
 		{
 			addIncrButton(i);
@@ -36,7 +40,7 @@ public:
 private:
 
 	int m_Value;
-	QLabel m_Label;
+	QLabel & m_Label;
 
 protected:
 
@@ -48,10 +52,11 @@ protected:
 				txt = "+" + txt;
 			}
 			QPushButton * btn = new QPushButton(txt);
+			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
 			btn->setStyleSheet("font-size: 11pt;");
 
-			QHBoxLayout::addWidget(btn, Qt::AlignCenter);
+			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, [=]{ this->updateValue(i); } );
 	}
 

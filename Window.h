@@ -21,7 +21,7 @@ public:
 		: QWidget(nullptr)
 		, m_Layout( * new QGridLayout(this) )
 	{
-		m_Layout.setVerticalSpacing(10);
+		m_Layout.setSpacing(7);
 
 	}
 
@@ -32,32 +32,20 @@ private:
 
 public:
 
-	void addRow(QString label, QWidget * i)
+	void addRow(QWidget * w)
 	{
 		size_t row = m_Layout.rowCount();
 
-		if (label.isEmpty())
+		if (w->whatsThis().isEmpty())
 		{
-			m_Layout.addWidget(i, row, 0, 1, 2);
+			// Full Column span.
+			m_Layout.addWidget( w, row, 0, 1, 2 );
 		}
 		else
 		{
-			m_Layout.addWidget( new QLabel(label), row, 0 );
-			m_Layout.addWidget(i, row, 1);
-		}
-	}
-
-	void addRow(QString label, QLayout * i)
-	{
-		size_t row = m_Layout.rowCount();
-		if (label.isEmpty())
-		{
-			m_Layout.addLayout(i, row, 1, 1, 2);
-		}
-		else
-		{
-			m_Layout.addWidget( new QLabel(label), row, 0 );
-			m_Layout.addLayout(i, row, 1);
+			QLabel * l = new QLabel(w->whatsThis());
+			m_Layout.addWidget( l, row, 0 );
+			m_Layout.addWidget( w, row, 1 );
 		}
 	}
 
@@ -97,10 +85,8 @@ public:
 		for ( QJsonValueRef const i : json_file.array() )
 		{
 			QJsonObject const item = i.toObject();
-			QString name = item["Name"].toString("");
 			QString type = item["Type"].toString("unknown");
 			QWidget * pWidget = nullptr;
-			QLayout * pLayout = nullptr;
 
 			if (type == "Dice")
 			{
@@ -120,19 +106,19 @@ public:
 			else if (type == "Counter")
 			{
 				// TODO parameters
-				pLayout = new Counter( 
+				pWidget = new Counter(
 							item["Value"].toInt(0)
 							//TODO asIntVector(item["Increments"])
 							);
 			}
 			else if (type == "CountDown")
 			{
-				pLayout = new CountDown( item["MaxValue"].toInt() );
+				pWidget = new CountDown( item["MaxValue"].toInt() );
 			}
 			else if (type == "Sequence")
 			{
 				std::vector<QString> list = asStringVector(item["List"]);
-				pLayout = new Sequence(list);
+				pWidget = new Sequence(list);
 			}
 			else
 			{
@@ -142,15 +128,10 @@ public:
 
 			if (pWidget)
 			{
-				addRow( name, pWidget );
-				if ( item.contains("Style") && item["Style"].isString() )
-				{
-					pWidget->setStyleSheet( item["Style"].toString() );
-				}
-			}
-			else if (pLayout)
-			{
-				addRow( name, pLayout );
+				pWidget->setWhatsThis( item["Name"].toString("") );
+				pWidget->setStyleSheet( item["Style"].toString("") );
+
+				addRow( pWidget );
 			}
 
 		}
