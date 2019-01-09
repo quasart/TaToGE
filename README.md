@@ -22,8 +22,11 @@ It focuses on simplicity.
 - New widgets:
    - Score table
 - Add sounds on events
-- "New game" button for general reset
-- game status save
+- Reset:
+   - Widget reset (counter/Sequence)
+   - General reset
+- Tools dynamic Creation/Update/Delete
+- Game status/template export
 
 ## Build command
 
@@ -35,8 +38,5 @@ make
 ```
 
 ## Known issues
-
-
-
 
 
