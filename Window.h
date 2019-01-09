@@ -92,11 +92,13 @@ public:
 			{
 				if ( item["Faces"].isArray() )
 				{
-					pWidget = new Dice( asStringVector(item["Faces"]) );
+					pWidget = new Dice( asStringVector(item["Faces"]),
+										item["Count"].toInt(1) );
 				}
 				else
 				{
-					pWidget = new Dice( item["Faces"].toInt(6) );
+					pWidget = new Dice( item["Faces"].toInt(6),
+										item["Count"].toInt(1) );
 				}
 			}
 			else if (type == "Timer")

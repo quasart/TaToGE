@@ -12,8 +12,9 @@
   },
   {
     "Type": "Dice",
-    "Name": "Dé 6",
-    "Faces": 6
+    "Name": "3 Dés 6",
+    "Faces": 6,
+    "Count": 3
   },
   {
     "Type": "Dice",

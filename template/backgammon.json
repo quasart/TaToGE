@@ -1,0 +1,28 @@
+[
+  {
+    "Type": "Dice",
+    "Faces": 6,
+    "Count": 2
+  },
+  {
+    "Type": "Counter",
+    "Value": 0,
+    "Increments": [ 1, 5, 10 ]
+  },
+  {
+    "Type": "Sequence",
+    "List": [ "x1", "x2", "x4", "x8", "x16", "x32", "x64" ]
+  },
+  {
+    "Type": "Counter",
+    "Style": "QPushButton::enabled, QLabel { color: darkred; }",
+    "Value": 0,
+    "Increments": [ 1, 5, 10 ]
+  },
+  {
+    "Type": "Dice",
+    "Style": "QPushButton::enabled{ color: darkred; }",
+    "Faces": 6,
+    "Count": 2
+  }
+]

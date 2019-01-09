@@ -20,8 +20,8 @@ It focuses on simplicity.
 
 - Mobile compatibility
 - New widgets:
-   - Multiple Dices
    - Score table
+- Add sounds on events
 - "New game" button for general reset
 - game status save
 

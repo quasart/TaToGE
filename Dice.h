@@ -1,20 +1,22 @@
+#pragma once
+
 #include <QTimer>
 #include <QPushButton>
+#include <QHBoxLayout>
 
-#include <iostream>
 #include <atomic>
 #include <chrono>
 #include <random>
 #include <exception>
 
 
-class Dice : public QPushButton
+class Dice : public QWidget
 {
 Q_OBJECT
 
 public:
-	explicit Dice(size_t face_nb = 6, QWidget * parent = nullptr)
-		: QPushButton(QString::number(face_nb), parent)
+	explicit Dice(size_t face_nb = 6, size_t dice_nb = 2, QWidget * parent = nullptr)
+		: QWidget(parent)
 		, m_FaceCount(face_nb)
 		, m_Timer(this)
 		, m_RollTime()
@@ -24,17 +26,32 @@ public:
 		{
 			throw std::runtime_error("Dice constructed with no face.");
 		}
-		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
-		connect(this, SIGNAL(clicked()), this, SLOT(roll()));
 
-		QPushButton::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		QWidget::setLayout(new QHBoxLayout(this));
+		QWidget::layout()->setContentsMargins(0,0,0,0);
+
+		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
+
+		for (size_t i = 0; i < dice_nb; ++i)
+		{
+			QPushButton * btn = new QPushButton(QString::number(face_nb));
+			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+			connect(btn, SIGNAL(clicked()), this, SLOT(roll()));
+			m_Dices.push_back(btn);
+			QWidget::layout()->addWidget(btn);
+		}
+
 	}
 
-	explicit Dice(std::vector<QString> faces, QWidget * parent = nullptr)
-		: Dice(faces.size(), parent)
+	explicit Dice(std::vector<QString> faces, size_t dice_nb = 1, QWidget * parent = nullptr)
+		: Dice(faces.size(), dice_nb, parent)
 	{
 		m_FaceLabels = faces;
-		QPushButton::setText(faces.back());
+		for ( QPushButton * btn : m_Dices )
+		{
+			btn->setText(faces.back());
+		}
 	}
 
 	bool isRunning() const
@@ -45,6 +62,7 @@ public:
 private:
 	size_t m_FaceCount;
 	std::vector<QString> m_FaceLabels;
+	std::vector<QPushButton*> m_Dices;
 
 	QTimer m_Timer;
 	std::atomic<size_t> m_RollTime;
@@ -58,7 +76,10 @@ public slots:
 	void roll()
 	{
 		m_RollTime = 10;
-		QPushButton::setEnabled(false);
+		for ( QPushButton * btn : m_Dices )
+		{
+			btn->setEnabled(false);
+		}
 		setRandom();
 
 		using namespace std::literals::chrono_literals;
@@ -70,7 +91,10 @@ public slots:
 		if (m_RollTime==0)
 		{
 			m_Timer.stop();
-			QPushButton::setEnabled(true);
+			for ( QPushButton * btn : m_Dices )
+			{
+				btn->setEnabled(true);
+			}
 		}
 		else
 		{
@@ -82,15 +106,18 @@ public slots:
 	void setRandom()
 	{
 		std::uniform_int_distribution<int> distribution(1,m_FaceCount);
-		int value = distribution(m_Generator);
 
-		if ( m_FaceLabels.empty() )
+		for ( QPushButton * btn : m_Dices )
 		{
-			setText( QString::number(value) );
-		}
-		else
-		{
-			setText( m_FaceLabels.at(value-1) );
+			int value = distribution(m_Generator);
+			if ( m_FaceLabels.empty() )
+			{
+				btn->setText( QString::number(value) );
+			}
+			else
+			{
+				btn->setText( m_FaceLabels.at(value-1) );
+			}
 		}
 	}
 

@@ -1,12 +1,11 @@
-#include <QSignalMapper>
+#pragma once
+
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 
-#include <iostream>
-
-class Counter : public QWidget 
+class Counter : public QWidget
 {
 Q_OBJECT
 
@@ -52,7 +51,7 @@ protected:
 				txt = "+" + txt;
 			}
 			QPushButton * btn = new QPushButton(txt);
-			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 			btn->setFixedWidth(30);
 			btn->setStyleSheet("font-size: 11pt;");
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QTimer>
 #include <QProgressBar>
 #include <QObject>
