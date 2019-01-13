@@ -10,7 +10,7 @@ class Counter : public QWidget
 Q_OBJECT
 
 public:
-	explicit Counter(int init = 0, std::vector<unsigned short> increments = {1,5,10}, QWidget * parent = nullptr)
+	explicit Counter(int init = 0, std::vector<int> increments = {1,5,10}, QWidget * parent = nullptr)
 		: QWidget(parent)
 		, m_Value(init)
 		, m_Label(*new QLabel)

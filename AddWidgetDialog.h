@@ -23,12 +23,23 @@ public:
 	{
 		// TODO load this map from json file
 		static const std::vector<JsonTemplates> s_templates = {
-			{ "Dice 6", {{ "Type" , "Dice" }} },
-			{ "2 x Dice 6", {{ "Type" , "Dice"}, {"Count" , 2 }} },
-			{ "3 x Dice 6", {{ "Type" , "Dice"}, {"Count" , 3 }} },
-			{ "Compteur", {{ "Type" , "Counter" }} },
-			{ "SandTimer 30 sec", {{ "Type" , "Timer"}, {"Duration" , 30 }} },
-			{ "SandTimer 1 min", {{ "Type" , "Timer"}, {"Duration" , 60 }} },
+			{ "Coin flip",    {{"Type","Dice"}, {"Faces",QJsonArray{"Head","Tail"}}} },
+			{ "Dice 4",       {{"Type","Dice"}, {"Faces",4}} },
+			{ "Dice 6 x 1",   {{"Type","Dice"}, {"Faces",6}} },
+			{ "Dice 6 x 2",   {{"Type","Dice"}, {"Faces",6}, {"Count",2}} },
+			{ "Dice 6 x 3",   {{"Type","Dice"}, {"Faces",6}, {"Count",3}} },
+			{ "Dice 6 x 4",   {{"Type","Dice"}, {"Faces",6}, {"Count",4}} },
+			{ "Dice 8",       {{"Type","Dice"}, {"Faces",8}} },
+			{ "Dice 10",      {{"Type","Dice"}, {"Faces",10}} },
+			{ "Dice 12",      {{"Type","Dice"}, {"Faces",12}} },
+			{ "Dice 20",      {{"Type","Dice"}, {"Faces",20}} },
+			{ "Dice 100",     {{"Type","Dice"}, {"Faces",100}} },
+			{ "Counter",      {{"Type","Counter"}} },
+			{ "Timer 30 sec", {{"Type","Timer"}, {"Duration",30}} },
+			{ "Timer 1 min",  {{"Type","Timer"}, {"Duration",60}} },
+			{ "Timer 3 min",  {{"Type","Timer"}, {"Duration",60*3}} },
+			{ "Timer 5 min",  {{"Type","Timer"}, {"Duration",60*5}} },
+			{ "Timer 10 min", {{"Type","Timer"}, {"Duration",60*10}} },
 		};
 
 		return s_templates[i];
@@ -46,7 +57,7 @@ public:
 			m_Layout.addWidget( &m_NameInput, row, 1);
 		}
 
-		for (size_t template_id = 0; template_id < 6; ++template_id )
+		for (size_t template_id = 0; template_id < 17; ++template_id )
 		{
 			size_t const row = m_Layout.rowCount();
 			QPushButton * btn = new QPushButton( getTemplate(template_id).name );

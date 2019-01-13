@@ -28,7 +28,7 @@
   {
     "Type": "Counter",
     "Name": "Compteur +/-1",
-    "Increments": 1
+    "Increments": [ 1 ]
   },
   {
     "Type": "CountDown",

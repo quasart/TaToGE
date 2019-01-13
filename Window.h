@@ -72,6 +72,28 @@ public:
 		}
 	}
 
+	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out)
+	{
+		if (!array.isArray())
+		{
+			return default_out;
+		}
+
+		std::vector<int> result;
+		for ( QJsonValueRef v : array.toArray() )
+		{
+			if (v.isDouble())
+			{
+				result.push_back(v.toInt());
+			}
+			else
+			{
+				qWarning() << "Unexpected type when parsing array of int.";
+			}
+		}
+		return result;
+	}
+
 	std::vector<QString> asStringVector(QJsonValue array)
 	{
 		std::vector<QString> result;
@@ -144,10 +166,9 @@ public:
 		}
 		else if (type == "Counter")
 		{
-			// TODO parameters
 			pWidget = new Counter(
-					item["Value"].toInt(0)
-					//TODO asIntVector(item["Increments"])
+					item["Value"].toInt(0),
+					asIntVector(item["Increments"], {1,5,10} )
 					);
 		}
 		else if (type == "CountDown")
