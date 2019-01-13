@@ -13,6 +13,7 @@ public:
 	explicit Counter(int init = 0, std::vector<int> increments = {1,5,10}, QWidget * parent = nullptr)
 		: QWidget(parent)
 		, m_Value(init)
+		, m_InitValue(init)
 		, m_Label(*new QLabel)
 	{
 		QWidget::setLayout(new QHBoxLayout(this));
@@ -39,6 +40,7 @@ public:
 private:
 
 	int m_Value;
+	int m_InitValue;
 	QLabel & m_Label;
 
 protected:
@@ -57,6 +59,14 @@ protected:
 
 			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, [=]{ this->updateValue(i); } );
+	}
+
+	void mouseDoubleClickEvent( QMouseEvent * event ) override
+	{
+		m_Value = m_InitValue;
+		m_Label.setText( QString::number(m_Value) );
+
+		QWidget::mouseDoubleClickEvent(event);
 	}
 
 

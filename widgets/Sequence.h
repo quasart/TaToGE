@@ -31,9 +31,11 @@ public:
 			connect(btn, &QPushButton::clicked, this, &CountDown::previous);
 		}
 
-		m_Label.setAlignment(Qt::AlignCenter);
-		m_Label.setMinimumWidth(40);
-		QWidget::layout()->addWidget(&m_Label);
+		{
+			m_Label.setAlignment(Qt::AlignCenter);
+			m_Label.setMinimumWidth(40);
+			QWidget::layout()->addWidget(&m_Label);
+		}
 
 		{
 			QPushButton * btn = new QPushButton(">", parent);
@@ -54,6 +56,14 @@ protected:
 	virtual void updateLabel()
 	{
 		m_Label.setText( QString::number(m_Value) );
+	}
+
+	void mouseDoubleClickEvent( QMouseEvent * event ) override
+	{
+		m_Value = m_MaxValue;
+		updateLabel();
+
+		QWidget::mouseDoubleClickEvent(event);
 	}
 
 signals:

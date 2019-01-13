@@ -23,9 +23,7 @@ It focuses on simplicity.
    - Score table
    - "Go" signal
 - Add sounds on events
-- Reset:
-   - Widget reset (counter/Sequence)
-   - General reset
+- General reset button
 - Tools dynamic Update/Delete
 - Game status/template export
 
