@@ -1,17 +1,22 @@
+#pragma once
+
 #include <QWidget>
 #include <QGridLayout>
 #include <QFont>
 #include <QFile>
 #include <QResizeEvent>
+#include <QDebug>
 
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
 
-#include "Timer.h"
-#include "Counter.h"
-#include "Dice.h"
-#include "Sequence.h"
+#include "widgets/Timer.h"
+#include "widgets/Counter.h"
+#include "widgets/Dice.h"
+#include "widgets/Sequence.h"
+
+#include "AddWidgetDialog.h"
 
 
 class Window : public QWidget
@@ -20,21 +25,31 @@ public:
 	Window()
 		: QWidget(nullptr)
 		, m_Layout( * new QGridLayout(this) )
+		, m_AddDialog(this)
 	{
 		m_Layout.setSpacing(7);
 
+		QPushButton * plus_btn = new QPushButton("+");
+		plus_btn->setFlat(true);
+		connect(plus_btn, &QPushButton::clicked, this, &Window::showAddDialog );
+		addRow( plus_btn );
 	}
 
 
 private:
 	QGridLayout & m_Layout;
+	AddWidgetDialog m_AddDialog;
 
 
 public:
 
 	void addRow(QWidget * w)
 	{
+		if (!w) return;
+
 		size_t row = m_Layout.rowCount();
+
+		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 		if (w->whatsThis().isEmpty())
 		{
@@ -49,6 +64,14 @@ public:
 		}
 	}
 
+	void showAddDialog()
+	{
+		if (m_AddDialog.exec())
+		{
+			loadJson(QJsonDocument(m_AddDialog.getJsonOutput()));
+		}
+	}
+
 	std::vector<QString> asStringVector(QJsonValue array)
 	{
 		std::vector<QString> result;
@@ -60,13 +83,13 @@ public:
 			}
 			else
 			{
-				std::cout << "Unexpected type when parsing array of string." << std::endl;
+				qWarning() << "Unexpected type when parsing array of string.";
 			}
 		}
 		return result;
 	}
 
-	void loadJSON(QString filename)
+	void loadJsonFile(QString filename)
 	{
 		QString val;
 		QFile file;
@@ -75,78 +98,98 @@ public:
 		val = file.readAll();
 		file.close();
 
-		QJsonDocument json_file = QJsonDocument::fromJson(val.toUtf8());
+		loadJson(QJsonDocument::fromJson(val.toUtf8()));
+	}
 
-		if (json_file.isNull())
+	void loadJson(QJsonDocument json_doc)
+	{
+
+		if (json_doc.isNull())
 		{
-			std::cout << "Json decoding error." << std::endl;
+			qWarning() << "Json decoding error.";
 		}
-
-		for ( QJsonValueRef const i : json_file.array() )
+		else if (json_doc.isObject())
 		{
-			QJsonObject const item = i.toObject();
-			QString type = item["Type"].toString("unknown");
-			QWidget * pWidget = nullptr;
+			QJsonObject const o = json_doc.object();
+			addRow( createWidget(o) );
+		}
+		else for ( QJsonValueRef const i : json_doc.array() )
+		{
+			QJsonObject const & item = i.toObject();
+			addRow( createWidget(item) );
+		}
+	}
 
-			if (type == "Dice")
+	QWidget * createWidget(QJsonObject const & item)
+	{
+		QWidget * pWidget = nullptr;
+
+		QString type = item["Type"].toString("<UNDEFINED>");
+		if (type == "Dice")
+		{
+			if ( item["Faces"].isArray() )
 			{
-				if ( item["Faces"].isArray() )
-				{
-					pWidget = new Dice( asStringVector(item["Faces"]),
-										item["Count"].toInt(1) );
-				}
-				else
-				{
-					pWidget = new Dice( item["Faces"].toInt(6),
-										item["Count"].toInt(1) );
-				}
-			}
-			else if (type == "Timer")
-			{
-				pWidget = new Timer( item["Duration"].toInt(30) );
-			}
-			else if (type == "Counter")
-			{
-				// TODO parameters
-				pWidget = new Counter(
-							item["Value"].toInt(0)
-							//TODO asIntVector(item["Increments"])
-							);
-			}
-			else if (type == "CountDown")
-			{
-				pWidget = new CountDown( item["MaxValue"].toInt() );
-			}
-			else if (type == "Sequence")
-			{
-				std::vector<QString> list = asStringVector(item["List"]);
-				pWidget = new Sequence(list);
+				pWidget = new Dice( asStringVector(item["Faces"]),
+						item["Count"].toInt(1) );
 			}
 			else
 			{
-				std::cout << "Unexpected Widget type." << std::endl;
+				pWidget = new Dice( item["Faces"].toInt(6),
+						item["Count"].toInt(1) );
 			}
-
-
-			if (pWidget)
-			{
-				pWidget->setWhatsThis( item["Name"].toString("") );
-				pWidget->setStyleSheet( item["Style"].toString("") );
-
-				addRow( pWidget );
-			}
-
+		}
+		else if (type == "Timer")
+		{
+			pWidget = new Timer( item["Duration"].toInt(30) );
+		}
+		else if (type == "Counter")
+		{
+			// TODO parameters
+			pWidget = new Counter(
+					item["Value"].toInt(0)
+					//TODO asIntVector(item["Increments"])
+					);
+		}
+		else if (type == "CountDown")
+		{
+			pWidget = new CountDown( item["MaxValue"].toInt() );
+		}
+		else if (type == "Sequence")
+		{
+			std::vector<QString> list = asStringVector(item["List"]);
+			pWidget = new Sequence(list);
+		}
+		else if (type == "Label")
+		{
+			pWidget = new QLabel( item["Text"].toString("") );
+		}
+		else if (type == "Space")
+		{
+			pWidget = new QWidget();
+		}
+		else
+		{
+			qWarning() << "Unexpected Widget type " << type;
 		}
 
+		if (pWidget)
+		{
+			// General properties.
+			pWidget->setWhatsThis( item["Name"].toString("") );
+			pWidget->setStyleSheet( item["Style"].toString("") );
+		}
+
+		return pWidget;
 	}
 
 protected:
 	void resizeEvent(QResizeEvent* event) override
 	{
 		QWidget::ensurePolished();
-		static const size_t initial_x = QWidget::sizeHint().width();
-		static const size_t initial_y = QWidget::sizeHint().height();
-		static const QFont initial_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
+
+		const size_t initial_x = QWidget::sizeHint().width();
+		const size_t initial_y = QWidget::sizeHint().height();
+		const QFont initial_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
 
 		float const x_ratio = (float)event->size().width() / initial_x;
 		float const y_ratio = (float)event->size().height() / initial_y;
@@ -155,4 +198,5 @@ protected:
 
 		QWidget::resizeEvent(event);
 	}
+
 };

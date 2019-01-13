@@ -21,11 +21,12 @@ It focuses on simplicity.
 - Mobile compatibility
 - New widgets:
    - Score table
+   - "Go" signal
 - Add sounds on events
 - Reset:
    - Widget reset (counter/Sequence)
    - General reset
-- Tools dynamic Creation/Update/Delete
+- Tools dynamic Update/Delete
 - Game status/template export
 
 ## Build command

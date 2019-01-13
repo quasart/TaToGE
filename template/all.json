@@ -1,14 +1,19 @@
 [
   {
-    "Type": "Sequence",
-    "Name": "Phase",
-    "List": [ "Introduction", "Thèse", "Antithèse", "Conclusion" ]
+    "Type": "Dice",
+    "Name": "Pile ou face",
+    "Faces": [ "Pile", "Face" ]
   },
   {
-    "Type": "Counter",
-    "Name": "Score",
-    "Value": 0,
-    "Increments": [ 1, 5, 10 ]
+    "Type": "Dice",
+    "Name": "Dés 6",
+    "Faces": 6
+  },
+  {
+    "Type": "Dice",
+    "Name": "2 Dés 6",
+    "Faces": 6,
+    "Count": 2
   },
   {
     "Type": "Dice",
@@ -17,9 +22,13 @@
     "Count": 3
   },
   {
-    "Type": "Dice",
-    "Name": "Courte paille",
-    "Faces": [ "Verveine", "Wilfried" ]
+    "Type": "Counter",
+    "Name": "Compteur"
+  },
+  {
+    "Type": "Counter",
+    "Name": "Compteur +/-1",
+    "Increments": 1
   },
   {
     "Type": "CountDown",
@@ -27,8 +36,37 @@
     "MaxValue": 10
   },
   {
+    "Type": "Dice",
+    "Name": "Boule 8",
+    "Faces": [ "Essaye plus tard",
+               "Essaye encore",
+               "Pas d'avis",
+               "C'est ton destin",
+               "Le sort en est jeté",
+               "Une chance sur deux",
+               "Repose ta question",
+               "D'après moi oui",
+               "C'est certain",
+               "Oui absolument",
+               "Tu peux compter dessus",
+               "Sans aucun doute",
+               "Très probable",
+               "Oui",
+               "C'est bien parti",
+               "C'est non",
+               "Peu probable",
+               "Faut pas rêver",
+               "N'y compte pas",
+               "Impossible" ]
+  },
+  {
     "Type": "Timer",
-    "Name": "Je m'ennuie",
+    "Name": "Sablier 30 sec",
+    "Duration": 30
+  },
+  {
+    "Type": "Timer",
+    "Name": "Sablier 60 sec",
     "Duration": 60
   }
 ]

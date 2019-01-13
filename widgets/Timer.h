@@ -5,7 +5,6 @@
 #include <QObject>
 
 #include <chrono>
-#include <iostream>
 
 class Timer : public QProgressBar
 {

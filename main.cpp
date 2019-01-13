@@ -9,10 +9,16 @@ int main( int argc, char **argv )
 
 	Window window;
 
-	QString filename = argc>1 ? argv[1] : "template/all.json";
-	window.loadJSON(filename);
-
-	window.show();
+	if (argc==2)
+	{
+		window.loadJsonFile( argv[1] );
+		window.show();
+	}
+	else
+	{
+		window.show();
+		window.showAddDialog();
+	}
 
 	return a.exec();
 }
