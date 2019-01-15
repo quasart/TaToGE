@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <QFont>
 #include <QFile>
+#include <QFileDialog>
 #include <QResizeEvent>
 #include <QDebug>
 
@@ -29,10 +30,33 @@ public:
 	{
 		m_Layout.setSpacing(7);
 
-		QPushButton * plus_btn = new QPushButton("+");
-		plus_btn->setFlat(true);
-		connect(plus_btn, &QPushButton::clicked, this, &Window::showAddDialog );
-		addRow( plus_btn );
+		QWidget * toolbar = new QWidget(this);
+		toolbar->setLayout( new QHBoxLayout );
+		toolbar->layout()->setContentsMargins(0,0,0,0);
+		toolbar->setStyleSheet("font-size: 10pt; color: gray;");
+
+		{
+			QPushButton * plus_btn = new QPushButton("Add widget");
+			plus_btn->setFlat(true);
+			connect(plus_btn, &QPushButton::clicked, this, &Window::showAddDialog );
+			toolbar->layout()->addWidget( plus_btn );
+		}
+
+		{
+			QPushButton * btn = new QPushButton("Load template");
+			btn->setFlat(true);
+			connect(btn, &QPushButton::clicked, this, &Window::showLoadDialog );
+			toolbar->layout()->addWidget( btn );
+		}
+
+		{
+			QPushButton * btn = new QPushButton("Clear table");
+			btn->setFlat(true);
+			connect(btn, &QPushButton::clicked, this, &Window::clearTable );
+			toolbar->layout()->addWidget( btn );
+		}
+
+		m_Layout.addWidget( toolbar, 0, 0, 1, 2 );
 	}
 
 
@@ -47,7 +71,7 @@ public:
 	{
 		if (!w) return;
 
-		size_t row = m_Layout.rowCount();
+		size_t const row = m_Layout.rowCount();
 
 		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -64,11 +88,41 @@ public:
 		}
 	}
 
+	void deleteRow(int row)
+	{
+		for (int col = 0; col < m_Layout.columnCount(); ++col)
+		{
+			auto pItem = m_Layout.itemAtPosition(row,col);
+			if (pItem && pItem->widget())
+			{
+				delete pItem->widget();
+			}
+		}
+	}
+
 	void showAddDialog()
 	{
 		if (m_AddDialog.exec())
 		{
 			loadJson(QJsonDocument(m_AddDialog.getJsonOutput()));
+		}
+	}
+
+	void showLoadDialog()
+	{
+		QString filename = QFileDialog::getOpenFileName(this, "Ouvrir", "./template", "JSON templates (*.json)");
+		if (!filename.isEmpty())
+		{
+			clearTable();
+			loadJsonFile(filename);
+		}
+	}
+
+	void clearTable()
+	{
+		for (int row = 1; row < m_Layout.rowCount(); ++row)
+		{
+			deleteRow(row);
 		}
 	}
 

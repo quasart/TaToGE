@@ -12,13 +12,9 @@ int main( int argc, char **argv )
 	if (argc==2)
 	{
 		window.loadJsonFile( argv[1] );
-		window.show();
 	}
-	else
-	{
-		window.show();
-		window.showAddDialog();
-	}
+
+	window.show();
 
 	return a.exec();
 }
