@@ -3,30 +3,33 @@
 #include <QTimer>
 #include <QProgressBar>
 #include <QObject>
+#include <QMouseEvent>
 
 #include <chrono>
 
 class Timer : public QProgressBar
 {
-	Q_OBJECT
+Q_OBJECT
 
-	public:
-		explicit Timer(size_t duration_sec = 30, QWidget * parent = nullptr )
-			: QProgressBar(parent)
-			, m_Timer(this)
-		{
-			QProgressBar::setMaximum(duration_sec * 1000);
-			QProgressBar::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+public:
+	explicit Timer(size_t duration_sec = 30, QWidget * parent = nullptr )
+		: QProgressBar(parent)
+		, m_Timer(this)
+	{
+		QProgressBar::setMaximum(duration_sec * 1000);
+		QProgressBar::setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+		QProgressBar::setFocusPolicy(Qt::StrongFocus);
 
-			connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
-		}
+		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
+	}
 
 	void start()
 	{
-		QProgressBar::reset();
+		QProgressBar::setValue( QProgressBar::maximum() );
 		m_BeginTime = std::chrono::steady_clock::now();
 		size_t refresh_time_ms = QProgressBar::maximum() / 100 / 5;
 		
+		// We don't need more precision.
 		if (refresh_time_ms < 50)
 		{
 			refresh_time_ms = 50;
@@ -46,25 +49,42 @@ class Timer : public QProgressBar
 		return m_Timer.isActive();
 	}
 
-	private:
-		QTimer m_Timer;
-
-		std::chrono::time_point<std::chrono::steady_clock> m_BeginTime;
-
-
-	protected:
-		void mouseReleaseEvent(QMouseEvent *event) override
+	void toggle()
+	{
+		if (isRunning())
 		{
-			Q_UNUSED(event);
+			stop();
+		}
+		else
+		{
+			start();
+		}
+	}
 
-			if (isRunning()) {
-				stop();
-			}
-			else {
-				start();
-			}
+private:
+	QTimer m_Timer;
+	std::chrono::time_point<std::chrono::steady_clock> m_BeginTime;
+
+
+protected:
+	void mouseReleaseEvent(QMouseEvent *event) override
+	{
+		if (event->button() == Qt::LeftButton)
+		{
+			toggle();
 		}
 
+		QProgressBar::mouseReleaseEvent(event);
+	}
+
+	void keyPressEvent(QKeyEvent * event) override
+	{
+		if (event->key() == Qt::Key_Space)
+		{
+			toggle();
+		}
+		QProgressBar::keyPressEvent(event);
+	}
 
 signals:
 	// TODO finish signal ?
@@ -78,13 +98,12 @@ public slots:
 
 		if (elapsed >= max)
 		{
-			QProgressBar::setValue( max );
-			m_Timer.stop();
+			stop();
 			//TODO play sound
 		}
 		else
 		{
-			QProgressBar::setValue( elapsed );
+			QProgressBar::setValue( max - elapsed );
 		}
 	}
 };

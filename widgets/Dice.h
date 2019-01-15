@@ -94,6 +94,7 @@ public slots:
 			for ( QPushButton * btn : m_Dices )
 			{
 				btn->setEnabled(true);
+				btn->setFocus();
 			}
 		}
 		else
