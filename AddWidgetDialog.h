@@ -1,9 +1,11 @@
 #pragma once
 
 #include <QDialog>
-#include <QGridLayout>
+#include <QFormLayout>
 #include <QLineEdit>
-
+#include <QDialogButtonBox>
+#include <QInputDialog>
+#include <QComboBox>
 #include <vector>
 
 
@@ -13,71 +15,86 @@ class AddWidgetDialog : public QDialog
 {
 public:
 
-	struct JsonTemplates
-	{
-		const char * name;
-		QJsonObject json;
-	};
-
-	static JsonTemplates const & getTemplate(size_t i)
-	{
-		// TODO load this map from json file
-		static const std::vector<JsonTemplates> s_templates = {
-			{ "Coin flip",    {{"Type","Dice"}, {"Faces",QJsonArray{"Head","Tail"}}} },
-			{ "Dice 4",       {{"Type","Dice"}, {"Faces",4}} },
-			{ "Dice 6 x 1",   {{"Type","Dice"}, {"Faces",6}} },
-			{ "Dice 6 x 2",   {{"Type","Dice"}, {"Faces",6}, {"Count",2}} },
-			{ "Dice 6 x 3",   {{"Type","Dice"}, {"Faces",6}, {"Count",3}} },
-			{ "Dice 6 x 4",   {{"Type","Dice"}, {"Faces",6}, {"Count",4}} },
-			{ "Dice 8",       {{"Type","Dice"}, {"Faces",8}} },
-			{ "Dice 10",      {{"Type","Dice"}, {"Faces",10}} },
-			{ "Dice 12",      {{"Type","Dice"}, {"Faces",12}} },
-			{ "Dice 20",      {{"Type","Dice"}, {"Faces",20}} },
-			{ "Dice 100",     {{"Type","Dice"}, {"Faces",100}} },
-			{ "Counter",      {{"Type","Counter"}} },
-			{ "Timer 30 sec", {{"Type","Timer"}, {"Duration",30}} },
-			{ "Timer 1 min",  {{"Type","Timer"}, {"Duration",60}} },
-			{ "Timer 3 min",  {{"Type","Timer"}, {"Duration",60*3}} },
-			{ "Timer 5 min",  {{"Type","Timer"}, {"Duration",60*5}} },
-			{ "Timer 10 min", {{"Type","Timer"}, {"Duration",60*10}} },
-		};
-
-		return s_templates[i];
-	}
 
 	AddWidgetDialog(QWidget * parent)
 		: QDialog(parent)
-		, m_Layout( * new QGridLayout(this) )
+		, m_Layout( * new QFormLayout(this) )
 	{
 		QWidget::setWindowTitle("New Widget");
 
+		m_Layout.addRow( "Widget", &m_Combo);
+		m_Layout.addRow( "Name (optional)", &m_NameInput);
+
 		{
-			size_t const row = m_Layout.rowCount();
-			m_Layout.addWidget( new QLabel("Name (optional)"), row, 0 );
-			m_Layout.addWidget( &m_NameInput, row, 1);
+			m_Combo.addItem( "Dice",         QJsonObject{{"Type","Dice"}, {"Faces",6}} );
+			m_Combo.addItem( "Counter",      QJsonObject{{"Type","Counter"}} );
+			m_Combo.addItem( "CountDown",    QJsonObject{{"Type","CountDown"}} );
+			m_Combo.insertSeparator(m_Combo.count());
+			m_Combo.addItem( "Timer 30 sec", QJsonObject{{"Type","Timer"}, {"Duration",30}} );
+			m_Combo.addItem( "Timer 1 min",  QJsonObject{{"Type","Timer"}, {"Duration",60}} );
+			m_Combo.addItem( "Timer 3 min",  QJsonObject{{"Type","Timer"}, {"Duration",60*3}} );
+			m_Combo.addItem( "Timer 5 min",  QJsonObject{{"Type","Timer"}, {"Duration",60*5}} );
+			m_Combo.addItem( "Timer 10 min", QJsonObject{{"Type","Timer"}, {"Duration",60*10}} );
+			m_Combo.insertSeparator(m_Combo.count());
+			m_Combo.addItem( "Coin flip",    QJsonObject{{"Type","Dice"}, {"Faces",QJsonArray{"Head","Tail"}}} );
+			m_Combo.addItem( "Dice 4",       QJsonObject{{"Type","Dice"}, {"Faces",4}} );
+			m_Combo.addItem( "Dice 6 x 1",   QJsonObject{{"Type","Dice"}, {"Faces",6}} );
+			m_Combo.addItem( "Dice 6 x 2",   QJsonObject{{"Type","Dice"}, {"Faces",6}, {"Count",2}} );
+			m_Combo.addItem( "Dice 6 x 3",   QJsonObject{{"Type","Dice"}, {"Faces",6}, {"Count",3}} );
+			m_Combo.addItem( "Dice 6 x 4",   QJsonObject{{"Type","Dice"}, {"Faces",6}, {"Count",4}} );
+			m_Combo.addItem( "Dice 8",       QJsonObject{{"Type","Dice"}, {"Faces",8}} );
+			m_Combo.addItem( "Dice 10",      QJsonObject{{"Type","Dice"}, {"Faces",10}} );
+			m_Combo.addItem( "Dice 12",      QJsonObject{{"Type","Dice"}, {"Faces",12}} );
+			m_Combo.addItem( "Dice 20",      QJsonObject{{"Type","Dice"}, {"Faces",20}} );
+			m_Combo.addItem( "Dice 100",     QJsonObject{{"Type","Dice"}, {"Faces",100}} );
+			m_Combo.insertSeparator(m_Combo.count());
+			m_Combo.addItem( "Videau",       QJsonObject{{"Type","Sequence"}, {"List", QJsonArray{"x1", "x2", "x4", "x8", "x16", "x32", "x64" }}} );
+			m_Combo.addItem( "Magic 8 Ball", QJsonObject{{"Type","Dice"}, {"Faces", QJsonArray{"Essaye plus tard",
+																								"Essaye encore",
+																								"Pas d'avis",
+																								"C'est ton destin",
+																								"Le sort en est jeté",
+																								"Une chance sur deux",
+																								"Repose ta question",
+																								"D'après moi oui",
+																								"C'est certain",
+																								"Oui absolument",
+																								"Tu peux compter dessus",
+																								"Sans aucun doute",
+																								"Très probable",
+																								"Oui",
+																								"C'est bien parti",
+																								"C'est non",
+																								"Peu probable",
+																								"Faut pas rêver",
+																								"N'y compte pas",
+																								"Impossible" }}} );
 		}
 
-		for (size_t template_id = 0; template_id < 17; ++template_id )
-		{
-			size_t const row = m_Layout.rowCount();
-			QPushButton * btn = new QPushButton( getTemplate(template_id).name );
-			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-			m_Layout.addWidget( btn, row, 0, 1, 2 );
-			connect(btn, &QPushButton::clicked, [=]{ this->onTemplateAdd(template_id); } );
-		}
 
+		{
+			QDialogButtonBox * btn = new QDialogButtonBox(QDialogButtonBox::Ok
+														| QDialogButtonBox::Cancel);
+
+			m_Layout.addRow( btn );
+			connect(btn, &QDialogButtonBox::accepted, this, &AddWidgetDialog::accept);
+			connect(btn, &QDialogButtonBox::rejected, this, &QDialog::reject);
+		}
 	}
 
 	QJsonObject getJsonOutput() const { return m_JsonOutput; }
 
 private:
-	QGridLayout & m_Layout;
+	QFormLayout & m_Layout;
 	QLineEdit m_NameInput;
+	QComboBox m_Combo;
 	QJsonObject m_JsonOutput;
 
-	void onTemplateAdd(size_t template_id)
+public slots:
+	void accept()
 	{
-		m_JsonOutput = getTemplate(template_id).json;
+		m_JsonOutput = m_Combo.itemData( m_Combo.currentIndex() ).toJsonObject();
+		bool ok = true;
 
 		if (!m_NameInput.text().isEmpty())
 		{
@@ -85,8 +102,19 @@ private:
 			m_NameInput.setText("");
 		}
 
-		QDialog::accept();
+		if (m_JsonOutput["Type"] == "CountDown"
+			&& !m_JsonOutput.contains("MaxValue"))
+		{
+			m_JsonOutput["MaxValue"] =  QInputDialog::getInt(this, this->windowTitle(), "Value to decrease", 10,
+					0, 2147483647, 1, &ok);
+		}
+
+		if (ok)
+		{
+			QDialog::accept();
+		}
 	}
+
 
 };
 

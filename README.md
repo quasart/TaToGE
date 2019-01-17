@@ -32,6 +32,7 @@ It focuses on simplicity.
 Needs Qt5 and C++ compiler.
 
 ```
+sudo apt-get install qtbase5-dev qt5-default
 qmake
 make
 ```
