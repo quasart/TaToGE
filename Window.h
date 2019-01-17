@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QResizeEvent>
+#include <QApplication>
 #include <QDebug>
 
 #include <QJsonObject>
@@ -22,6 +23,8 @@
 
 class Window : public QWidget
 {
+Q_OBJECT
+
 public:
 	Window()
 		: QWidget(nullptr)
@@ -36,21 +39,21 @@ public:
 		toolbar->setStyleSheet("font-size: 10pt; color: gray;");
 
 		{
-			QPushButton * plus_btn = new QPushButton("Add widget");
+			QPushButton * plus_btn = new QPushButton(tr("Add widget"));
 			plus_btn->setFlat(true);
 			connect(plus_btn, &QPushButton::clicked, this, &Window::showAddDialog );
 			toolbar->layout()->addWidget( plus_btn );
 		}
 
 		{
-			QPushButton * btn = new QPushButton("Load template");
+			QPushButton * btn = new QPushButton(tr("Load template"));
 			btn->setFlat(true);
 			connect(btn, &QPushButton::clicked, this, &Window::showLoadDialog );
 			toolbar->layout()->addWidget( btn );
 		}
 
 		{
-			QPushButton * btn = new QPushButton("Clear table");
+			QPushButton * btn = new QPushButton(tr("Clear table"));
 			btn->setFlat(true);
 			connect(btn, &QPushButton::clicked, this, &Window::clearTable );
 			toolbar->layout()->addWidget( btn );
@@ -110,7 +113,7 @@ public:
 
 	void showLoadDialog()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, "Ouvrir", "./template", "JSON templates (*.json)");
+		QString filename = QFileDialog::getOpenFileName(this, tr("Select template file"), "./template", "JSON templates (*.json)");
 		if (!filename.isEmpty())
 		{
 			clearTable();

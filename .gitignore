@@ -1,5 +1,8 @@
 .qmake.stash
 moc_*
+*.qm
+*.qrc
+qrc_qmake_qmake_immediate.cpp
 *.o
 uGameTools
 *~
