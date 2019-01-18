@@ -51,14 +51,6 @@ public:
 
 	void toggle()
 	{
-		if (isRunning())
-		{
-			stop();
-		}
-		else
-		{
-			start();
-		}
 	}
 
 private:
@@ -71,7 +63,14 @@ protected:
 	{
 		if (event->button() == Qt::LeftButton)
 		{
-			toggle();
+			if (isRunning())
+			{
+				stop();
+			}
+			else
+			{
+				start();
+			}
 		}
 
 		QProgressBar::mouseReleaseEvent(event);
@@ -79,9 +78,9 @@ protected:
 
 	void keyPressEvent(QKeyEvent * event) override
 	{
-		if (event->key() == Qt::Key_Space)
+		if (event->key() == Qt::Key_Space && !isRunning())
 		{
-			toggle();
+			start();
 		}
 		QProgressBar::keyPressEvent(event);
 	}
