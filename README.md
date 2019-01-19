@@ -1,8 +1,8 @@
 # µGameTools
 
-This project provides a bunch of simple widgets to emulate basic tools needed when playing board games or card games.
+This project provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games : Dice, sandtimers, score counters...
 
-It focuses on simplicity.
+It focuses on simplicity, and on the idea it will be used as a companion during "real" table-top gaming.
 
 ## Features
 
@@ -26,10 +26,8 @@ It focuses on simplicity.
 - Tools dynamic Update/Delete
 - Game status/template export
 - Dice graphics with dots
-- App icon
-- Open source licence
+- lock mode parameter (to hide admin menus)
 - Expert mode (json edit) for adding widgets
-- docker build environement (for Windows, Mobile...)
 
 ## Build command
 
@@ -41,7 +39,45 @@ qmake
 lrelease Makefile.pro
 make
 ```
+For windows build on debian through [MXE](https://mxe.cc/) :
+```
+sudo apt-get install \
+    autoconf \
+    automake \
+    autopoint \
+    bash \
+    bison \
+    bzip2 \
+    flex \
+    g++ \
+    gettext \
+    git \
+    gperf \
+    intltool \
+    libc6-dev-i386 \
+    libgdk-pixbuf2.0-dev \
+    libltdl-dev \
+    libssl-dev \
+    libtool-bin \
+    libxml-parser-perl \
+    lzip \
+    make \
+    openssl \
+    p7zip-full \
+    patch \
+    perl \
+    pkg-config \
+    python \
+    ruby \
+    sed \
+    unzip \
+    wget \
+    xz-utils
+sudo apt-get install g++-multilib
+```
 
-## Known issues
+## TODO before v1 release
 
+- choose Open source licence
+- docker build environement (for Windows, Mobile...)
 

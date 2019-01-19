@@ -4,11 +4,12 @@ TARGET = uGameTools
 INCLUDEPATH += .
 QT += widgets
 SOURCES += main.cpp
-HEADERS += widgets/*.h  Window.h AddWidgetDialog.h
+HEADERS += widgets/*.h  MainWindow.h Table.h AddWidgetDialog.h
 
 TRANSLATIONS = i18n/uGameTools_fr.ts
 RESOURCES   += i18n/uGameTools_fr.qm
 
+RESOURCES   += images/dice.svg
 
 # Forbid use of deprecated feature of Qt
 

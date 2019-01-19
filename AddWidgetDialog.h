@@ -29,8 +29,11 @@ public:
 
 		{
 			m_Combo.addItem( tr("Dice"),         QJsonObject{{"Type","Dice"}, {"Faces",6}} );
+			m_Combo.setItemData(m_Combo.count()-1, tr("Allow rolling a classic 6-sided die."), Qt::ToolTipRole);
 			m_Combo.addItem( tr("Counter"),      QJsonObject{{"Type","Counter"}} );
+			m_Combo.setItemData(m_Combo.count()-1, tr("Allow counting points, typically to display score or penality."), Qt::ToolTipRole);
 			m_Combo.addItem( tr("CountDown"),    QJsonObject{{"Type","CountDown"}} );
+			m_Combo.setItemData(m_Combo.count()-1, tr("Allow following a count down, for example to display how many life left before loosing."), Qt::ToolTipRole);
 			m_Combo.insertSeparator(m_Combo.count());
 			m_Combo.addItem( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}} );
 			m_Combo.addItem( tr( "1-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60}} );
@@ -52,6 +55,7 @@ public:
 			m_Combo.insertSeparator(m_Combo.count());
 			m_Combo.addItem( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List", QJsonArray{
 					"x1", "x2", "x4", "x8", "x16", "x32", "x64" }}} );
+			m_Combo.setItemData(m_Combo.count()-1, tr("This sequence is used in Backgammon."), Qt::ToolTipRole);
 			m_Combo.addItem( tr("Magic 8 Ball"), QJsonObject{{"Type","Dice"}, {"Faces", QJsonArray{
 				tr("It is certain"),
 				tr("It is decidedly so"),
@@ -63,16 +67,17 @@ public:
 				tr("Outlook good"),
 				tr("Yes"),
 				tr("Signs point to yes"),
-				tr("Reply hazy, try again"),
-				tr("Ask again later"),
-				tr("Better not tell you now"),
-				tr("Cannot predict now"),
-				tr("Concentrate and ask again"),
 				tr("Don't count on it"),
 				tr("My reply is no"),
 				tr("My sources say no"),
 				tr("Outlook not so good"),
-				tr("Very doubtful") }}} );
+				tr("Very doubtful"),
+				tr("Reply hazy, try again"),
+				tr("Ask again later"),
+				tr("Better not tell you now"),
+				tr("Cannot predict now"),
+				tr("Concentrate and ask again") }}} );
+			m_Combo.setItemData(m_Combo.count()-1, tr("This magic item can answer any question."), Qt::ToolTipRole);
 		}
 
 		{

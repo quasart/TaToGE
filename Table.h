@@ -2,12 +2,12 @@
 
 #include <QWidget>
 #include <QGridLayout>
-#include <QFont>
 #include <QFile>
 #include <QFileDialog>
+#include <QDebug>
 #include <QResizeEvent>
 #include <QApplication>
-#include <QDebug>
+#include <QFont>
 
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -21,74 +21,57 @@
 #include "AddWidgetDialog.h"
 
 
-class Window : public QWidget
+class Table : public QWidget
 {
 Q_OBJECT
 
 public:
-	Window()
-		: QWidget(nullptr)
+	Table(QWidget * parent = nullptr)
+		: QWidget(parent)
 		, m_Layout( * new QGridLayout(this) )
-		, m_AddDialog(this)
+		, m_AddButton( * new QPushButton( tr("Table is empty, click here to add widget.") ) )
+		, m_AddDialog(parent ? parent : this)
+		, m_RowCount(0)
 	{
 		m_Layout.setSpacing(7);
 
-		QWidget * toolbar = new QWidget(this);
-		toolbar->setLayout( new QHBoxLayout );
-		toolbar->layout()->setContentsMargins(0,0,0,0);
-		toolbar->setStyleSheet("font-size: 10pt; color: gray;");
-
-		{
-			QPushButton * plus_btn = new QPushButton(tr("Add widget"));
-			plus_btn->setFlat(true);
-			connect(plus_btn, &QPushButton::clicked, this, &Window::showAddDialog );
-			toolbar->layout()->addWidget( plus_btn );
-		}
-
-		{
-			QPushButton * btn = new QPushButton(tr("Load template"));
-			btn->setFlat(true);
-			connect(btn, &QPushButton::clicked, this, &Window::showLoadDialog );
-			toolbar->layout()->addWidget( btn );
-		}
-
-		{
-			QPushButton * btn = new QPushButton(tr("Clear table"));
-			btn->setFlat(true);
-			connect(btn, &QPushButton::clicked, this, &Window::clearTable );
-			toolbar->layout()->addWidget( btn );
-		}
-
-		m_Layout.addWidget( toolbar, 0, 0, 1, 2 );
+		m_AddButton.setFlat(true);
+		m_AddButton.setStyleSheet("font-size: 10pt; color: gray;");
+		connect(&m_AddButton, &QPushButton::clicked, this, &Table::showAddDialog );
+		m_Layout.addWidget( &m_AddButton, LAST_ROW, 0, 1, 2 );
 	}
 
 
 private:
 	QGridLayout & m_Layout;
+	QPushButton & m_AddButton;
 	AddWidgetDialog m_AddDialog;
+	int m_RowCount;
 
+	static const int LAST_ROW = 255; //row count arbitrary limitation to remove someday.
 
 public:
 
 	void addRow(QWidget * w)
 	{
 		if (!w) return;
-
-		size_t const row = m_Layout.rowCount();
+		if (m_RowCount == LAST_ROW) return;
 
 		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 		if (w->whatsThis().isEmpty())
 		{
 			// Full Column span.
-			m_Layout.addWidget( w, row, 0, 1, 2 );
+			m_Layout.addWidget( w, m_RowCount, 0, 1, 2 );
 		}
 		else
 		{
 			QLabel * l = new QLabel(w->whatsThis());
-			m_Layout.addWidget( l, row, 0 );
-			m_Layout.addWidget( w, row, 1 );
+			m_Layout.addWidget( l, m_RowCount, 0 );
+			m_Layout.addWidget( w, m_RowCount, 1 );
 		}
+		m_AddButton.setText( tr("Add a widget") );
+		++m_RowCount;
 	}
 
 	void deleteRow(int row)
@@ -123,10 +106,12 @@ public:
 
 	void clearTable()
 	{
-		for (int row = 1; row < m_Layout.rowCount(); ++row)
+		for (int row = 0; row < m_RowCount ; ++row)
 		{
 			deleteRow(row);
 		}
+		m_AddButton.show();
+		m_RowCount = 0;
 	}
 
 	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out)
