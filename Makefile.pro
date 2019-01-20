@@ -5,6 +5,7 @@ INCLUDEPATH += .
 QT += widgets
 SOURCES += main.cpp
 HEADERS += widgets/*.h  MainWindow.h Table.h AddWidgetDialog.h
+CONFIG += c++14
 
 TRANSLATIONS = i18n/uGameTools_fr.ts
 RESOURCES   += i18n/uGameTools_fr.qm

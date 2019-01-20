@@ -9,3 +9,8 @@ uGameTools
 core
 *.core
 Makefile
+*.Debug
+*.Release
+release/
+*_plugin_import.cpp
+

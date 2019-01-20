@@ -39,6 +39,7 @@ qmake
 lrelease Makefile.pro
 make
 ```
+
 For windows build on debian through [MXE](https://mxe.cc/) :
 ```
 sudo apt-get install \
@@ -74,6 +75,13 @@ sudo apt-get install \
     wget \
     xz-utils
 sudo apt-get install g++-multilib
+
+git clone https://github.com/mxe/mxe.git
+cd mxe
+make qtbase
+
+### Will generate : ./usr/i686-w64-mingw32.static/qt5/bin/qmake
+
 ```
 
 ## TODO before v1 release
