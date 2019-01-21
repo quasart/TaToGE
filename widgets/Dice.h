@@ -75,11 +75,7 @@ public slots:
 
 	void roll()
 	{
-		m_RollTime = 10;
-		for ( QPushButton * btn : m_Dices )
-		{
-			btn->setEnabled(false);
-		}
+		m_RollTime = 15;
 		setRandom();
 
 		using namespace std::literals::chrono_literals;
@@ -91,11 +87,6 @@ public slots:
 		if (m_RollTime==0)
 		{
 			m_Timer.stop();
-			for ( QPushButton * btn : m_Dices )
-			{
-				btn->setEnabled(true);
-				btn->setFocus();
-			}
 		}
 		else
 		{

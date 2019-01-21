@@ -20,81 +20,71 @@
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="31"/>
-        <source>Dice</source>
-        <translation>Dé</translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="32"/>
-        <source>Allow rolling a classic 6-sided die.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="33"/>
         <source>Counter</source>
         <translation>Compteur</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="34"/>
-        <source>Allow counting points, typically to display score or penality.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="35"/>
-        <source>CountDown</source>
-        <translation>Décompte</translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="36"/>
-        <source>Allow following a count down, for example to display how many life left before loosing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="38"/>
+        <location filename="../AddWidgetDialog.h" line="37"/>
         <source>30-second SandTimer</source>
         <translation>Sablier de 30 secondes</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="39"/>
+        <location filename="../AddWidgetDialog.h" line="38"/>
         <source>1-minute SandTimer</source>
         <translation>Sablier de 1 minute</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="40"/>
+        <location filename="../AddWidgetDialog.h" line="39"/>
         <source>3-minute SandTimer</source>
         <translation>Sablier de 3 minutes</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="41"/>
+        <location filename="../AddWidgetDialog.h" line="40"/>
         <source>5-minute SandTimer</source>
         <translation>Sablier de 5 minutes</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="42"/>
-        <source>10-minute SandTimer</source>
-        <translation>Sablier de 10 minutes</translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="44"/>
+        <location filename="../AddWidgetDialog.h" line="58"/>
         <source>Coin flip</source>
         <translation>Pile ou face</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="44"/>
+        <location filename="../AddWidgetDialog.h" line="58"/>
         <source>Head</source>
         <translation>Face</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="44"/>
+        <location filename="../AddWidgetDialog.h" line="58"/>
         <source>Tail</source>
         <translation>Pile</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="45"/>
+        <location filename="../AddWidgetDialog.h" line="44"/>
         <source>4-sided die</source>
         <translation>Dé à 4 faces</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="46"/>
+        <location filename="../AddWidgetDialog.h" line="32"/>
+        <source>To count points, typically to display score or penality.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="33"/>
+        <source>CountDown...</source>
+        <translation>Décompte...</translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="34"/>
+        <source>To follow a count down, for example to display how many life are left before loosing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="41"/>
+        <source>Other SandTimer...</source>
+		<translation>Autre sablier...</translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="45"/>
         <source>6-sided die</source>
         <translation>Dé à 6 faces</translation>
     </message>
@@ -139,129 +129,169 @@
         <translation>4 dés</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="56"/>
-        <source>Doubling cube</source>
-        <translation>Videau</translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="58"/>
-        <source>This sequence is used in Backgammon.</source>
+        <location filename="../AddWidgetDialog.h" line="55"/>
+        <source>Other dice...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="59"/>
-        <source>Magic 8 Ball</source>
+        <source>Roulette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="60"/>
-        <source>It is certain</source>
+        <location filename="../AddWidgetDialog.h" line="94"/>
+        <source>Other sortition...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="61"/>
-        <source>It is decidedly so</source>
+        <location filename="../AddWidgetDialog.h" line="97"/>
+        <source>Doubling cube</source>
+        <translation>Videau</translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="98"/>
+        <source>This one is used in Backgammon.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="62"/>
-        <source>Without a doubt</source>
+        <location filename="../AddWidgetDialog.h" line="99"/>
+        <source>Other sequence...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="63"/>
-        <source>Yes - definitely</source>
+        <location filename="../AddWidgetDialog.h" line="118"/>
+        <source>Please provide list of names, separated by semicolon &apos;;&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="64"/>
-        <source>You may rely on it</source>
+        <location filename="../AddWidgetDialog.h" line="151"/>
+        <source>Initial value to decrease</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="65"/>
-        <source>As I see it, yes</source>
+        <location filename="../AddWidgetDialog.h" line="158"/>
+        <source>Timer duration in seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="66"/>
-        <source>Most likely</source>
+        <location filename="../AddWidgetDialog.h" line="175"/>
+        <source>Number of sides of the die</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="67"/>
-        <source>Outlook good</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="68"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="69"/>
-        <source>Signs point to yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="75"/>
-        <source>Reply hazy, try again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="76"/>
-        <source>Ask again later</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="77"/>
-        <source>Better not tell you now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="78"/>
-        <source>Cannot predict now</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="79"/>
-        <source>Concentrate and ask again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="70"/>
-        <source>Don&apos;t count on it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../AddWidgetDialog.h" line="71"/>
-        <source>My reply is no</source>
+        <location filename="../AddWidgetDialog.h" line="179"/>
+        <source>Number of dice to roll?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="72"/>
-        <source>My sources say no</source>
+        <source>Magic 8 Ball</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="73"/>
-        <source>Outlook not so good</source>
+        <source>It is certain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="74"/>
-        <source>Very doubtful</source>
+        <source>It is decidedly so</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="75"/>
+        <source>Without a doubt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="76"/>
+        <source>Yes - definitely</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="77"/>
+        <source>You may rely on it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="78"/>
+        <source>As I see it, yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="79"/>
+        <source>Most likely</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.h" line="80"/>
-        <source>This magic item can answer any question.</source>
+        <source>Outlook good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.h" line="116"/>
-        <source>Value to decrease</source>
-        <translation>Valeur à décompter</translation>
+        <location filename="../AddWidgetDialog.h" line="81"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="82"/>
+        <source>Signs point to yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="88"/>
+        <source>Reply hazy, try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="89"/>
+        <source>Ask again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="90"/>
+        <source>Better not tell you now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="91"/>
+        <source>Cannot predict now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="92"/>
+        <source>Concentrate and ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="83"/>
+        <source>Don&apos;t count on it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="84"/>
+        <source>My reply is no</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="85"/>
+        <source>My sources say no</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="86"/>
+        <source>Outlook not so good</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="87"/>
+        <source>Very doubtful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../AddWidgetDialog.h" line="93"/>
+        <source>This magic item can answer any question.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

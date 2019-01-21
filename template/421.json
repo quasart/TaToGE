@@ -1,14 +1,14 @@
 [
   {
     "Type": "Dice",
-    "Faces": 6
+    "NbSides": 6
   },
   {
     "Type": "Dice",
-    "Faces": 6
+    "NbSides": 6
   },
   {
     "Type": "Dice",
-    "Faces": 6
+    "NbSides": 6
   }
 ]

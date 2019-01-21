@@ -31,7 +31,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 ## Build command
 
-Needs Qt5 and C++ compiler.
+Needs Qt5 and C++14 compiler.
 
 ```
 sudo apt-get install qtbase5-dev qt5-default

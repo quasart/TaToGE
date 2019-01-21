@@ -1,7 +1,7 @@
 [
   {
     "Type": "Dice",
-    "Faces": 6,
+    "NbSides": 6,
     "Count": 2
   },
   {
@@ -22,7 +22,7 @@
   {
     "Type": "Dice",
     "Style": "QPushButton::enabled{ color: darkred; }",
-    "Faces": 6,
+    "NbSides": 6,
     "Count": 2
   }
 ]

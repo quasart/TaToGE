@@ -16,12 +16,12 @@
   {
     "Type": "Dice",
     "Name": "Dé 6",
-    "Faces": 6
+    "NbSides": 6
   },
   {
-    "Type": "Dice",
+    "Type": "Sortition",
     "Name": "Courte paille",
-    "Faces": [ "Verveine", "Wilfried" ]
+    "List": [ "Verveine", "Wilfried" ]
   },
   {
     "Type": "Timer",

@@ -1,24 +1,24 @@
 [
   {
-    "Type": "Dice",
+    "Type": "Sortition",
     "Name": "Pile ou face",
-    "Faces": [ "Pile", "Face" ]
+    "List": [ "Pile", "Face" ]
   },
   {
     "Type": "Dice",
     "Name": "Dés 6",
-    "Faces": 6
+    "NbSides": 6
   },
   {
     "Type": "Dice",
     "Name": "2 Dés 6",
-    "Faces": 6,
+    "NbSides": 6,
     "Count": 2
   },
   {
     "Type": "Dice",
     "Name": "3 Dés 6",
-    "Faces": 6,
+    "NbSides": 6,
     "Count": 3
   },
   {
@@ -36,9 +36,9 @@
     "MaxValue": 10
   },
   {
-    "Type": "Dice",
+    "Type": "Sortition",
     "Name": "Boule 8",
-    "Faces": [ "Essaye plus tard",
+    "List": [ "Essaye plus tard",
                "Essaye encore",
                "Pas d'avis",
                "C'est ton destin",

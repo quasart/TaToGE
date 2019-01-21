@@ -167,7 +167,6 @@ public:
 
 	void loadJson(QJsonDocument json_doc)
 	{
-
 		if (json_doc.isNull())
 		{
 			qWarning() << "Json decoding error.";
@@ -191,16 +190,13 @@ public:
 		QString type = item["Type"].toString("<UNDEFINED>");
 		if (type == "Dice")
 		{
-			if ( item["Faces"].isArray() )
-			{
-				pWidget = new Dice( asStringVector(item["Faces"]),
-						item["Count"].toInt(1) );
-			}
-			else
-			{
-				pWidget = new Dice( item["Faces"].toInt(6),
-						item["Count"].toInt(1) );
-			}
+			pWidget = new Dice( item["NbSides"].toInt(6),
+					item["Count"].toInt(1) );
+		}
+		else if (type == "Sortition")
+		{
+			pWidget = new Dice( asStringVector(item["List"]),
+					item["Count"].toInt(1) );
 		}
 		else if (type == "Timer")
 		{
