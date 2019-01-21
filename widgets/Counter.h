@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QLabel>
+#include <QLCDNumber>
 
 class Counter : public QWidget
 {
@@ -14,7 +14,7 @@ public:
 		: QWidget(parent)
 		, m_Value(init)
 		, m_InitValue(init)
-		, m_Label(*new QLabel)
+		, m_Label(*new QLCDNumber)
 	{
 		QWidget::setLayout(new QHBoxLayout(this));
 		QWidget::layout()->setSpacing(0);
@@ -25,10 +25,11 @@ public:
 			addIncrButton(-i);
 		}
 
-		m_Label.setText( QString::number(m_Value) );
+		m_Label.display( m_Value );
 		m_Label.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 		m_Label.setMinimumWidth(50);
-		m_Label.setAlignment( Qt::AlignCenter );
+		m_Label.setSegmentStyle( QLCDNumber::Flat );
+		m_Label.setLineWidth(0);
 
 		QWidget::layout()->addWidget( &m_Label );
 		for (int i : increments)
@@ -41,7 +42,7 @@ private:
 
 	int m_Value;
 	int m_InitValue;
-	QLabel & m_Label;
+	QLCDNumber & m_Label;
 
 protected:
 
@@ -53,8 +54,7 @@ protected:
 				txt = "+" + txt;
 			}
 			QPushButton * btn = new QPushButton(txt);
-			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-			btn->setFixedWidth(30);
+			btn->setFixedWidth(35);
 			btn->setStyleSheet("font-size: 11pt;");
 
 			QWidget::layout()->addWidget(btn);
@@ -64,7 +64,7 @@ protected:
 	void mouseDoubleClickEvent( QMouseEvent * event ) override
 	{
 		m_Value = m_InitValue;
-		m_Label.setText( QString::number(m_Value) );
+		m_Label.display( m_Value );
 
 		QWidget::mouseDoubleClickEvent(event);
 	}
@@ -76,7 +76,7 @@ public slots:
 	void updateValue(int i)
 	{
 		m_Value += i;
-		m_Label.setText( QString::number(m_Value) );
+		m_Label.display( m_Value );
 	}
 
 };

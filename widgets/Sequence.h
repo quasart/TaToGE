@@ -4,7 +4,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
-
+#include <QStyle>
 
 
 
@@ -24,9 +24,11 @@ public:
 		QWidget::layout()->setContentsMargins(0,0,0,0);
 
 		{
-			QPushButton * btn = new QPushButton("<", parent);
+			QPushButton * btn = new QPushButton(parent);
+			btn->setIcon(style()->standardIcon(QStyle::SP_ArrowBack));
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
+			btn->setFlat(true);
 			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &CountDown::previous);
 		}
@@ -38,9 +40,11 @@ public:
 		}
 
 		{
-			QPushButton * btn = new QPushButton(">", parent);
+			QPushButton * btn = new QPushButton(parent);
+			btn->setIcon(style()->standardIcon(QStyle::SP_ArrowForward));
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setFixedWidth(30);
+			btn->setFlat(true);
 			QWidget::layout()->addWidget(btn);
 			connect(btn, &QPushButton::clicked, this, &CountDown::next);
 		}

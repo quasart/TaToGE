@@ -36,7 +36,6 @@ Needs Qt5 and C++14 compiler.
 ```
 sudo apt-get install qtbase5-dev qt5-default
 qmake
-lrelease Makefile.pro
 make
 ```
 
@@ -80,12 +79,7 @@ git clone https://github.com/mxe/mxe.git
 cd mxe
 make qtbase
 
-### Will generate : ./usr/i686-w64-mingw32.static/qt5/bin/qmake
+### Will generate : ../mxe/usr/bin/i686-w64-mingw32.static-qmake-qt5
 
 ```
-
-## TODO before v1 release
-
-- choose Open source licence
-- docker build environement (for Windows, Mobile...)
 

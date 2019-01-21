@@ -13,4 +13,5 @@ Makefile
 *.Release
 release/
 *_plugin_import.cpp
+*.rc
 

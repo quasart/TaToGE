@@ -96,7 +96,7 @@ public:
 
 	void showLoadDialog()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, tr("Select template file"), "./template", "JSON templates (*.json)");
+		QString filename = QFileDialog::getOpenFileName(this, tr("Select file"), "./examples", "JSON templates (*.json)");
 		if (!filename.isEmpty())
 		{
 			clearTable();

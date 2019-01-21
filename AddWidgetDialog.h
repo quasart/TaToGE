@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QPushButton>
 
 #include <vector>
 
@@ -24,7 +25,7 @@ public:
 	{
 		QWidget::setWindowTitle(tr("New Widget"));
 
-		m_Layout.addRow( tr("Widget"), &m_Combo);
+		m_Layout.addRow( tr("Widget type"), &m_Combo);
 		m_Layout.addRow( tr("Name (optional)"), &m_NameInput);
 
 		{
@@ -106,6 +107,13 @@ public:
 			m_Layout.addRow( btn );
 			connect(btn, &QDialogButtonBox::accepted, this, &AddWidgetDialog::accept);
 			connect(btn, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+			QPushButton * ok_btn = btn->button(QDialogButtonBox::Ok);
+			if (ok_btn)
+			{
+				ok_btn->setText(tr("Add"));
+				ok_btn->setIcon(QIcon::fromTheme("list-add"));
+			}
 		}
 	}
 
