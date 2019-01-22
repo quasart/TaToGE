@@ -15,7 +15,7 @@ class Dice : public QWidget
 Q_OBJECT
 
 public:
-	explicit Dice(size_t face_nb = 6, size_t dice_nb = 2, QWidget * parent = nullptr)
+	explicit Dice(size_t face_nb = 6, size_t dice_nb = 1, QWidget * parent = nullptr)
 		: QWidget(parent)
 		, m_FaceCount(face_nb)
 		, m_Timer(this)
@@ -52,11 +52,6 @@ public:
 		{
 			btn->setText(faces.back());
 		}
-	}
-
-	bool isRunning() const
-	{
-		return m_Timer.isActive();
 	}
 
 private:
@@ -98,6 +93,7 @@ public slots:
 	void setRandom()
 	{
 		std::uniform_int_distribution<int> distribution(1,m_FaceCount);
+		int sum = 0;
 
 		for ( QPushButton * btn : m_Dices )
 		{
@@ -105,10 +101,24 @@ public slots:
 			if ( m_FaceLabels.empty() )
 			{
 				btn->setText( QString::number(value) );
+				sum += value;
 			}
 			else
 			{
 				btn->setText( m_FaceLabels.at(value-1) );
+			}
+		}
+
+		if ( m_Dices.size() > 1
+				&& m_FaceLabels.empty() )
+		{
+			if (m_RollTime==0)
+			{
+				setToolTip( QString::number(sum) );
+			}
+			else
+			{
+				setToolTip( "" );
 			}
 		}
 	}

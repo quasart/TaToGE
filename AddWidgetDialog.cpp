@@ -1,6 +1,68 @@
 #include "AddWidgetDialog.h"
 
 #include <QDialogButtonBox>
+#include <QDebug>
+#include <QRegularExpression>
+
+QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
+{
+	int count = 1;
+	int nb_faces = 6;
+	bool is_fudge = false;
+
+	QRegularExpression re("^ *"
+			"([1-9])?"
+			" *[Dd] *"
+			"([1-9][0-9]*)?([Ff])?"
+			" *$",
+			QRegularExpression::CaseInsensitiveOption);
+	QRegularExpressionMatch match = re.match(code);
+	if (match.hasMatch())
+	{
+		QString count_str = match.captured(1);
+		QString nb_faces_str = match.captured(2);
+		QString flag = match.captured(3);
+
+		if (!count_str.isEmpty())
+		{
+			count = count_str.toInt(ok);
+		}
+
+		if (!nb_faces_str.isEmpty())
+		{
+			nb_faces = nb_faces_str.toInt(ok);
+		}
+
+		if (flag == "F" || flag == "f")
+		{
+			is_fudge = true;
+		}
+	}
+	else
+	{
+		if (ok)
+		{
+			*ok = false;
+		}
+		else
+		{
+			qWarning() << "Invalid dice code" << code;
+		}
+	}
+
+	if (ok && ! *ok)
+	{
+		return QJsonObject{};
+	}
+	else if (is_fudge)
+	{
+		return QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{" ","-","+"}}, {"Count",count}};
+	}
+	else
+	{
+		return QJsonObject{{"Type","Dice"}, {"NbSides",nb_faces}, {"Count",count}};
+	}
+}
 
 AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 	: QDialog(parent)
@@ -25,25 +87,26 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 		m_Combo.addItem( tr("Other SandTimer..."),  QJsonObject{{"Type","Timer"}} );
 		m_Combo.insertSeparator(m_Combo.count());
 
-		m_Combo.addItem( tr("4-sided die"),   QJsonObject{{"Type","Dice"}, {"NbSides",4}} );
-		m_Combo.addItem( tr("6-sided die"),   QJsonObject{{"Type","Dice"}, {"NbSides",6}} );
+		m_Combo.addItem( tr("4-sided die"),   parseDiceCode("d4") );
+		m_Combo.addItem( tr("6-sided die"),   parseDiceCode("d6") );
 		m_Combo.setCurrentIndex( m_Combo.count()-1);
-		m_Combo.addItem( tr("8-sided die"),   QJsonObject{{"Type","Dice"}, {"NbSides",8}} );
-		m_Combo.addItem( tr("10-sided die"),  QJsonObject{{"Type","Dice"}, {"NbSides",10}} );
-		m_Combo.addItem( tr("12-sided die"),  QJsonObject{{"Type","Dice"}, {"NbSides",12}} );
-		m_Combo.addItem( tr("20-sided die"),  QJsonObject{{"Type","Dice"}, {"NbSides",20}} );
-		m_Combo.addItem( tr("100-sided die"), QJsonObject{{"Type","Dice"}, {"NbSides",100}} );
-		m_Combo.addItem( tr("2 dice"),        QJsonObject{{"Type","Dice"}, {"NbSides",6}, {"Count",2}} );
-		m_Combo.addItem( tr("3 dice"),        QJsonObject{{"Type","Dice"}, {"NbSides",6}, {"Count",3}} );
-		m_Combo.addItem( tr("4 dice"),        QJsonObject{{"Type","Dice"}, {"NbSides",6}, {"Count",4}} );
+		m_Combo.addItem( tr("8-sided die"),   parseDiceCode("d8") );
+		m_Combo.addItem( tr("10-sided die"),  parseDiceCode("d10") );
+		m_Combo.addItem( tr("12-sided die"),  parseDiceCode("d12") );
+		m_Combo.addItem( tr("20-sided die"),  parseDiceCode("d20") );
+		m_Combo.addItem( tr("100-sided die"), parseDiceCode("d100") );
+		m_Combo.addItem( tr("2 dice"),        parseDiceCode("2d6") );
+		m_Combo.addItem( tr("3 dice"),        parseDiceCode("3d6") );
+		m_Combo.addItem( tr("4 dice"),        parseDiceCode("4d6") );
+		m_Combo.addItem( tr("4 Fudge dice"),  parseDiceCode("4dF") );
 		m_Combo.addItem( tr("Other dice..."), QJsonObject{{"Type","Dice"}} );
 		m_Combo.insertSeparator(m_Combo.count());
 
 		m_Combo.addItem( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}} );
 		m_Combo.addItem( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{"0",
-					"1 (R)",  "2 (B)", "3 (R)",
-					"4 (B)",  "5 (R)", "6 (B)",
-					"7 (R)",  "8 (B)", "9 (R)",
+				"1 (R)",  "2 (B)", "3 (R)",
+				"4 (B)",  "5 (R)", "6 (B)",
+				"7 (R)",  "8 (B)", "9 (R)",
 				"10 (B)", "11 (B)", "12 (R)",
 				"13 (B)", "14 (R)", "15 (B)",
 				"16 (R)", "17 (B)", "18 (R)",
@@ -139,13 +202,13 @@ void AddWidgetDialog::accept()
 	else if (m_JsonOutput["Type"] == "Dice"
 		&& !m_JsonOutput.contains("NbSides") && !m_JsonOutput.contains("Count"))
 	{
-		m_JsonOutput["NbSides"] = QInputDialog::getInt(this, this->windowTitle(),
-				tr("Number of sides of the die"), 6,
-				0, 2147483647, 1, &ok);
+		QString dice_code = QInputDialog::getText(this, this->windowTitle(),
+				tr("Please type dice code you want (2d6 for a pair of 6-sided dice)"),
+				QLineEdit::Normal, "2d6", &ok);
 		if (ok)
-		m_JsonOutput["Count"] = QInputDialog::getInt(this, this->windowTitle(),
-				tr("Number of dice to roll?"), 1,
-				1, 10, 1, &ok);
+		{
+			m_JsonOutput = parseDiceCode(dice_code, &ok);
+		}
 	}
 
 	if (ok)
