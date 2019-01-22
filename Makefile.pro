@@ -4,12 +4,12 @@ DESTDIR = .
 
 INCLUDEPATH += .
 QT += widgets
-SOURCES += main.cpp MainWindow.cpp
+SOURCES += main.cpp MainWindow.cpp Table.cpp AddWidgetDialog.cpp
 HEADERS += widgets/*.h  MainWindow.h Table.h AddWidgetDialog.h
 CONFIG += c++14
 
 VERSION= 0.1.0
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
 ### Translation ###
 

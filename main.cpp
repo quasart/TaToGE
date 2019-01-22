@@ -9,7 +9,7 @@ int main( int argc, char **argv )
 {
 	QApplication app( argc, argv );
 	QApplication::setWindowIcon(QIcon(":images/dice.svg"));
-	QApplication::setApplicationVersion(APP_VERSION);
+	QApplication::setApplicationVersion(M_APP_VERSION);
 
 	QTranslator qtTranslator;
 	qtTranslator.load("qt_" + QLocale::system().name(),

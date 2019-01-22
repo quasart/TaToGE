@@ -1,22 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include <QGridLayout>
-#include <QFile>
-#include <QFileDialog>
-#include <QDebug>
-#include <QResizeEvent>
-#include <QApplication>
-#include <QFont>
-
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonArray>
-
-#include "widgets/Timer.h"
-#include "widgets/Counter.h"
-#include "widgets/Dice.h"
-#include "widgets/Sequence.h"
 
 #include "AddWidgetDialog.h"
 
@@ -26,21 +10,7 @@ class Table : public QWidget
 Q_OBJECT
 
 public:
-	Table(QWidget * parent = nullptr)
-		: QWidget(parent)
-		, m_Layout( * new QGridLayout(this) )
-		, m_AddButton( * new QPushButton( tr("Table is empty, click here to add widget.") ) )
-		, m_AddDialog(parent ? parent : this)
-		, m_RowCount(0)
-	{
-		m_Layout.setSpacing(7);
-
-		m_AddButton.setFlat(true);
-		m_AddButton.setStyleSheet("font-size: 10pt; color: gray;");
-		connect(&m_AddButton, &QPushButton::clicked, this, &Table::showAddDialog );
-		m_Layout.addWidget( &m_AddButton, LAST_ROW, 0, 1, 2 );
-	}
-
+	Table(QWidget * parent = nullptr);
 
 private:
 	QGridLayout & m_Layout;
@@ -48,214 +18,23 @@ private:
 	AddWidgetDialog m_AddDialog;
 	int m_RowCount;
 
-	static const int LAST_ROW = 255; //row count arbitrary limitation to remove someday.
-
 public:
 
-	void addRow(QWidget * w)
-	{
-		if (!w) return;
-		if (m_RowCount == LAST_ROW) return;
+	void addRow(QWidget * w);
+	void deleteRow(int row);
 
-		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	void showAddDialog();
+	void showLoadDialog();
+	void clearTable();
 
-		if (w->whatsThis().isEmpty())
-		{
-			// Full Column span.
-			m_Layout.addWidget( w, m_RowCount, 0, 1, 2 );
-		}
-		else
-		{
-			QLabel * l = new QLabel(w->whatsThis());
-			m_Layout.addWidget( l, m_RowCount, 0 );
-			m_Layout.addWidget( w, m_RowCount, 1 );
-		}
-		m_AddButton.setText( tr("Add a widget") );
-		++m_RowCount;
-	}
+	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out);
+	std::vector<QString> asStringVector(QJsonValue array);
 
-	void deleteRow(int row)
-	{
-		for (int col = 0; col < m_Layout.columnCount(); ++col)
-		{
-			auto pItem = m_Layout.itemAtPosition(row,col);
-			if (pItem && pItem->widget())
-			{
-				delete pItem->widget();
-			}
-		}
-	}
-
-	void showAddDialog()
-	{
-		if (m_AddDialog.exec())
-		{
-			loadJson(QJsonDocument(m_AddDialog.getJsonOutput()));
-		}
-	}
-
-	void showLoadDialog()
-	{
-		QString filename = QFileDialog::getOpenFileName(this, tr("Select file"), "./examples", "JSON templates (*.json)");
-		if (!filename.isEmpty())
-		{
-			clearTable();
-			loadJsonFile(filename);
-		}
-	}
-
-	void clearTable()
-	{
-		for (int row = 0; row < m_RowCount ; ++row)
-		{
-			deleteRow(row);
-		}
-		m_AddButton.show();
-		m_RowCount = 0;
-	}
-
-	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out)
-	{
-		if (!array.isArray())
-		{
-			return default_out;
-		}
-
-		std::vector<int> result;
-		for ( QJsonValueRef v : array.toArray() )
-		{
-			if (v.isDouble())
-			{
-				result.push_back(v.toInt());
-			}
-			else
-			{
-				qWarning() << "Unexpected type when parsing array of int.";
-			}
-		}
-		return result;
-	}
-
-	std::vector<QString> asStringVector(QJsonValue array)
-	{
-		std::vector<QString> result;
-		for ( QJsonValueRef v : array.toArray() )
-		{
-			if (v.isString())
-			{
-				result.push_back(v.toString());
-			}
-			else
-			{
-				qWarning() << "Unexpected type when parsing array of string.";
-			}
-		}
-		return result;
-	}
-
-	void loadJsonFile(QString filename)
-	{
-		QString val;
-		QFile file;
-		file.setFileName(filename);
-		file.open(QIODevice::ReadOnly | QIODevice::Text);
-		val = file.readAll();
-		file.close();
-
-		loadJson(QJsonDocument::fromJson(val.toUtf8()));
-	}
-
-	void loadJson(QJsonDocument json_doc)
-	{
-		if (json_doc.isNull())
-		{
-			qWarning() << "Json decoding error.";
-		}
-		else if (json_doc.isObject())
-		{
-			QJsonObject const o = json_doc.object();
-			addRow( createWidget(o) );
-		}
-		else for ( QJsonValueRef const i : json_doc.array() )
-		{
-			QJsonObject const & item = i.toObject();
-			addRow( createWidget(item) );
-		}
-	}
-
-	QWidget * createWidget(QJsonObject const & item)
-	{
-		QWidget * pWidget = nullptr;
-
-		QString type = item["Type"].toString("<UNDEFINED>");
-		if (type == "Dice")
-		{
-			pWidget = new Dice( item["NbSides"].toInt(6),
-					item["Count"].toInt(1) );
-		}
-		else if (type == "Sortition")
-		{
-			pWidget = new Dice( asStringVector(item["List"]),
-					item["Count"].toInt(1) );
-		}
-		else if (type == "Timer")
-		{
-			pWidget = new Timer( item["Duration"].toInt(30) );
-		}
-		else if (type == "Counter")
-		{
-			pWidget = new Counter(
-					item["Value"].toInt(0),
-					asIntVector(item["Increments"], {1,5,10} )
-					);
-		}
-		else if (type == "CountDown")
-		{
-			pWidget = new CountDown( item["MaxValue"].toInt() );
-		}
-		else if (type == "Sequence")
-		{
-			std::vector<QString> list = asStringVector(item["List"]);
-			pWidget = new Sequence(list);
-		}
-		else if (type == "Label")
-		{
-			pWidget = new QLabel( item["Text"].toString("") );
-		}
-		else if (type == "Space")
-		{
-			pWidget = new QWidget();
-		}
-		else
-		{
-			qWarning() << "Unexpected Widget type " << type;
-		}
-
-		if (pWidget)
-		{
-			// General properties.
-			pWidget->setWhatsThis( item["Name"].toString("") );
-			pWidget->setStyleSheet( item["Style"].toString("") );
-		}
-
-		return pWidget;
-	}
+	void loadJsonFile(QString filename);
+	void loadJson(QJsonDocument json_doc);
+	QWidget * createWidget(QJsonObject const & item);
 
 protected:
-	void resizeEvent(QResizeEvent* event) override
-	{
-		QWidget::ensurePolished();
-
-		const size_t initial_x = QWidget::sizeHint().width();
-		const size_t initial_y = QWidget::sizeHint().height();
-		const QFont initial_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
-
-		float const x_ratio = (float)event->size().width() / initial_x;
-		float const y_ratio = (float)event->size().height() / initial_y;
-		size_t const point_size = (size_t) (initial_font.pointSize() * std::min(x_ratio,y_ratio));
-		QWidget::setStyleSheet("* { font-size: " + QString::number(point_size) + "pt; }" );
-
-		QWidget::resizeEvent(event);
-	}
+	void resizeEvent(QResizeEvent* event) override;
 
 };
