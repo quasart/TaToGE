@@ -26,6 +26,7 @@ Table::Table(QWidget * parent)
 	, m_AddButton( * new QPushButton( tr("Table is empty, click here to add widget.") ) )
 	, m_AddDialog(parent ? parent : this)
 	, m_RowCount(0)
+	, m_FontSize(1.2)
 {
 	m_Layout.setSpacing(7);
 
@@ -51,11 +52,14 @@ void Table::addRow(QWidget * w)
 	else
 	{
 		QLabel * l = new QLabel(w->whatsThis());
+		l->setMinimumHeight(w->minimumHeight());
 		m_Layout.addWidget( l, m_RowCount, 0 );
 		m_Layout.addWidget( w, m_RowCount, 1 );
 	}
 	m_AddButton.setText( tr("Add a widget") );
 	++m_RowCount;
+	
+	updateFontSize();
 }
 
 void Table::deleteRow(int row)
@@ -220,25 +224,46 @@ QWidget * Table::createWidget(QJsonObject const & item)
 		// General properties.
 		pWidget->setWhatsThis( item["Name"].toString("") );
 		pWidget->setStyleSheet( item["Style"].toString("") );
+		pWidget->setMinimumSize( { 300,30 } );
 	}
 
 	return pWidget;
 }
 
-void Table::resizeEvent(QResizeEvent* event)
+void Table::updateFontSize()
 {
 	QWidget::ensurePolished();
+	const QFont app_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
 
-	const size_t initial_x = QWidget::sizeHint().width();
-	const size_t initial_y = QWidget::sizeHint().height();
-	const QFont initial_font = qobject_cast<QApplication *>(QCoreApplication::instance())->font();
+	float const x_ratio = (float)size().width() / sizeHint().width();
+	float const y_ratio = (float)size().height() / sizeHint().height();
+	float const ratio = std::min(x_ratio,y_ratio);
+	size_t const point_size = (size_t) (app_font.pointSize() * m_FontSize * ratio);
+	if (point_size)
+	{
+		QWidget::setStyleSheet("* { font-size: " + QString::number(point_size) + "pt; }" );
+	}
+}
 
-	float const x_ratio = (float)event->size().width() / initial_x;
-	float const y_ratio = (float)event->size().height() / initial_y;
-	size_t const point_size = (size_t) (initial_font.pointSize() * std::min(x_ratio,y_ratio));
-	QWidget::setStyleSheet("* { font-size: " + QString::number(point_size) + "pt; }" );
+void Table::wheelEvent(QWheelEvent *event)
+{
+	if ( event->modifiers() & Qt::ControlModifier )
+	{
+		m_FontSize *= 1. + (float) event->angleDelta().y() / 1200.;
+		updateFontSize();
 
+		event->accept();
+	}
+}
+
+void Table::resizeEvent(QResizeEvent* event)
+{
+	updateFontSize();
 	QWidget::resizeEvent(event);
 }
 
+QSize Table::sizeHint() const
+{
+	return { 350, 50*(m_RowCount+1) } ;
+}
 

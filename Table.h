@@ -17,6 +17,7 @@ private:
 	QPushButton & m_AddButton;
 	AddWidgetDialog m_AddDialog;
 	int m_RowCount;
+	float m_FontSize;
 
 public:
 
@@ -34,7 +35,11 @@ public:
 	void loadJson(QJsonDocument json_doc);
 	QWidget * createWidget(QJsonObject const & item);
 
+	void updateFontSize();
+
 protected:
+	void wheelEvent(QWheelEvent *event) override;
 	void resizeEvent(QResizeEvent* event) override;
+	QSize sizeHint() const override;
 
 };

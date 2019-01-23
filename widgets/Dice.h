@@ -36,6 +36,7 @@ public:
 		{
 			QPushButton * btn = new QPushButton(QString::number(face_nb));
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+			btn->setMinimumWidth(5);
 
 			connect(btn, SIGNAL(clicked()), this, SLOT(roll()));
 			m_Dices.push_back(btn);
