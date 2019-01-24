@@ -44,6 +44,7 @@ MainWindow::MainWindow()
 		action->setShortcuts(QKeySequence::HelpContents);
 		action->setIcon(QIcon::fromTheme("help-contents"));
 		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, "",
+				tr("TaToGE: Table-Top Game Equipement.") + "\n\n" +
 				tr("This application provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games.") + "\n\n" +
 				tr("Click on 'Add a widget' to set equipement on table before using them.")); }  );
 	}

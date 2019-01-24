@@ -1,4 +1,3 @@
-# µGameTools
 
 This project provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games : Dice, sandtimers, score counters...
 

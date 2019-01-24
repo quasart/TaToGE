@@ -1,4 +1,4 @@
-# µGameTools
+# TaToGE
 
 This project provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games : Dice, sandtimers, score counters...
 
@@ -23,23 +23,31 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
    - "Go" signal
 - Add sounds on events
 - General reset button
-- Tools dynamic Update/Delete
+- Tools dynamic delete/order
 - Game status/template export
 - Dice graphics with dots
 - lock mode parameter (to hide admin menus)
 - Expert mode (json edit) for adding widgets
 
+## TODO
+
+- improve "add widget" dialog
+- make icons
+    - https://commons.wikimedia.org/wiki/File:Terninger.jpg
+    - https://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+
 ## Build command
 
 Needs Qt5 and C++14 compiler.
 
+For debian/ubuntu:
 ```
 sudo apt-get install qtbase5-dev qt5-default
 qmake
 make
 ```
 
-For windows build on debian through [MXE](https://mxe.cc/) :
+For windows build on debian/ubuntu through [MXE](https://mxe.cc/):
 ```
 sudo apt-get install \
     autoconf \

@@ -4,7 +4,7 @@ moc_*
 *.qrc
 qrc_qmake_qmake_immediate.cpp
 *.o
-uGameTools
+tatoge
 *~
 core
 *.core

@@ -9,6 +9,7 @@ int main( int argc, char **argv )
 {
 	QApplication app( argc, argv );
 	QApplication::setWindowIcon(QIcon(":images/dice.svg"));
+	QApplication::setApplicationName("TaToGE");
 	QApplication::setApplicationVersion(M_APP_VERSION);
 
 	QTranslator qtTranslator;
@@ -17,7 +18,7 @@ int main( int argc, char **argv )
 	app.installTranslator(&qtTranslator);
 
 	QTranslator myappTranslator;
-	if (myappTranslator.load(QLocale(), QLatin1String("uGameTools"), QLatin1String("_"), QLatin1String(":i18n")))
+	if (myappTranslator.load(QLocale(), QLatin1String("tatoge"), QLatin1String("_"), QLatin1String(":i18n")))
 	{
 		app.installTranslator(&myappTranslator);
 	}

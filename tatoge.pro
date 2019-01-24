@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = uGameTools
+TARGET = tatoge
 DESTDIR = .
 
 INCLUDEPATH += .
@@ -13,14 +13,14 @@ DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
 ### Translation ###
 
-TRANSLATIONS = i18n/uGameTools_fr.ts
-RESOURCES   += i18n/uGameTools_fr.qm
+TRANSLATIONS = i18n/tatoge_fr.ts
+RESOURCES   += i18n/tatoge_fr.qm
 
-LRELEASE_TARGET.target = i18n/uGameTools_fr.qm
-LRELEASE_TARGET.depends = i18n/uGameTools_fr.ts
-LRELEASE_TARGET.commands = lrelease Makefile.pro
+LRELEASE_TARGET.target = i18n/tatoge_fr.qm
+LRELEASE_TARGET.depends = i18n/tatoge_fr.ts
+LRELEASE_TARGET.commands = lrelease tatoge.pro
 QMAKE_EXTRA_TARGETS += LRELEASE_TARGET
-PRE_TARGETDEPS += i18n/uGameTools_fr.qm
+PRE_TARGETDEPS += i18n/tatoge_fr.qm
 
 ### Icon ###
 
