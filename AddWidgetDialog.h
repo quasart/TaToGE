@@ -1,14 +1,14 @@
 #pragma once
 
 #include <QDialog>
-#include <QFormLayout>
+#include <QGridLayout>
+
 #include <QLineEdit>
-#include <QInputDialog>
-#include <QComboBox>
-#include <QPushButton>
+#include <QTimeEdit>
+#include <QRadioButton>
+#include <QSpinBox>
 
 #include <QJsonObject>
-#include <QJsonArray>
 
 #include <vector>
 
@@ -23,25 +23,22 @@ public:
 
 	QJsonObject getJsonOutput() const { return m_JsonOutput; }
 
-	QJsonArray getNameList(bool * ok)
-	{
-		QJsonArray result = {};
-		QString const list_str = QInputDialog::getText(this, this->windowTitle(),
-					tr("Please provide list of names, separated by semicolon ';'"), 
-					QLineEdit::Normal, "", ok);
-		for ( QString str : list_str.split(";"))
-		{
-			result.push_back(str);
-		}
-		*ok &= (result.size() > 1); // found no separator.
-		return result;
-	}
-
 private:
-	QFormLayout & m_Layout;
-	QLineEdit m_NameInput;
-	QComboBox m_Combo;
+	QGridLayout * m_RadioGridLayout;
+
+	QLineEdit * m_NameInput;
+	QLineEdit * m_DiceCodeInput;
+	QTimeEdit * m_DurationInput;
+	QSpinBox * m_CountDownInput;
+	QLineEdit * m_SequenceInput;
+	QLineEdit * m_SortitionInput;
+
 	QJsonObject m_JsonOutput;
+	QJsonObject m_RadioJson;
+
+	QRadioButton * addRadio(QString name, QJsonObject result, QString description = "", QWidget * form = nullptr);
+	void addSeparator();
+
 
 public slots:
 	void accept();

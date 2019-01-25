@@ -31,7 +31,6 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 ## TODO
 
-- improve "add widget" dialog
 - make icons
     - https://commons.wikimedia.org/wiki/File:Terninger.jpg
     - https://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html

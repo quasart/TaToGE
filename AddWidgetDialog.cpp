@@ -4,6 +4,16 @@
 #include <QDebug>
 #include <QRegularExpression>
 
+#include <QLabel>
+#include <QGridLayout>
+#include <QScrollArea>
+#include <QRadioButton>
+#include <QTimeEdit>
+#include <QPushButton>
+
+#include <QJsonArray>
+
+
 QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
 {
 	int count = 1;
@@ -64,59 +74,165 @@ QJsonObject parseDiceCode(QString code, bool * ok = nullptr)
 	}
 }
 
+QJsonArray parseNameList(QString list_str, bool * ok)
+{
+	QJsonArray result = {};
+	for ( QString str : list_str.split(";"))
+	{
+		result.push_back(str);
+	}
+
+	if (ok)
+	{
+		*ok &= (result.size() > 1); // found no separator.
+	}
+
+	return result;
+}
+
+void AddWidgetDialog::addSeparator()
+{
+	auto line = new QFrame;
+	line->setMinimumSize(QSize(0, 15));
+	line->setFrameShape(QFrame::HLine);
+	line->setFrameShadow(QFrame::Sunken);
+	m_RadioGridLayout->addWidget( line, m_RadioGridLayout->rowCount(), 0, 1, 3);
+}
+
+QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QString description, QWidget * form)
+{
+	int const row = m_RadioGridLayout->rowCount();
+
+	auto btn = new QRadioButton(name);
+	QIcon icon(QIcon::fromTheme(QStringLiteral("document")));
+	btn->setIcon(icon);
+	btn->setIconSize(QSize(32, 32));
+	m_RadioGridLayout->addWidget(btn, row, 0, 1, 1);
+
+	connect( btn, &QRadioButton::toggled,  [result,this,btn,form]()
+			{
+				if (btn->isChecked()) m_RadioJson = result;
+				if (form) form->setEnabled(btn->isChecked());
+			} );
+
+	if (form)
+	{
+		m_RadioGridLayout->addWidget(form, row, 1, 1, 1);
+		form->setEnabled(false);
+	}
+
+	if (!description.isEmpty())
+	{
+		auto descr = new QLabel(description);
+		descr->setWordWrap(true);
+		if (form)
+		{
+			m_RadioGridLayout->addWidget(descr, row, 2, 1, 1);
+		}
+		else
+		{
+			m_RadioGridLayout->addWidget(descr, row, 1, 1, 2);
+		}
+	}
+
+	return btn;
+}
+
+
 AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 	: QDialog(parent)
-	, m_Layout( * new QFormLayout(this) )
+	, m_RadioGridLayout(new QGridLayout)
+	, m_NameInput( new QLineEdit )
+	, m_DiceCodeInput( new QLineEdit("2d6") )
+	, m_DurationInput( new QTimeEdit({0,1,0}) )
+	, m_CountDownInput( new QSpinBox )
+	, m_SequenceInput( new QLineEdit(tr("Spring;Summer;Automn;Winter")) )
+	, m_SortitionInput( new QLineEdit(tr("Alice;Bob;Charlie")) )
 {
-	QWidget::setWindowTitle(tr("New Widget"));
+	// Build window
 
-	m_Layout.addRow( tr("Widget type"), &m_Combo);
-	m_Layout.addRow( tr("Name (optional)"), &m_NameInput);
+	QWidget::setWindowTitle( tr("New Widget") );
+	auto mainGridLayout = new QGridLayout(this);
+
+	mainGridLayout->addWidget( new QLabel(tr("Widget type")), 0,0 );
 
 	{
-		m_Combo.addItem( tr("Counter"),      QJsonObject{{"Type","Counter"}} );
-		m_Combo.setItemData(m_Combo.count()-1, tr("To count points, typically to display score or penality."), Qt::ToolTipRole);
-		m_Combo.addItem( tr("CountDown..."),    QJsonObject{{"Type","CountDown"}} );
-		m_Combo.setItemData(m_Combo.count()-1, tr("To follow a count down, for example to display how many life are left before loosing."), Qt::ToolTipRole);
-		m_Combo.insertSeparator(m_Combo.count());
+		m_RadioGridLayout->setHorizontalSpacing(9);
+		m_RadioGridLayout->setVerticalSpacing(5);
+		m_RadioGridLayout->setContentsMargins(15, 11, 16, 11);
 
-		m_Combo.addItem( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}} );
-		m_Combo.addItem( tr( "1-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60}} );
-		m_Combo.addItem( tr( "3-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60*3}} );
-		m_Combo.addItem( tr( "5-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60*5}} );
-		m_Combo.addItem( tr("Other SandTimer..."),  QJsonObject{{"Type","Timer"}} );
-		m_Combo.insertSeparator(m_Combo.count());
+		auto scrollAreaWidgetContents = new QWidget();
+		scrollAreaWidgetContents->setGeometry(QRect(0, 0, 600, 567));
+		scrollAreaWidgetContents->setLayout(m_RadioGridLayout);
 
-		m_Combo.addItem( tr("4-sided die"),   parseDiceCode("d4") );
-		m_Combo.addItem( tr("6-sided die"),   parseDiceCode("d6") );
-		m_Combo.setCurrentIndex( m_Combo.count()-1);
-		m_Combo.addItem( tr("8-sided die"),   parseDiceCode("d8") );
-		m_Combo.addItem( tr("10-sided die"),  parseDiceCode("d10") );
-		m_Combo.addItem( tr("12-sided die"),  parseDiceCode("d12") );
-		m_Combo.addItem( tr("20-sided die"),  parseDiceCode("d20") );
-		m_Combo.addItem( tr("100-sided die"), parseDiceCode("d100") );
-		m_Combo.addItem( tr("2 dice"),        parseDiceCode("2d6") );
-		m_Combo.addItem( tr("3 dice"),        parseDiceCode("3d6") );
-		m_Combo.addItem( tr("4 dice"),        parseDiceCode("4d6") );
-		m_Combo.addItem( tr("4 Fudge dice"),  parseDiceCode("4dF") );
-		m_Combo.addItem( tr("Other dice..."), QJsonObject{{"Type","Dice"}} );
-		m_Combo.insertSeparator(m_Combo.count());
+		auto scrollArea = new QScrollArea;
+		scrollArea->setWidget(scrollAreaWidgetContents);
+		scrollArea->setStyleSheet(QStringLiteral("QRadioButton { font-weight: bold; }"));
+		scrollArea->setFrameShape(QFrame::Panel);
+		scrollArea->setFrameShadow(QFrame::Sunken);
+		scrollArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+		scrollArea->setWidgetResizable(true);
+		mainGridLayout->addWidget( scrollArea, 1,0 );
+	}
 
-		m_Combo.addItem( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}} );
-		m_Combo.addItem( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{"0",
-				"1 (R)",  "2 (B)", "3 (R)",
-				"4 (B)",  "5 (R)", "6 (B)",
-				"7 (R)",  "8 (B)", "9 (R)",
-				"10 (B)", "11 (B)", "12 (R)",
-				"13 (B)", "14 (R)", "15 (B)",
-				"16 (R)", "17 (B)", "18 (R)",
-				"19 (R)", "20 (B)", "21 (R)",
-				"22 (B)", "23 (R)", "24 (B)",
-				"25 (R)", "26 (B)", "27 (R)",
-				"28 (B)", "29 (B)", "30 (R)",
-				"31 (B)", "32 (R)", "33 (B)",
-				"34 (R)", "35 (B)", "36 (R)" }}} );
-		m_Combo.addItem( tr("Magic 8 Ball"), QJsonObject{{"Type","Sortition"}, {"List", QJsonArray{
+	mainGridLayout->addWidget( new QLabel(tr("Widget name")), 2,0 );
+
+	{
+		m_NameInput->setPlaceholderText( tr("this name is optional...") );
+		mainGridLayout->addWidget( m_NameInput, 3,0 );
+	}
+
+	{
+		QDialogButtonBox * btn = new QDialogButtonBox(QDialogButtonBox::Ok
+													| QDialogButtonBox::Cancel);
+
+		mainGridLayout->addWidget( btn, 4,0 );
+		connect(btn, &QDialogButtonBox::accepted, this, &AddWidgetDialog::accept);
+		connect(btn, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+		QPushButton * ok_btn = btn->button(QDialogButtonBox::Ok);
+		if (ok_btn)
+		{
+			ok_btn->setText(tr("Add"));
+			ok_btn->setIcon(QIcon::fromTheme("list-add"));
+		}
+	}
+
+	// Radio buttons
+
+	{
+		addRadio( tr("Counter"),      QJsonObject{{"Type","Counter"}} , tr("To count points, typically to display score or penality."));
+		addRadio( tr("CountDown"),    QJsonObject{{"Type","CountDown"}} , tr("To follow a count down, for example to display how many life are left."), m_CountDownInput );
+		addSeparator();
+
+		addRadio( tr("6-sided die"),   parseDiceCode("d6"), tr("The classic one...") )->setChecked(true);
+		addRadio( tr("8-sided die"),   parseDiceCode("d8") );
+		addRadio( tr("20-sided die"),  parseDiceCode("d20") );
+		addRadio( tr("2 dice"),        parseDiceCode("2d6") );
+		addRadio( tr("4 Fudge dice"),  parseDiceCode("4dF") , tr("Used in Fudge role-playing system.") );
+		addRadio( tr("Other dice"),    QJsonObject{{"Type","Dice"}}, tr("'2d6' means two 6-sided dice."), m_DiceCodeInput );
+		addSeparator();
+
+		addRadio( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}} );
+		addRadio( tr( "1-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60}} );
+		addRadio( tr("Other SandTimer"),     QJsonObject{{"Type","Timer"}}, tr("Duration (mm:ss)"), m_DurationInput );
+		addSeparator();
+
+		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}} );
+		addRadio( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{"0",
+			 "1 " + tr("red odd low"    ),  "2 " + tr("black even low" ),  "3 " + tr("red odd low"    ),
+			 "4 " + tr("black even low" ),  "5 " + tr("red odd low"    ),  "6 " + tr("black even low" ),
+			 "7 " + tr("red odd low"    ),  "8 " + tr("black even low" ),  "9 " + tr("red odd low"    ),
+			"10 " + tr("black even low" ), "11 " + tr("black odd low"  ), "12 " + tr("red even low"   ),
+			"13 " + tr("black odd low"  ), "14 " + tr("red even low"   ), "15 " + tr("black odd low"  ),
+			"16 " + tr("red even low"   ), "17 " + tr("black odd low"  ), "18 " + tr("red even low"   ),
+			"19 " + tr("red odd high"   ), "20 " + tr("black even high"), "21 " + tr("red odd high"   ),
+			"22 " + tr("black even high"), "23 " + tr("red odd high"   ), "24 " + tr("black even high"),
+			"25 " + tr("red odd high"   ), "26 " + tr("black even high"), "27 " + tr("red odd high"   ),
+			"28 " + tr("black even high"), "29 " + tr("black odd high" ), "30 " + tr("red even high"  ),
+			"31 " + tr("black odd high" ), "32 " + tr("red even high"  ), "33 " + tr("black odd high" ),
+			"34 " + tr("red even high"  ), "35 " + tr("black odd high" ), "36 " + tr("red even high"  ) }}} );
+		addRadio( tr("Magic 8 Ball"), QJsonObject{{"Type","Sortition"}, {"List", QJsonArray{
 			tr("It is certain"),
 			tr("It is decidedly so"),
 			tr("Without a doubt"),
@@ -136,83 +252,92 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 			tr("Ask again later"),
 			tr("Better not tell you now"),
 			tr("Cannot predict now"),
-			tr("Concentrate and ask again") }}} );
-		m_Combo.setItemData(m_Combo.count()-1, tr("This magic item can answer any question."), Qt::ToolTipRole);
-		m_Combo.addItem( tr("Other sortition..."), QJsonObject{{"Type","Sortition"}} );
-		m_Combo.insertSeparator(m_Combo.count());
+			tr("Concentrate and ask again") }}} , tr("This magic item can answer any question."));
+		addRadio( tr("Custom sortition"), QJsonObject{{"Type","Sortition"}}, tr("List of possibilities, separated by semicolons (';')"), m_SortitionInput );
+		addSeparator();
 
-		m_Combo.addItem( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List",QJsonArray{"x1","x2","x4","x8","x16","x32","x64"}}} );
-		m_Combo.setItemData(m_Combo.count()-1, tr("This one is used in Backgammon."), Qt::ToolTipRole);
-		m_Combo.addItem( tr("Other sequence..."), QJsonObject{{"Type","Sequence"}} );
+		addRadio( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List",QJsonArray{"x1","x2","x4","x8","x16","x32","x64"}}} , tr("This one is used in Backgammon."));
+		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
+		addSeparator();
+
+		addRadio( tr("Empty space"), QJsonObject{{"Type","Space"}} , tr("Just to leave some empty room on the table."));
 	}
 
-	{
-		QDialogButtonBox * btn = new QDialogButtonBox(QDialogButtonBox::Ok
-													| QDialogButtonBox::Cancel);
+	m_DurationInput->setDisplayFormat("mm:ss");
+	m_CountDownInput->setValue(10);
+	m_CountDownInput->setMinimum(1);
+	m_CountDownInput->setMaximum(9999);
+	m_SequenceInput->setMinimumWidth(150);
+	m_SortitionInput->setMinimumWidth(150);
 
-		m_Layout.addRow( btn );
-		connect(btn, &QDialogButtonBox::accepted, this, &AddWidgetDialog::accept);
-		connect(btn, &QDialogButtonBox::rejected, this, &QDialog::reject);
-
-		QPushButton * ok_btn = btn->button(QDialogButtonBox::Ok);
-		if (ok_btn)
-		{
-			ok_btn->setText(tr("Add"));
-			ok_btn->setIcon(QIcon::fromTheme("list-add"));
-		}
-	}
 }
 
 
 void AddWidgetDialog::accept()
 {
-	m_JsonOutput = m_Combo.itemData( m_Combo.currentIndex() ).toJsonObject();
 	bool ok = true;
+	QJsonObject out = m_RadioJson;
 
-	if (!m_NameInput.text().isEmpty())
+	if (out["Type"] == "CountDown"
+		&& !out.contains("MaxValue"))
 	{
-		m_JsonOutput["Name"] = m_NameInput.text();
-		m_NameInput.setText("");
+		out["MaxValue"] = m_CountDownInput->value();
 	}
-
-	if (m_JsonOutput["Type"] == "CountDown"
-		&& !m_JsonOutput.contains("MaxValue"))
+	else if (out["Type"] == "Timer"
+		&& !out.contains("Duration"))
 	{
-		m_JsonOutput["MaxValue"] =  QInputDialog::getInt(this, this->windowTitle(),
-				tr("Initial value to decrease"), 10,
-				0, 2147483647, 1, &ok);
+		out["Duration"] =  QTime{0,0,0}.secsTo( m_DurationInput->time() );
 	}
-	else if (m_JsonOutput["Type"] == "Timer"
-		&& !m_JsonOutput.contains("Duration"))
+	else if (out["Type"] == "Sortition"
+		&& !out.contains("List"))
 	{
-		m_JsonOutput["Duration"] =  QInputDialog::getInt(this, this->windowTitle(),
-				tr("Timer duration in seconds"), 60,
-				1, 2147483647, 1, &ok);
-	}
-	else if (m_JsonOutput["Type"] == "Sortition"
-		&& !m_JsonOutput.contains("List"))
-	{
-		m_JsonOutput["List"] = getNameList(&ok);
-	}
-	else if (m_JsonOutput["Type"] == "Sequence"
-		&& !m_JsonOutput.contains("List"))
-	{
-		m_JsonOutput["List"] = getNameList(&ok);
-	}
-	else if (m_JsonOutput["Type"] == "Dice"
-		&& !m_JsonOutput.contains("NbSides") && !m_JsonOutput.contains("Count"))
-	{
-		QString dice_code = QInputDialog::getText(this, this->windowTitle(),
-				tr("Please type dice code you want (2d6 for a pair of 6-sided dice)"),
-				QLineEdit::Normal, "2d6", &ok);
+		out["List"] = parseNameList(m_SortitionInput->text(), &ok);
 		if (ok)
 		{
-			m_JsonOutput = parseDiceCode(dice_code, &ok);
+			m_SortitionInput->setStyleSheet( "" );
 		}
+		else
+		{
+			m_SortitionInput->setStyleSheet( "color: red;" );
+		}
+	}
+	else if (out["Type"] == "Sequence"
+		&& !out.contains("List"))
+	{
+		out["List"] = parseNameList(m_SequenceInput->text(), &ok);
+		if (ok)
+		{
+			m_SequenceInput->setStyleSheet( "" );
+		}
+		else
+		{
+			m_SequenceInput->setStyleSheet( "color: red;" );
+		}
+	}
+	else if (out["Type"] == "Dice"
+		&& !out.contains("NbSides") && !out.contains("Count"))
+	{
+		out = parseDiceCode(m_DiceCodeInput->text(), &ok);
+		if (ok)
+		{
+			m_DiceCodeInput->setStyleSheet( "" );
+		}
+		else
+		{
+			m_DiceCodeInput->setStyleSheet( "color: red;" );
+		}
+	}
+
+	if (!m_NameInput->text().isEmpty())
+	{
+		out["Name"] = m_NameInput->text();
 	}
 
 	if (ok)
 	{
+		m_JsonOutput = out;
 		QDialog::accept();
+		m_NameInput->setText("");
 	}
 }
+

@@ -6,6 +6,8 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QCoreApplication>
+#include <QStyle>
+
 
 MainWindow::MainWindow()
 	: m_Table(this)
