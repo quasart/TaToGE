@@ -1,12 +1,6 @@
 #!/bin/bash
 
-if [[ $# == 0 ]]
-then
-	echo "usage: $0 <VERSION>"
-	exit 1
-fi
-
-VERSION=$1
+VERSION=`grep -w ^VERSION tatoge.pro | grep -o '[^ \s=]*$'`
 
 cp LICENSE release/
 cp -r examples/ release/

@@ -8,7 +8,7 @@ SOURCES += main.cpp MainWindow.cpp Table.cpp AddWidgetDialog.cpp
 HEADERS += widgets/*.h  MainWindow.h Table.h AddWidgetDialog.h
 CONFIG += c++14
 
-VERSION= 0.1.0
+VERSION = 0.1.2
 DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
 ### Translation ###
@@ -22,14 +22,15 @@ LRELEASE_TARGET.commands = lrelease tatoge.pro
 QMAKE_EXTRA_TARGETS += LRELEASE_TARGET
 PRE_TARGETDEPS += i18n/tatoge_fr.qm
 
-### Icon ###
+### Icons ###
 
 RC_ICONS    += images/dice.ico
+RESOURCES   += images/dice.svg
 ICO_TARGET.target = images/dice.ico
 ICO_TARGET.depends = images/dice.svg
 ICO_TARGET.commands = convert -render -background transparent images/dice.svg -define icon:auto-resize=64,48,32,16 images/dice.ico
 QMAKE_EXTRA_TARGETS += ICO_TARGET
-win32:PRE_TARGETDEPS += images/dice.ico
+PRE_TARGETDEPS += images/dice.ico
 
 RESOURCES   += images/8ball.png
 RESOURCES   += images/coin.png
@@ -46,6 +47,11 @@ RESOURCES   += images/roulette.png
 RESOURCES   += images/sandtimer.png
 RESOURCES   += images/space.png
 RESOURCES   += images/videau.png
+SVG2PNG_TARGET.target = images/dice6.png
+SVG2PNG_TARGET.depends = images/dice6.svg
+SVG2PNG_TARGET.commands = ./images/render.sh
+QMAKE_EXTRA_TARGETS += SVG2PNG_TARGET
+PRE_TARGETDEPS += images/dice6.png
 
 
 ### Forbid use of deprecated feature of Qt ###

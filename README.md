@@ -29,19 +29,15 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - lock mode parameter (to hide admin menus)
 - Expert mode (json edit) for adding widgets
 
-## TODO
-
-- make icons
-    - https://commons.wikimedia.org/wiki/File:Terninger.jpg
-    - https://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
-
 ## Build command
 
 Needs Qt5 and C++14 compiler.
 
 For debian/ubuntu:
 ```
-sudo apt-get install qtbase5-dev qt5-default
+sudo apt-get install qtbase5-dev qt5-default qttools5-dev-tools imagemagick
+lrelease tatoge.pro
+./images/render.sh
 qmake
 make
 ```
@@ -85,9 +81,14 @@ sudo apt-get install g++-multilib
 git clone https://github.com/mxe/mxe.git
 cd mxe
 make qtbase
-
-### Will generate : ../mxe/usr/bin/i686-w64-mingw32.static-qmake-qt5
-### export PATH=../mxe/usr/bin/:$PATH
-
 ```
+
+Then, to finalize build:
+```
+export PATH=../mxe/usr/bin/:$PATH
+i686-w64-mingw32.static-qmake-qt5
+make
+./release_win_pkg.sh
+```
+
 
