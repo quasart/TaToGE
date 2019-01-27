@@ -36,7 +36,7 @@ private:
 	QJsonObject m_JsonOutput;
 	QJsonObject m_RadioJson;
 
-	QRadioButton * addRadio(QString name, QJsonObject result, QString description = "", QWidget * form = nullptr);
+	QRadioButton * addRadio(QString name, QJsonObject result, QString icon = "",  QString description = "", QWidget * form = nullptr);
 	void addSeparator();
 
 

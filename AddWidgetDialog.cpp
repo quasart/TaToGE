@@ -99,12 +99,13 @@ void AddWidgetDialog::addSeparator()
 	m_RadioGridLayout->addWidget( line, m_RadioGridLayout->rowCount(), 0, 1, 3);
 }
 
-QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QString description, QWidget * form)
+QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QString icon_name, QString description, QWidget * form)
 {
 	int const row = m_RadioGridLayout->rowCount();
 
 	auto btn = new QRadioButton(name);
 	QIcon icon(QIcon::fromTheme(QStringLiteral("document")));
+	if (!icon_name.isEmpty()) icon = QIcon(":images/"+icon_name+".svg");
 	btn->setIcon(icon);
 	btn->setIconSize(QSize(32, 32));
 	m_RadioGridLayout->addWidget(btn, row, 0, 1, 1);
@@ -201,24 +202,24 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 	// Radio buttons
 
 	{
-		addRadio( tr("Counter"),      QJsonObject{{"Type","Counter"}} , tr("To count points, typically to display score or penality."));
-		addRadio( tr("CountDown"),    QJsonObject{{"Type","CountDown"}} , tr("To follow a count down, for example to display how many life are left."), m_CountDownInput );
+		addRadio( tr("Counter"),      QJsonObject{{"Type","Counter"}} , "counter", tr("To count points, typically to display score or penality."))->setChecked(true);
+		addRadio( tr("CountDown"),    QJsonObject{{"Type","CountDown"}} , "counter", tr("To follow a count down, for example to display how many life are left."), m_CountDownInput );
 		addSeparator();
 
-		addRadio( tr("6-sided die"),   parseDiceCode("d6"), tr("The classic one...") )->setChecked(true);
-		addRadio( tr("8-sided die"),   parseDiceCode("d8") );
-		addRadio( tr("20-sided die"),  parseDiceCode("d20") );
-		addRadio( tr("2 dice"),        parseDiceCode("2d6") );
-		addRadio( tr("4 Fudge dice"),  parseDiceCode("4dF") , tr("Used in Fudge role-playing system.") );
-		addRadio( tr("Other dice"),    QJsonObject{{"Type","Dice"}}, tr("'2d6' means two 6-sided dice."), m_DiceCodeInput );
+		addRadio( tr("6-sided die"),   parseDiceCode("d6"), "dice6", tr("The classic one...") );
+		addRadio( tr("8-sided die"),   parseDiceCode("d8"), "dice8" );
+		addRadio( tr("20-sided die"),  parseDiceCode("d20"), "dice20" );
+		addRadio( tr("2 dice"),        parseDiceCode("2d6"), "dice2d6" );
+		addRadio( tr("4 Fudge dice"),  parseDiceCode("4dF") , "dice4df", tr("Used in Fudge role-playing system.") );
+		addRadio( tr("Other dice"),    QJsonObject{{"Type","Dice"}}, "custom", tr("'2d6' means two 6-sided dice."), m_DiceCodeInput );
 		addSeparator();
 
-		addRadio( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}} );
-		addRadio( tr( "1-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60}} );
-		addRadio( tr("Other SandTimer"),     QJsonObject{{"Type","Timer"}}, tr("Duration (mm:ss)"), m_DurationInput );
+		addRadio( tr("30-second SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",30}}, "sandtimer" );
+		addRadio( tr( "1-minute SandTimer"), QJsonObject{{"Type","Timer"}, {"Duration",60}}, "sandtimer" );
+		addRadio( tr("Other SandTimer"),     QJsonObject{{"Type","Timer"}}, "custom", tr("Duration (mm:ss)"), m_DurationInput );
 		addSeparator();
 
-		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}} );
+		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}}, "coin" );
 		addRadio( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{"0",
 			 "1 " + tr("red odd low"    ),  "2 " + tr("black even low" ),  "3 " + tr("red odd low"    ),
 			 "4 " + tr("black even low" ),  "5 " + tr("red odd low"    ),  "6 " + tr("black even low" ),
@@ -231,7 +232,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 			"25 " + tr("red odd high"   ), "26 " + tr("black even high"), "27 " + tr("red odd high"   ),
 			"28 " + tr("black even high"), "29 " + tr("black odd high" ), "30 " + tr("red even high"  ),
 			"31 " + tr("black odd high" ), "32 " + tr("red even high"  ), "33 " + tr("black odd high" ),
-			"34 " + tr("red even high"  ), "35 " + tr("black odd high" ), "36 " + tr("red even high"  ) }}} );
+			"34 " + tr("red even high"  ), "35 " + tr("black odd high" ), "36 " + tr("red even high"  ) }}}, "roulette" );
 		addRadio( tr("Magic 8 Ball"), QJsonObject{{"Type","Sortition"}, {"List", QJsonArray{
 			tr("It is certain"),
 			tr("It is decidedly so"),
@@ -252,15 +253,15 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 			tr("Ask again later"),
 			tr("Better not tell you now"),
 			tr("Cannot predict now"),
-			tr("Concentrate and ask again") }}} , tr("This magic item can answer any question."));
-		addRadio( tr("Custom sortition"), QJsonObject{{"Type","Sortition"}}, tr("List of possibilities, separated by semicolons (';')"), m_SortitionInput );
+			tr("Concentrate and ask again") }}} , "8ball", tr("This magic item can answer any question."));
+		addRadio( tr("Custom sortition"), QJsonObject{{"Type","Sortition"}}, "custom", tr("List of possibilities, separated by semicolons (';')"), m_SortitionInput );
 		addSeparator();
 
-		addRadio( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List",QJsonArray{"x1","x2","x4","x8","x16","x32","x64"}}} , tr("This one is used in Backgammon."));
-		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
+		addRadio( tr("Doubling cube"), QJsonObject{{"Type","Sequence"}, {"List",QJsonArray{"x1","x2","x4","x8","x16","x32","x64"}}} , "videau", tr("This one is used in Backgammon."));
+		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, "custom", tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
 		addSeparator();
 
-		addRadio( tr("Empty space"), QJsonObject{{"Type","Space"}} , tr("Just to leave some empty room on the table."));
+		addRadio( tr("Empty space"), QJsonObject{{"Type","Space"}} , "space", tr("Just to leave some empty room on the table."));
 	}
 
 	m_DurationInput->setDisplayFormat("mm:ss");

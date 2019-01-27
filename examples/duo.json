@@ -14,9 +14,7 @@
     "Increments": [ 1, 5, 10 ]
   },
   {
-    "Type": "Dice",
-    "Name": "Dé 6",
-    "NbSides": 6
+    "Type": "Space"
   },
   {
     "Type": "Sortition",

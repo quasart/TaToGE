@@ -116,102 +116,102 @@
     <message>
         <location filename="../AddWidgetDialog.cpp" line="235"/>
         <source>Magic 8 Ball</source>
-        <translation type="unfinished"></translation>
+        <translation>Magic 8 Ball</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="236"/>
         <source>It is certain</source>
-        <translation type="unfinished"></translation>
+        <translation>C&apos;est certain</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="237"/>
         <source>It is decidedly so</source>
-        <translation type="unfinished"></translation>
+        <translation>Clairement</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="238"/>
         <source>Without a doubt</source>
-        <translation type="unfinished"></translation>
+        <translation>Sans aucun doute</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="239"/>
         <source>Yes - definitely</source>
-        <translation type="unfinished"></translation>
+        <translation>Oui, clairement</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="240"/>
         <source>You may rely on it</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu peux compter là dessus</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="241"/>
         <source>As I see it, yes</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;après moi, oui</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="242"/>
         <source>Most likely</source>
-        <translation type="unfinished"></translation>
+        <translation>Probablement</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="243"/>
         <source>Outlook good</source>
-        <translation type="unfinished"></translation>
+        <translation>C&apos;est bien parti</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="244"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Oui</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="245"/>
         <source>Signs point to yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Il semble que oui</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="251"/>
         <source>Reply hazy, try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas clair, recommence</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="252"/>
         <source>Ask again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Redemande plus tard</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="253"/>
         <source>Better not tell you now</source>
-        <translation type="unfinished"></translation>
+        <translation>Je préfère ne pas répondre</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="254"/>
         <source>Cannot predict now</source>
-        <translation type="unfinished"></translation>
+        <translation>Je n&apos;arrive pas à savoir</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="255"/>
         <source>Concentrate and ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Concentre toi et demande à nouveau</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="246"/>
         <source>Don&apos;t count on it</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne compte pas dessus</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="149"/>
         <source>Spring;Summer;Automn;Winter</source>
-        <translation>Printemps;été;Automne;Hivers</translation>
+        <translation>Printemps;Été;Automne;Hivers</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="150"/>
         <source>Alice;Bob;Charlie</source>
-        <translation type="unfinished"></translation>
+        <translation>Alice;Bob;Charlie</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="178"/>
         <source>Widget name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du widget</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="181"/>
@@ -299,22 +299,22 @@
     <message>
         <location filename="../AddWidgetDialog.cpp" line="247"/>
         <source>My reply is no</source>
-        <translation type="unfinished"></translation>
+        <translation>Ma réponse est non</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="248"/>
         <source>My sources say no</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;après mes sources non</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="249"/>
         <source>Outlook not so good</source>
-        <translation type="unfinished"></translation>
+        <translation>C&apos;est mal parti</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="250"/>
         <source>Very doubtful</source>
-        <translation type="unfinished"></translation>
+        <translation>Peu probable</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="255"/>
@@ -329,7 +329,7 @@
     <message>
         <location filename="../AddWidgetDialog.cpp" line="256"/>
         <source>List of possibilities, separated by semicolons (&apos;;&apos;)</source>
-        <translation>Liste de possibilités, séparées par un point virgule (&apos;;&apos;)</translation>
+        <translation>Liste des possibilités, séparées par un point virgule (&apos;;&apos;)</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="260"/>
@@ -339,7 +339,7 @@
     <message>
         <location filename="../AddWidgetDialog.cpp" line="260"/>
         <source>List of steps, separated by semicolons (&apos;;&apos;)</source>
-        <translation>Liste de étapes, séparées par un point virgule (&apos;;&apos;)</translation>
+        <translation>Liste des étapes, séparées par un point virgule (&apos;;&apos;)</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="263"/>

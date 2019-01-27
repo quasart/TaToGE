@@ -33,6 +33,24 @@ ICO_TARGET.commands = convert -render -background transparent images/dice.svg -d
 QMAKE_EXTRA_TARGETS += ICO_TARGET
 win32:PRE_TARGETDEPS += images/dice.ico
 
+RESOURCES   += images/8ball.svg
+RESOURCES   += images/coin.svg
+RESOURCES   += images/counter.svg
+RESOURCES   += images/custom.svg
+RESOURCES   += images/dice20.svg
+RESOURCES   += images/dice2d6.svg
+RESOURCES   += images/dice4df.svg
+RESOURCES   += images/dice6.svg
+RESOURCES   += images/dice8.svg
+RESOURCES   += images/dice.ico
+RESOURCES   += images/dice.svg
+RESOURCES   += images/logo.svg
+RESOURCES   += images/roulette.svg
+RESOURCES   += images/sandtimer.svg
+RESOURCES   += images/space.svg
+RESOURCES   += images/videau.svg
+
+
 ### Forbid use of deprecated feature of Qt ###
 
 DEFINES += QT_DEPRECATED_WARNINGS
