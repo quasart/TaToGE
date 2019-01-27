@@ -205,8 +205,8 @@
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="150"/>
-        <source>Alice;Bob;Charlie</source>
-        <translation>Alice;Bob;Charlie</translation>
+        <source>Rock;Paper;Scissors</source>
+        <translation>Pierre;Papier;Ciseaux</translation>
     </message>
     <message>
         <location filename="../AddWidgetDialog.cpp" line="178"/>

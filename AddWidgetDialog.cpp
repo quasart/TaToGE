@@ -148,7 +148,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 	, m_DurationInput( new QTimeEdit({0,1,0}) )
 	, m_CountDownInput( new QSpinBox )
 	, m_SequenceInput( new QLineEdit(tr("Spring;Summer;Automn;Winter")) )
-	, m_SortitionInput( new QLineEdit(tr("Alice;Bob;Charlie")) )
+	, m_SortitionInput( new QLineEdit(tr("Rock;Paper;Scissors")) )
 {
 	// Build window
 
