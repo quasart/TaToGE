@@ -1,4 +1,4 @@
-# TaToGE
+# TaToGE: TableTop Game Equipment
 
 This project provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games : Dice, sandtimers, score counters...
 
@@ -6,11 +6,14 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 ## Features
 
-- Virtual board-game tools:
-  - SandTimer
-  - Counter
-  - Dice
-  - Sequence/CountDown follower
+- Widgets for game state display:
+  - `Timer`, for virtual sand-clock
+  - `Counter`
+  - `CountDown`/`Sequence` steps follower
+- Widgets to generate random:
+  - `Dice`
+  - `CardDrawer`, for draw without replacement
+  - Note: Draw **with** replacement can be performed in `Dice` widget by setting `Count` parameter greater than 1.
 - Template file loading (in json format)
 
 

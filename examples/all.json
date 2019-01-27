@@ -1,19 +1,8 @@
 [
   {
-    "Type": "Sortition",
-    "Name": "Pile ou face",
-    "List": [ "Pile", "Face" ]
-  },
-  {
     "Type": "Dice",
     "Name": "Dés 6",
     "NbSides": 6
-  },
-  {
-    "Type": "Dice",
-    "Name": "2 Dés 6",
-    "NbSides": 6,
-    "Count": 2
   },
   {
     "Type": "Dice",
@@ -34,6 +23,11 @@
     "Type": "CountDown",
     "Name": "Vies restantes",
     "MaxValue": 10
+  },
+  {
+    "Type": "Sequence",
+    "Name": "Videau",
+    "List": [ "x1", "x2", "x4", "x8", "x16", "x32", "x64" ]
   },
   {
     "Type": "Sortition",
@@ -60,9 +54,10 @@
                "Impossible" ]
   },
   {
-    "Type": "Sequence",
-    "Name": "Videau",
-    "List": [ "x1", "x2", "x4", "x8", "x16", "x32", "x64" ]
+    "Type": "CardDrawer",
+    "Name": "Podium",
+    "Cards": [ "Alice", "Bob", "Charly", "Dimitri", "Eve", "Fred" ],
+    "NbDrawing" : 3
   },
   {
     "Type": "Timer",

@@ -110,9 +110,13 @@ class Sequence : public CountDown
 
 public:
 	explicit Sequence(std::vector<QString> labels, QWidget * parent = nullptr)
-		: CountDown(labels.size(), parent)
+		: CountDown(labels.size()-1, parent)
 		, m_TurnLabels(labels)
 	{
+		if (labels.empty())
+		{
+			throw std::runtime_error("Sequence constructed with no step.");
+		}
 		Sequence::updateLabel();
 	}
 
@@ -121,16 +125,8 @@ public:
 protected:
 	void updateLabel() override
 	{
-		size_t sequence_index = m_MaxValue-m_Value; // Reversed because m_Value is downcounting.
-
-		if (sequence_index < m_TurnLabels.size())
-		{
-			m_Label.setText( m_TurnLabels[sequence_index] );
-		}
-		else
-		{
-			m_Label.setText("-");
-		}
+		size_t const sequence_index = m_TurnLabels.size()-1-m_Value;
+		m_Label.setText( m_TurnLabels.at(sequence_index) );
 	}
 
 };

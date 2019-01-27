@@ -149,6 +149,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 	, m_CountDownInput( new QSpinBox )
 	, m_SequenceInput( new QLineEdit(tr("Spring;Summer;Automn;Winter")) )
 	, m_SortitionInput( new QLineEdit(tr("Rock;Paper;Scissors")) )
+	, m_RacersInput( new QLineEdit("A;B;C;D;E;F;G;H") )
 {
 	// Build window
 
@@ -261,6 +262,10 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, "custom", tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
 		addSeparator();
 
+		addRadio( tr("Loto"), QJsonObject{{"Type","CardDrawer"}, {"DeckSize",49}, {"NbDrawing",6}} );
+		addRadio( tr("Snail racing"), QJsonObject{{"Type","CardDrawer"}, {"NbDrawing",5}}, "custom", tr("Names of snails, separated by semicolons (';')"), m_RacersInput );
+		addSeparator();
+
 		addRadio( tr("Empty space"), QJsonObject{{"Type","Space"}} , "space", tr("Just to leave some empty room on the table."));
 	}
 
@@ -326,6 +331,20 @@ void AddWidgetDialog::accept()
 		else
 		{
 			m_DiceCodeInput->setStyleSheet( "color: red;" );
+		}
+	}
+	else if (out["Type"] == "CardDrawer"
+		&& !out.contains("Cards")
+		&& !out.contains("DeckSize"))
+	{
+		out["Cards"] = parseNameList(m_RacersInput->text(), &ok);
+		if (ok)
+		{
+			m_RacersInput->setStyleSheet( "" );
+		}
+		else
+		{
+			m_RacersInput->setStyleSheet( "color: red;" );
 		}
 	}
 

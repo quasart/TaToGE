@@ -12,6 +12,7 @@
 #include "widgets/Counter.h"
 #include "widgets/Dice.h"
 #include "widgets/Sequence.h"
+#include "widgets/CardDrawer.h"
 
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -205,6 +206,17 @@ QWidget * Table::createWidget(QJsonObject const & item)
 	{
 		std::vector<QString> list = asStringVector(item["List"]);
 		pWidget = new Sequence(list);
+	}
+	else if (type == "CardDrawer")
+	{
+		if (item.contains("Cards"))
+		{
+			pWidget = new CardDrawer( asStringVector(item["Cards"]), item["NbDrawing"].toInt(5) );
+		}
+		else
+		{
+			pWidget = new CardDrawer( item["DeckSize"].toInt(10), item["NbDrawing"].toInt(5) );
+		}
 	}
 	else if (type == "Label")
 	{

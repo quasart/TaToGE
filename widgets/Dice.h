@@ -26,6 +26,10 @@ public:
 		{
 			throw std::runtime_error("Dice constructed with no face.");
 		}
+		if (!dice_nb)
+		{
+			throw std::runtime_error("Dice constructed with zero dice.");
+		}
 
 		QWidget::setLayout(new QHBoxLayout(this));
 		QWidget::layout()->setContentsMargins(0,0,0,0);

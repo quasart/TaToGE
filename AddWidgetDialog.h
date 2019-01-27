@@ -32,6 +32,7 @@ private:
 	QSpinBox * m_CountDownInput;
 	QLineEdit * m_SequenceInput;
 	QLineEdit * m_SortitionInput;
+	QLineEdit * m_RacersInput;
 
 	QJsonObject m_JsonOutput;
 	QJsonObject m_RadioJson;
