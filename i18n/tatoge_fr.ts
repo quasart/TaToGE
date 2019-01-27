@@ -4,350 +4,350 @@
 <context>
     <name>AddWidgetDialog</name>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="154"/>
+        <location filename="../AddWidgetDialog.cpp" line="155"/>
         <source>New Widget</source>
         <translation>Nouveau widget</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="157"/>
+        <location filename="../AddWidgetDialog.cpp" line="158"/>
         <source>Widget type</source>
         <translation>Type de widget</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="204"/>
+        <location filename="../AddWidgetDialog.cpp" line="205"/>
         <source>Counter</source>
         <translation>Compteur</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="216"/>
+        <location filename="../AddWidgetDialog.cpp" line="217"/>
         <source>30-second SandTimer</source>
         <translation>Sablier de 30 sec</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="217"/>
+        <location filename="../AddWidgetDialog.cpp" line="218"/>
         <source>1-minute SandTimer</source>
         <translation>Sablier de 1 min</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="221"/>
+        <location filename="../AddWidgetDialog.cpp" line="222"/>
         <source>Coin flip</source>
         <translation>Pile ou face</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="221"/>
+        <location filename="../AddWidgetDialog.cpp" line="222"/>
         <source>Head</source>
         <translation>Face</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="221"/>
+        <location filename="../AddWidgetDialog.cpp" line="222"/>
         <source>Tail</source>
         <translation>Pile</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="204"/>
+        <location filename="../AddWidgetDialog.cpp" line="205"/>
         <source>To count points, typically to display score or penality.</source>
         <translation>Pour compter des points, typiquement pour afficher un score ou une pénalité.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="205"/>
+        <location filename="../AddWidgetDialog.cpp" line="206"/>
         <source>CountDown</source>
         <translation>Décompte</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="205"/>
+        <location filename="../AddWidgetDialog.cpp" line="206"/>
         <source>To follow a count down, for example to display how many life are left.</source>
         <translation>Pour suivre un décompte, par exemple pour afficher le nombre de vies restantes.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="218"/>
+        <location filename="../AddWidgetDialog.cpp" line="219"/>
         <source>Other SandTimer</source>
         <translation>Autre sablier</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="208"/>
+        <location filename="../AddWidgetDialog.cpp" line="209"/>
         <source>6-sided die</source>
         <translation>Dé à 6 faces</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="209"/>
+        <location filename="../AddWidgetDialog.cpp" line="210"/>
         <source>8-sided die</source>
         <translation>Dé à 8 faces</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="210"/>
+        <location filename="../AddWidgetDialog.cpp" line="211"/>
         <source>20-sided die</source>
         <translation>Dé à 20 faces</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="211"/>
+        <location filename="../AddWidgetDialog.cpp" line="212"/>
         <source>2 dice</source>
         <translation>2 dés</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="212"/>
+        <location filename="../AddWidgetDialog.cpp" line="213"/>
         <source>4 Fudge dice</source>
         <translation>4 dés Fudge</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="213"/>
+        <location filename="../AddWidgetDialog.cpp" line="214"/>
         <source>Other dice</source>
         <translation>Autres dés</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="222"/>
+        <location filename="../AddWidgetDialog.cpp" line="223"/>
         <source>Roulette</source>
         <translation>Roulette</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="259"/>
+        <location filename="../AddWidgetDialog.cpp" line="260"/>
         <source>Doubling cube</source>
         <translation>Videau</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="259"/>
+        <location filename="../AddWidgetDialog.cpp" line="260"/>
         <source>This one is used in Backgammon.</source>
         <translation>Celui-ci est utilisé au Backgammon.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="196"/>
+        <location filename="../AddWidgetDialog.cpp" line="197"/>
         <source>Add</source>
         <translation>Ajouter</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="235"/>
+        <location filename="../AddWidgetDialog.cpp" line="236"/>
         <source>Magic 8 Ball</source>
         <translation>Magic 8 Ball</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="236"/>
+        <location filename="../AddWidgetDialog.cpp" line="237"/>
         <source>It is certain</source>
         <translation>C&apos;est certain</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="237"/>
+        <location filename="../AddWidgetDialog.cpp" line="238"/>
         <source>It is decidedly so</source>
         <translation>Clairement</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="238"/>
+        <location filename="../AddWidgetDialog.cpp" line="239"/>
         <source>Without a doubt</source>
         <translation>Sans aucun doute</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="239"/>
+        <location filename="../AddWidgetDialog.cpp" line="240"/>
         <source>Yes - definitely</source>
         <translation>Oui, clairement</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="240"/>
+        <location filename="../AddWidgetDialog.cpp" line="241"/>
         <source>You may rely on it</source>
         <translation>Tu peux compter là dessus</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="241"/>
+        <location filename="../AddWidgetDialog.cpp" line="242"/>
         <source>As I see it, yes</source>
         <translation>D&apos;après moi, oui</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="242"/>
+        <location filename="../AddWidgetDialog.cpp" line="243"/>
         <source>Most likely</source>
         <translation>Probablement</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="243"/>
+        <location filename="../AddWidgetDialog.cpp" line="244"/>
         <source>Outlook good</source>
         <translation>C&apos;est bien parti</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="244"/>
+        <location filename="../AddWidgetDialog.cpp" line="245"/>
         <source>Yes</source>
         <translation>Oui</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="245"/>
+        <location filename="../AddWidgetDialog.cpp" line="246"/>
         <source>Signs point to yes</source>
         <translation>Il semble que oui</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="251"/>
+        <location filename="../AddWidgetDialog.cpp" line="252"/>
         <source>Reply hazy, try again</source>
         <translation>Pas clair, recommence</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="252"/>
+        <location filename="../AddWidgetDialog.cpp" line="253"/>
         <source>Ask again later</source>
         <translation>Redemande plus tard</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="253"/>
+        <location filename="../AddWidgetDialog.cpp" line="254"/>
         <source>Better not tell you now</source>
         <translation>Je préfère ne pas répondre</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="254"/>
+        <location filename="../AddWidgetDialog.cpp" line="255"/>
         <source>Cannot predict now</source>
         <translation>Je n&apos;arrive pas à savoir</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="255"/>
+        <location filename="../AddWidgetDialog.cpp" line="256"/>
         <source>Concentrate and ask again</source>
         <translation>Concentre toi et demande à nouveau</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="246"/>
+        <location filename="../AddWidgetDialog.cpp" line="247"/>
         <source>Don&apos;t count on it</source>
         <translation>Ne compte pas dessus</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="149"/>
+        <location filename="../AddWidgetDialog.cpp" line="150"/>
         <source>Spring;Summer;Automn;Winter</source>
         <translation>Printemps;Été;Automne;Hivers</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="150"/>
+        <location filename="../AddWidgetDialog.cpp" line="151"/>
         <source>Rock;Paper;Scissors</source>
         <translation>Pierre;Papier;Ciseaux</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="178"/>
+        <location filename="../AddWidgetDialog.cpp" line="179"/>
         <source>Widget name</source>
         <translation>Nom du widget</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="181"/>
+        <location filename="../AddWidgetDialog.cpp" line="182"/>
         <source>this name is optional...</source>
         <translation>Ce nom est optionnel...</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="208"/>
+        <location filename="../AddWidgetDialog.cpp" line="209"/>
         <source>The classic one...</source>
         <translation>Le dé classique...</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="212"/>
+        <location filename="../AddWidgetDialog.cpp" line="213"/>
         <source>Used in Fudge role-playing system.</source>
         <translation>Utilisé dans le système de jeu de rôle Fudge.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="213"/>
+        <location filename="../AddWidgetDialog.cpp" line="214"/>
         <source>&apos;2d6&apos; means two 6-sided dice.</source>
         <translation>&apos;2d6&apos; signifie deux dés à six faces.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="218"/>
+        <location filename="../AddWidgetDialog.cpp" line="219"/>
         <source>Duration (mm:ss)</source>
         <translation>Durée (mm:ss)</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="223"/>
         <location filename="../AddWidgetDialog.cpp" line="224"/>
         <location filename="../AddWidgetDialog.cpp" line="225"/>
+        <location filename="../AddWidgetDialog.cpp" line="226"/>
         <source>red odd low</source>
         <translation>rouge impair et manque</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="223"/>
         <location filename="../AddWidgetDialog.cpp" line="224"/>
         <location filename="../AddWidgetDialog.cpp" line="225"/>
         <location filename="../AddWidgetDialog.cpp" line="226"/>
+        <location filename="../AddWidgetDialog.cpp" line="227"/>
         <source>black even low</source>
         <translation>noir pair et manque</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="226"/>
         <location filename="../AddWidgetDialog.cpp" line="227"/>
         <location filename="../AddWidgetDialog.cpp" line="228"/>
+        <location filename="../AddWidgetDialog.cpp" line="229"/>
         <source>black odd low</source>
         <translation>noir impair et manque</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="226"/>
         <location filename="../AddWidgetDialog.cpp" line="227"/>
         <location filename="../AddWidgetDialog.cpp" line="228"/>
+        <location filename="../AddWidgetDialog.cpp" line="229"/>
         <source>red even low</source>
         <translation>rouge pair et manque</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="229"/>
         <location filename="../AddWidgetDialog.cpp" line="230"/>
         <location filename="../AddWidgetDialog.cpp" line="231"/>
+        <location filename="../AddWidgetDialog.cpp" line="232"/>
         <source>red odd high</source>
         <translation>rouge impair et passe</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="229"/>
         <location filename="../AddWidgetDialog.cpp" line="230"/>
         <location filename="../AddWidgetDialog.cpp" line="231"/>
         <location filename="../AddWidgetDialog.cpp" line="232"/>
+        <location filename="../AddWidgetDialog.cpp" line="233"/>
         <source>black even high</source>
         <translation>noir pair et passe</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="232"/>
         <location filename="../AddWidgetDialog.cpp" line="233"/>
         <location filename="../AddWidgetDialog.cpp" line="234"/>
+        <location filename="../AddWidgetDialog.cpp" line="235"/>
         <source>black odd high</source>
         <translation>noir impair et passe</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="232"/>
         <location filename="../AddWidgetDialog.cpp" line="233"/>
         <location filename="../AddWidgetDialog.cpp" line="234"/>
+        <location filename="../AddWidgetDialog.cpp" line="235"/>
         <source>red even high</source>
         <translation>rouge pair et passe</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="247"/>
+        <location filename="../AddWidgetDialog.cpp" line="248"/>
         <source>My reply is no</source>
         <translation>Ma réponse est non</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="248"/>
+        <location filename="../AddWidgetDialog.cpp" line="249"/>
         <source>My sources say no</source>
         <translation>D&apos;après mes sources non</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="249"/>
+        <location filename="../AddWidgetDialog.cpp" line="250"/>
         <source>Outlook not so good</source>
         <translation>C&apos;est mal parti</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="250"/>
+        <location filename="../AddWidgetDialog.cpp" line="251"/>
         <source>Very doubtful</source>
         <translation>Peu probable</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="255"/>
+        <location filename="../AddWidgetDialog.cpp" line="256"/>
         <source>This magic item can answer any question.</source>
         <translation>Cet objet magique peut répondre à n&apos;importe quelle question.</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="256"/>
+        <location filename="../AddWidgetDialog.cpp" line="257"/>
         <source>Custom sortition</source>
         <translation>Tirage au sort</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="256"/>
+        <location filename="../AddWidgetDialog.cpp" line="257"/>
         <source>List of possibilities, separated by semicolons (&apos;;&apos;)</source>
         <translation>Liste des possibilités, séparées par un point virgule (&apos;;&apos;)</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="260"/>
+        <location filename="../AddWidgetDialog.cpp" line="261"/>
         <source>Sequence</source>
         <translation>Séquence</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="260"/>
+        <location filename="../AddWidgetDialog.cpp" line="261"/>
         <source>List of steps, separated by semicolons (&apos;;&apos;)</source>
         <translation>Liste des étapes, séparées par un point virgule (&apos;;&apos;)</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="263"/>
+        <location filename="../AddWidgetDialog.cpp" line="264"/>
         <source>Empty space</source>
         <translation>Espace vide</translation>
     </message>
     <message>
-        <location filename="../AddWidgetDialog.cpp" line="263"/>
+        <location filename="../AddWidgetDialog.cpp" line="264"/>
         <source>Just to leave some empty room on the table.</source>
         <translation>Juste pour laisser de la place vide sur la table.</translation>
     </message>
@@ -410,17 +410,27 @@
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="58"/>
-        <source>Created by Alfred Massard</source>
-        <translation>Créé par Alfred Massard</translation>
-    </message>
-    <message>
-        <location filename="../MainWindow.cpp" line="59"/>
+        <location filename="../MainWindow.cpp" line="57"/>
         <source>Version: </source>
         <translation>Version : </translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="60"/>
+        <location filename="../MainWindow.cpp" line="58"/>
+        <source>Copyright &amp;copy;2019 Alfred Massard.</source>
+        <translation>Copyright &amp;copy;2019 Alfred Massard.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.cpp" line="59"/>
+        <source>This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.</source>
+        <translation>Ceci est un logiciel libre, vous pouvez le distribuer à condition de respecter la license GNU GPL v3.0.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.cpp" line="61"/>
+        <source>Report a bug</source>
+        <translation>Rapporter un bug</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.cpp" line="62"/>
         <source>Build: </source>
         <translation>Build : </translation>
     </message>

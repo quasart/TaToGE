@@ -24,9 +24,7 @@ PRE_TARGETDEPS += i18n/tatoge_fr.qm
 
 ### Icon ###
 
-RESOURCES   += images/dice.svg
 RC_ICONS    += images/dice.ico
-
 ICO_TARGET.target = images/dice.ico
 ICO_TARGET.depends = images/dice.svg
 ICO_TARGET.commands = convert -render -background transparent images/dice.svg -define icon:auto-resize=64,48,32,16 images/dice.ico
@@ -42,7 +40,6 @@ RESOURCES   += images/dice2d6.svg
 RESOURCES   += images/dice4df.svg
 RESOURCES   += images/dice6.svg
 RESOURCES   += images/dice8.svg
-RESOURCES   += images/dice.ico
 RESOURCES   += images/dice.svg
 RESOURCES   += images/logo.svg
 RESOURCES   += images/roulette.svg
