@@ -14,4 +14,5 @@ Makefile
 release/
 *_plugin_import.cpp
 *.rc
+images/*.png
 

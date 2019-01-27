@@ -105,7 +105,7 @@ QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QStri
 
 	auto btn = new QRadioButton(name);
 	QIcon icon(QIcon::fromTheme(QStringLiteral("document")));
-	if (!icon_name.isEmpty()) icon = QIcon(":images/"+icon_name+".svg");
+	if (!icon_name.isEmpty()) icon = QIcon(":images/"+icon_name+".png");
 	btn->setIcon(icon);
 	btn->setIconSize(QSize(32, 32));
 	m_RadioGridLayout->addWidget(btn, row, 0, 1, 1);
