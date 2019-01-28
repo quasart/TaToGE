@@ -31,8 +31,8 @@ public:
 	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out);
 	std::vector<QString> asStringVector(QJsonValue array);
 
-	void loadJsonFile(QString filename);
-	void loadJson(QJsonDocument json_doc);
+	bool loadJsonFile(QString filename);
+	bool loadJson(QJsonDocument json_doc);
 	QWidget * createWidget(QJsonObject const & item);
 
 	void updateFontSize();

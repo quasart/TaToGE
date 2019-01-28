@@ -32,7 +32,7 @@ public:
 	{
 		if (deck_size==0)
 		{
-			throw std::runtime_error("CardDrawer on empty deck.");
+			throw std::runtime_error("CardDrawer created with empty deck.");
 		}
 		if (slot_nb==0)
 		{

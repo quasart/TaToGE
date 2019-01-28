@@ -142,33 +142,48 @@ std::vector<QString> Table::asStringVector(QJsonValue array)
 	return result;
 }
 
-void Table::loadJsonFile(QString filename)
+bool Table::loadJsonFile(QString filename)
 {
 	QString val;
 	QFile file;
 	file.setFileName(filename);
-	file.open(QIODevice::ReadOnly | QIODevice::Text);
+	if (not file.open(QIODevice::ReadOnly | QIODevice::Text) )
+	{
+		return false;
+	}
+
 	val = file.readAll();
 	file.close();
 
-	loadJson(QJsonDocument::fromJson(val.toUtf8()));
+	return loadJson(QJsonDocument::fromJson(val.toUtf8()));
 }
 
-void Table::loadJson(QJsonDocument json_doc)
+bool Table::loadJson(QJsonDocument json_doc)
 {
 	if (json_doc.isNull())
 	{
-		qWarning() << "Json decoding error.";
+		qWarning() << "Invalid JSON cannot be decoded.";
+		return false;
 	}
-	else if (json_doc.isObject())
+
+	try
 	{
-		QJsonObject const o = json_doc.object();
-		addRow( createWidget(o) );
+		if (json_doc.isObject())
+		{
+			QJsonObject const o = json_doc.object();
+			addRow( createWidget(o) );
+		}
+		else for ( QJsonValueRef const i : json_doc.array() )
+		{
+			QJsonObject const & item = i.toObject();
+			addRow( createWidget(item) );
+		}
+		return true;
 	}
-	else for ( QJsonValueRef const i : json_doc.array() )
+	catch (std::exception const & e)
 	{
-		QJsonObject const & item = i.toObject();
-		addRow( createWidget(item) );
+		qWarning() << "Exception caught when adding Widget. Error:" << e.what() << json_doc;
+		return false;
 	}
 }
 
@@ -228,7 +243,7 @@ QWidget * Table::createWidget(QJsonObject const & item)
 	}
 	else
 	{
-		qWarning() << "Unexpected Widget type " << type;
+		throw std::runtime_error( "Invalid Widget type." );
 	}
 
 	if (pWidget)
