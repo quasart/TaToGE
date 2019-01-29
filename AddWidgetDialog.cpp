@@ -262,7 +262,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, "custom", tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
 		addSeparator();
 
-		addRadio( tr("Loto"), QJsonObject{{"Type","CardDrawer"}, {"DeckSize",49}, {"NbDrawing",6}} );
+		addRadio( tr("Loto"), QJsonObject{{"Type","CardDrawer"}, {"DeckSize",49}, {"NbDrawing",6}}, "loto" );
 		addRadio( tr("Snail racing"), QJsonObject{{"Type","CardDrawer"}, {"NbDrawing",5}}, "custom", tr("Names of snails, separated by semicolons (';')"), m_RacersInput );
 		addSeparator();
 

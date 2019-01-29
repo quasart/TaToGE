@@ -7,13 +7,12 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 ## Features
 
 - Widgets for game state display:
-  - `Timer`, for virtual sand-clock
+  - `Timer` for virtual sand-clock
   - `Counter`
   - `CountDown`/`Sequence` steps follower
 - Widgets to generate random:
   - `Dice`
-  - `CardDrawer`, for draw without replacement
-  - Note: Draw **with** replacement can be performed in `Dice` widget by setting `Count` parameter greater than 1.
+  - `CardDrawer` for draw without replacement (Note that draw *with* replacement can be performed in `Dice` widget by setting `Count` parameter greater than 1.)
 - Template file loading (in json format)
 
 
