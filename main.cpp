@@ -8,7 +8,7 @@
 int main( int argc, char **argv )
 {
 	QApplication app( argc, argv );
-	QApplication::setWindowIcon(QIcon(":images/dice.svg"));
+	QApplication::setWindowIcon(QIcon(":images/tatoge.svg"));
 	QApplication::setApplicationName("TaToGE");
 	QApplication::setApplicationVersion(M_APP_VERSION);
 

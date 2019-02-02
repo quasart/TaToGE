@@ -1,3 +1,5 @@
+---
+---
 
 TaToGE allows you to emulate the common game equipment needed when playing board games or card games: Dice, sandtimers, score counters...
 
@@ -12,6 +14,7 @@ Feel free to report bugs of ask for features in [project issue-tracking page](ht
   - Counter
   - Dice
   - Sequence/CountDown follower
+  - Cards to draw
 - Equipment set can be loaded from file (in json format)
 
 ## Technical spec

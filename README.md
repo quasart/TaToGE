@@ -29,13 +29,18 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - Game status/template export
 - Dice graphics with dots
 - lock mode parameter (to hide admin menus)
-- Expert mode (json edit) for adding widgets
+- Expert mode (json edit) for adding widgets ?
+- Parameter for rolling/drawing time
 
-## Build command
+## Build dependency
 
-Needs Qt5 and C++14 compiler.
+Needs:
+- Qt5
+- C++14 compiler
+- qmake to generate Makefile, and lrelease to generate translation file
+- Imagemagick to render icon files
 
-For debian/ubuntu:
+That means on debian/ubuntu:
 ```
 sudo apt-get install qtbase5-dev qt5-default qttools5-dev-tools imagemagick
 lrelease tatoge.pro
@@ -43,54 +48,4 @@ lrelease tatoge.pro
 qmake
 make
 ```
-
-For windows build on debian/ubuntu through [MXE](https://mxe.cc/):
-```
-sudo apt-get install \
-    autoconf \
-    automake \
-    autopoint \
-    bash \
-    bison \
-    bzip2 \
-    flex \
-    g++ \
-    gettext \
-    git \
-    gperf \
-    intltool \
-    libc6-dev-i386 \
-    libgdk-pixbuf2.0-dev \
-    libltdl-dev \
-    libssl-dev \
-    libtool-bin \
-    libxml-parser-perl \
-    lzip \
-    make \
-    openssl \
-    p7zip-full \
-    patch \
-    perl \
-    pkg-config \
-    python \
-    ruby \
-    sed \
-    unzip \
-    wget \
-    xz-utils
-sudo apt-get install g++-multilib
-
-git clone https://github.com/mxe/mxe.git
-cd mxe
-make qtbase
-```
-
-Then, to finalize build:
-```
-export PATH=../mxe/usr/bin/:$PATH
-i686-w64-mingw32.static-qmake-qt5
-make
-./release_win_pkg.sh
-```
-
 

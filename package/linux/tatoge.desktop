@@ -1,0 +1,19 @@
+[Desktop Entry]
+Encoding=UTF-8
+
+Type=Application
+Name=TaToGE
+Icon=tatoge.svg
+Categories=Game;Qt;
+Keywords=dice;timer;
+
+Exec=tatoge %f
+Terminal=false
+MimeType=application/json
+
+GenericName=Table-top game equipment
+GenericName[fr]=Materiel de jeu sur table
+
+Comment=Emulates the game equipment needed when playing table-top games: Dice, sandtimers, score counters...
+Comment[fr]=Simule le materiel de jeu nécessaire aux jeux sur table : Dés, sabliers, compteurs de score...
+

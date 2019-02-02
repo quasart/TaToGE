@@ -1,12 +1,18 @@
 TEMPLATE = app
 TARGET = tatoge
 DESTDIR = .
-
+CONFIG += c++14
 INCLUDEPATH += .
 QT += widgets
-SOURCES += main.cpp MainWindow.cpp Table.cpp AddWidgetDialog.cpp
-HEADERS += widgets/*.h  MainWindow.h Table.h AddWidgetDialog.h
-CONFIG += c++14
+
+SOURCES += main.cpp
+SOURCES += MainWindow.cpp Table.cpp AddWidgetDialog.cpp
+HEADERS += MainWindow.h   Table.h   AddWidgetDialog.h
+HEADERS += widgets/CardDrawer.h
+HEADERS += widgets/Counter.h
+HEADERS += widgets/Dice.h
+HEADERS += widgets/Sequence.h
+HEADERS += widgets/Timer.h
 
 VERSION = 0.1.2
 DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
@@ -24,13 +30,8 @@ PRE_TARGETDEPS += i18n/tatoge_fr.qm
 
 ### Icons ###
 
-RC_ICONS    += images/dice.ico
-RESOURCES   += images/dice.svg
-ICO_TARGET.target = images/dice.ico
-ICO_TARGET.depends = images/dice.svg
-ICO_TARGET.commands = convert -render -background transparent images/dice.svg -define icon:auto-resize=64,48,32,16 images/dice.ico
-QMAKE_EXTRA_TARGETS += ICO_TARGET
-PRE_TARGETDEPS += images/dice.ico
+RC_ICONS    += package/windows/tatoge.ico
+RESOURCES   += images/tatoge.svg
 
 RESOURCES   += images/8ball.png
 RESOURCES   += images/coin.png
@@ -46,10 +47,10 @@ RESOURCES   += images/roulette.png
 RESOURCES   += images/sandtimer.png
 RESOURCES   += images/space.png
 RESOURCES   += images/videau.png
-SVG2PNG_TARGET.target = images/dice6.png
-SVG2PNG_TARGET.depends = images/icons.svg
-SVG2PNG_TARGET.commands = ./images/render.sh
-QMAKE_EXTRA_TARGETS += SVG2PNG_TARGET
+ICO_TARGET.target= images/dice6.png
+ICO_TARGET.depends = images/icons.svg
+ICO_TARGET.commands = ./images/render.sh
+QMAKE_EXTRA_TARGETS += ICO_TARGET
 PRE_TARGETDEPS += images/dice6.png
 
 
@@ -57,4 +58,36 @@ PRE_TARGETDEPS += images/dice6.png
 
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000 # disables all the APIs deprecated before Qt 6.0.0
+
+
+### Install ###
+
+#target.path = build
+#INSTALLS += target
+
+license.path = build
+license.files = LICENSE
+INSTALLS += license
+
+examples.path = build/examples
+examples.files += ./examples/backgammon.json
+examples.files += ./examples/chiffres_lettres.json
+examples.files += ./examples/duo.json
+examples.files += ./examples/pokerdice.json
+INSTALLS += examples
+
+
+linux {
+  freedesktop.path = /usr/share/applications
+  freedesktop.files = ./package/linux/tatoge.desktop
+  INSTALLS += freedesktop
+
+  install_icon.path = /usr/share/pixmaps
+  install_icon.files = ./images/tatoge.svg
+  INSTALLS += install_icon
+
+  install_bin.path = /usr/bin
+  install_bin.files = ./tatoge
+  INSTALLS += install_bin
+}
 

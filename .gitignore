@@ -12,7 +12,9 @@ Makefile
 *.Debug
 *.Release
 release/
+build/
 *_plugin_import.cpp
 *.rc
 images/*.png
+tatoge.pro.user
 
