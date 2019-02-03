@@ -59,6 +59,10 @@ public:
 		}
 	}
 
+	int nbSides() const { return m_FaceCount; }
+	int count() const { return m_Dices.size(); }
+	std::vector<QString> const & faceLabels() const { return m_FaceLabels; }
+
 private:
 	size_t m_FaceCount;
 	std::vector<QString> m_FaceLabels;

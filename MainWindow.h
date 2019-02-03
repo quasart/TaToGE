@@ -13,6 +13,9 @@ Q_OBJECT
 public:
 	MainWindow();
 
+	void saveTableToFile();
+	void openTableFromFile();
+
 private:
 	Table m_Table;
 };

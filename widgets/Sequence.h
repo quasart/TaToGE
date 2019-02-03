@@ -52,6 +52,10 @@ public:
 		CountDown::updateLabel();
 	}
 
+	int maxValue() const { return m_MaxValue; }
+	int value() const { return m_Value; }
+	void setValue(int v) { m_Value = v; updateLabel(); }
+
 protected:
 	QLabel & m_Label;
 	size_t m_MaxValue;
@@ -107,26 +111,31 @@ public slots:
 
 class Sequence : public CountDown
 {
+Q_OBJECT
 
 public:
-	explicit Sequence(std::vector<QString> labels, QWidget * parent = nullptr)
-		: CountDown(labels.size()-1, parent)
-		, m_TurnLabels(labels)
+	explicit Sequence(std::vector<QString> steps, QWidget * parent = nullptr)
+		: CountDown(steps.size()-1, parent)
+		, m_Steps(steps)
 	{
-		if (labels.empty())
+		if (steps.empty())
 		{
 			throw std::runtime_error("Sequence constructed with no step.");
 		}
 		Sequence::updateLabel();
 	}
 
-	std::vector<QString> m_TurnLabels;
+	std::vector<QString> const & steps() const { return m_Steps; }
+
+	int currentStep() const { return m_MaxValue-m_Value; }
+	void setCurrentStep( int s ) { setValue(m_MaxValue-s); }
 
 protected:
+	std::vector<QString> m_Steps;
+
 	void updateLabel() override
 	{
-		size_t const sequence_index = m_TurnLabels.size()-1-m_Value;
-		m_Label.setText( m_TurnLabels.at(sequence_index) );
+		m_Label.setText( m_Steps.at(currentStep()) );
 	}
 
 };

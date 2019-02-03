@@ -26,10 +26,8 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - Add sounds on events
 - General reset button
 - Tools dynamic delete/order
-- Game status/template export
 - Dice graphics with dots
 - lock mode parameter (to hide admin menus)
-- Expert mode (json edit) for adding widgets ?
 - Parameter for rolling/drawing time
 
 ## Build dependency

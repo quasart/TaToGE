@@ -59,8 +59,11 @@ public:
 			m_Slots.push_back(btn);
 			QWidget::layout()->addWidget(btn);
 		}
-
 	}
+
+	int deckSize() const { return m_DeckOrder.size(); }
+	int nbDrawing() const { return m_Slots.size(); }
+	std::vector<QString> const & cards() const { return m_CardNames; }
 
 private:
 	std::vector<QString> m_CardNames;

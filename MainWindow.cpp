@@ -1,12 +1,15 @@
 #include "MainWindow.h"
 
 #include <QIcon>
+#include <QDebug>
 #include <QAction>
 #include <QActionGroup>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QCoreApplication>
 #include <QStyle>
+#include <QJsonDocument>
+#include <QFileDialog>
 
 
 MainWindow::MainWindow()
@@ -19,7 +22,13 @@ MainWindow::MainWindow()
 		QAction * action = fileMenu->addAction(tr("&Load table layout from file..."));
 		action->setShortcuts(QKeySequence::Open);
 		action->setIcon(QIcon::fromTheme("document-open"));
-		connect(action, &QAction::triggered, &m_Table, &Table::showLoadDialog );
+		connect(action, &QAction::triggered, this, &MainWindow::openTableFromFile );
+	}
+	{
+		QAction * action = fileMenu->addAction(tr("&Save as..."));
+		action->setShortcuts(QKeySequence::Save);
+		action->setIcon(QIcon::fromTheme("document-save-as"));
+		connect(action, &QAction::triggered, this, &MainWindow::saveTableToFile );
 	}
 	{
 		QAction * action = fileMenu->addAction(tr("&New empty table"));
@@ -69,3 +78,42 @@ MainWindow::MainWindow()
 		m_Table.loadJsonFile( args.at(1) );
 	}
 }
+
+void MainWindow::saveTableToFile()
+{
+	QString filename = QFileDialog::getSaveFileName(
+			this,
+			tr("Save file"),
+			"table.json",
+			tr("JSON templates (*.json)"));
+	if (filename.isEmpty())
+	{
+		return;
+	}
+
+	QFile file(filename);
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		return;
+	}
+
+	QTextStream out(&file);
+	QJsonDocument const json_doc = m_Table.toJson();
+	out << json_doc.toJson(QJsonDocument::Indented);
+}
+
+void MainWindow::openTableFromFile()
+{
+	QString const filename = QFileDialog::getOpenFileName(
+			this,
+			tr("Select file"),
+			"./examples",
+			tr("JSON templates (*.json)"));
+	if (!filename.isEmpty())
+	{
+		m_Table.clearTable();
+		m_Table.loadJsonFile(filename);
+	}
+}
+
+

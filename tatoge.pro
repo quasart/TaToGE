@@ -6,15 +6,15 @@ INCLUDEPATH += .
 QT += widgets
 
 SOURCES += main.cpp
-SOURCES += MainWindow.cpp Table.cpp AddWidgetDialog.cpp
-HEADERS += MainWindow.h   Table.h   AddWidgetDialog.h
+SOURCES += MainWindow.cpp Table.cpp AddWidgetDialog.cpp JsonCodec.cpp
+HEADERS += MainWindow.h   Table.h   AddWidgetDialog.h   JsonCodec.h
 HEADERS += widgets/CardDrawer.h
 HEADERS += widgets/Counter.h
 HEADERS += widgets/Dice.h
 HEADERS += widgets/Sequence.h
 HEADERS += widgets/Timer.h
 
-VERSION = 0.1.2
+VERSION = 0.2.0
 DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
 ### Translation ###

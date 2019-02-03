@@ -49,9 +49,7 @@ public:
 		return m_Timer.isActive();
 	}
 
-	void toggle()
-	{
-	}
+	int duration() const { return QProgressBar::maximum()/1000; }
 
 private:
 	QTimer m_Timer;
@@ -86,7 +84,7 @@ protected:
 	}
 
 signals:
-	// TODO finish signal ?
+	void finished();
 
 public slots:
 	void update()
@@ -98,7 +96,7 @@ public slots:
 		if (elapsed >= max)
 		{
 			stop();
-			//TODO play sound
+			emit finished();
 		}
 		else
 		{

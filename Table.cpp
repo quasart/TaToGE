@@ -1,22 +1,19 @@
 #include "Table.h"
 
 #include <QFile>
-#include <QFileDialog>
 #include <QDebug>
 #include <QResizeEvent>
 #include <QApplication>
 #include <QFont>
 #include <QGridLayout>
-
-#include "widgets/Timer.h"
-#include "widgets/Counter.h"
-#include "widgets/Dice.h"
-#include "widgets/Sequence.h"
-#include "widgets/CardDrawer.h"
+#include <QPushButton>
+#include <QLabel>
 
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+
+#include "JsonCodec.h"
 
 static const int LAST_ROW = 255; //row count arbitrary limitation to remove someday.
 
@@ -44,6 +41,7 @@ void Table::addRow(QWidget * w)
 	if (m_RowCount == LAST_ROW) return;
 
 	w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	w->setMinimumSize( { 300,30 } );
 
 	if (w->whatsThis().isEmpty())
 	{
@@ -83,16 +81,6 @@ void Table::showAddDialog()
 	}
 }
 
-void Table::showLoadDialog()
-{
-	QString filename = QFileDialog::getOpenFileName(this, tr("Select file"), "./examples", "JSON templates (*.json)");
-	if (!filename.isEmpty())
-	{
-		clearTable();
-		loadJsonFile(filename);
-	}
-}
-
 void Table::clearTable()
 {
 	for (int row = 0; row < m_RowCount ; ++row)
@@ -101,45 +89,6 @@ void Table::clearTable()
 	}
 	m_AddButton.show();
 	m_RowCount = 0;
-}
-
-std::vector<int> Table::asIntVector(QJsonValue array, std::vector<int> default_out)
-{
-	if (!array.isArray())
-	{
-		return default_out;
-	}
-
-	std::vector<int> result;
-	for ( QJsonValueRef v : array.toArray() )
-	{
-		if (v.isDouble())
-		{
-			result.push_back(v.toInt());
-		}
-		else
-		{
-			qWarning() << "Unexpected type when parsing array of int.";
-		}
-	}
-	return result;
-}
-
-std::vector<QString> Table::asStringVector(QJsonValue array)
-{
-	std::vector<QString> result;
-	for ( QJsonValueRef v : array.toArray() )
-	{
-		if (v.isString())
-		{
-			result.push_back(v.toString());
-		}
-		else
-		{
-			qWarning() << "Unexpected type when parsing array of string.";
-		}
-	}
-	return result;
 }
 
 bool Table::loadJsonFile(QString filename)
@@ -171,12 +120,12 @@ bool Table::loadJson(QJsonDocument json_doc)
 		if (json_doc.isObject())
 		{
 			QJsonObject const o = json_doc.object();
-			addRow( createWidget(o) );
+			addRow( JsonCodec::createWidget(o) );
 		}
 		else for ( QJsonValueRef const i : json_doc.array() )
 		{
 			QJsonObject const & item = i.toObject();
-			addRow( createWidget(item) );
+			addRow( JsonCodec::createWidget(item) );
 		}
 		return true;
 	}
@@ -187,74 +136,21 @@ bool Table::loadJson(QJsonDocument json_doc)
 	}
 }
 
-QWidget * Table::createWidget(QJsonObject const & item)
+QJsonDocument Table::toJson() const
 {
-	QWidget * pWidget = nullptr;
+	QJsonArray doc_array;
 
-	QString type = item["Type"].toString("<UNDEFINED>");
-	if (type == "Dice")
+	int const col = 1;
+	for (int row = 0; row < m_RowCount; ++row)
 	{
-		pWidget = new Dice( item["NbSides"].toInt(6),
-				item["Count"].toInt(1) );
-	}
-	else if (type == "Sortition")
-	{
-		pWidget = new Dice( asStringVector(item["List"]),
-				item["Count"].toInt(1) );
-	}
-	else if (type == "Timer")
-	{
-		pWidget = new Timer( item["Duration"].toInt(30) );
-	}
-	else if (type == "Counter")
-	{
-		pWidget = new Counter(
-				item["Value"].toInt(0),
-				asIntVector(item["Increments"], {1,5,10} )
-				);
-	}
-	else if (type == "CountDown")
-	{
-		pWidget = new CountDown( item["MaxValue"].toInt() );
-	}
-	else if (type == "Sequence")
-	{
-		std::vector<QString> list = asStringVector(item["List"]);
-		pWidget = new Sequence(list);
-	}
-	else if (type == "CardDrawer")
-	{
-		if (item.contains("Cards"))
+		auto pItem = m_Layout.itemAtPosition(row,col);
+		if (pItem && pItem->widget())
 		{
-			pWidget = new CardDrawer( asStringVector(item["Cards"]), item["NbDrawing"].toInt(5) );
-		}
-		else
-		{
-			pWidget = new CardDrawer( item["DeckSize"].toInt(10), item["NbDrawing"].toInt(5) );
+			doc_array.append( JsonCodec::widgetJson(*pItem->widget()) );
 		}
 	}
-	else if (type == "Label")
-	{
-		pWidget = new QLabel( item["Text"].toString("") );
-	}
-	else if (type == "Space")
-	{
-		pWidget = new QWidget();
-	}
-	else
-	{
-		throw std::runtime_error( "Invalid Widget type." );
-	}
 
-	if (pWidget)
-	{
-		// General properties.
-		pWidget->setWhatsThis( item["Name"].toString("") );
-		pWidget->setStyleSheet( item["Style"].toString("") );
-		pWidget->setMinimumSize( { 300,30 } );
-	}
-
-	return pWidget;
+	return QJsonDocument( doc_array );
 }
 
 void Table::updateFontSize()

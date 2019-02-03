@@ -25,15 +25,12 @@ public:
 	void deleteRow(int row);
 
 	void showAddDialog();
-	void showLoadDialog();
 	void clearTable();
-
-	std::vector<int> asIntVector(QJsonValue array, std::vector<int> default_out);
-	std::vector<QString> asStringVector(QJsonValue array);
 
 	bool loadJsonFile(QString filename);
 	bool loadJson(QJsonDocument json_doc);
-	QWidget * createWidget(QJsonObject const & item);
+
+	QJsonDocument toJson() const;
 
 	void updateFontSize();
 
