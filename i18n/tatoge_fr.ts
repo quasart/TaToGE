@@ -442,7 +442,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="68"/>
         <source>This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.</source>
-        <translation>Ceci est un logiciel libre, vous pouvez le distribuer à condition de respecter la license GNU GPL v3.0.</translation>
+        <translation>Ceci est un logiciel libre, vous pouvez librement le distribuer sous les conditions de la license GNU GPL v3.0.</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="70"/>

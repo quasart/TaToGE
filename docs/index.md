@@ -2,7 +2,7 @@ TaToGE allows you to emulate the common game equipment needed when playing board
 
 It focuses on simplicity, and on the idea it will be used as a companion during "real" table-top gaming.
 
-Feel free to report bugs of ask for features in [project issue-tracking page](https://github.com/quasart-/TaToGE/issues).
+Feel free to report bugs of ask for features in [project issue-tracking page](https://github.com/quasart/TaToGE/issues).
 
 ## Features
 

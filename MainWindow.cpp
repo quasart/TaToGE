@@ -67,7 +67,7 @@ MainWindow::MainWindow()
 				"<p>" + tr("Copyright &copy;2019 Alfred Massard.") + "<br>" +
 				tr("This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.")+ "</p>" +
 				"<p>&nbsp;</p>" +
-				"<p><a href='https://github.com/quasart-/TaToGE/issues'>" + tr("Report a bug") + "</a>" +
+				"<p><a href='https://github.com/quasart/TaToGE/issues'>" + tr("Report a bug") + "</a>" +
 				" (" + tr("Build: ") + QCoreApplication::applicationVersion() + " " +  __DATE__ + " " +__TIME__ + ")"
 				); }  );
 	}
