@@ -16,10 +16,11 @@ MainWindow::MainWindow()
 	: m_Table(this)
 {
 	setCentralWidget(&m_Table);
+	setWindowTitle(tr("TaToGE"));
 
 	QMenu * fileMenu = menuBar()->addMenu(tr("&File"));
 	{
-		QAction * action = fileMenu->addAction(tr("&Load table layout from file..."));
+		QAction * action = fileMenu->addAction(tr("&Load table from file..."));
 		action->setShortcuts(QKeySequence::Open);
 		action->setIcon(QIcon::fromTheme("document-open"));
 		connect(action, &QAction::triggered, this, &MainWindow::openTableFromFile );
@@ -36,6 +37,7 @@ MainWindow::MainWindow()
 		action->setIcon(QIcon::fromTheme("document-revert"));
 		connect(action, &QAction::triggered, &m_Table, &Table::clearTable );
 	}
+	fileMenu->addSeparator();
 	{
 		QAction * action = fileMenu->addAction(tr("&Exit"));
 		action->setShortcuts(QKeySequence::Quit);
@@ -54,7 +56,7 @@ MainWindow::MainWindow()
 		QAction * action = helpMenu->addAction(tr("&General description"));
 		action->setShortcuts(QKeySequence::HelpContents);
 		action->setIcon(QIcon::fromTheme("help-contents"));
-		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, "",
+		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, tr("Help"),
 				tr("TaToGE: Table-Top Game Equipement.") + "\n\n" +
 				tr("This application provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games.") + "\n\n" +
 				tr("Click on 'Add a widget' to set equipement on table before using them.")); }  );
@@ -62,11 +64,10 @@ MainWindow::MainWindow()
 	{
 		QAction * action = helpMenu->addAction(tr("&About"));
 		action->setIcon(QIcon::fromTheme("help-about"));
-		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, "",
-				"<h2>" + QCoreApplication::applicationName() + " <font size=-1>" + tr("Version: ") + QCoreApplication::applicationVersion() + "</font></h2>" +
+		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, tr("About"),
+				"<h2>" + tr("TaToGE") + " <font size=-1>" + tr("Version: ") + QCoreApplication::applicationVersion() + "</font></h2>" +
 				"<p>" + tr("Copyright &copy;2019 Alfred Massard.") + "<br>" +
 				tr("This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.")+ "</p>" +
-				"<p>&nbsp;</p>" +
 				"<p><a href='https://github.com/quasart/TaToGE/issues'>" + tr("Report a bug") + "</a>" +
 				" (" + tr("Build: ") + QCoreApplication::applicationVersion() + " " +  __DATE__ + " " +__TIME__ + ")"
 				); }  );

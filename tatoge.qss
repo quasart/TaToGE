@@ -1,0 +1,55 @@
+Table {
+   background-color: hsv(%1,110,90%);
+}
+
+Table * {
+   color: black;
+}
+
+Table QPushButton {
+   border-radius: 0.1em;
+   border-width: 0px;
+   background-color: hsv(%1,60,95%);
+   padding: 0px;
+}
+Table QPushButton:hover {
+   background-color: hsv(%1,40,100%);
+}
+Table QPushButton:pressed, #AddWidgetButton:pressed {
+   background-color: #da8;
+}
+#AddWidgetButton {
+   font-size: 10pt;
+   color: hsv(%1,130,30%);
+   padding: 0.5em;
+   border-width: 0.1em;
+   border-style: dashed;
+   border-color: transparent;
+   background-color: transparent;
+}
+#AddWidgetButton:hover {
+   color: black;
+   border-color: hsv(%1,130,60%);
+   background-color: transparent;
+}
+
+Timer {
+   margin: 5px 0;
+   background-color: hsv(%1,120,60%);
+   border-radius: 0.1em;
+   color: transparent;
+}
+Timer:hover {
+   background-color: hsv(%1,120,50%);
+}
+Timer::chunk {
+   background-color: hsv(%1,20,100%);
+   border-radius: 0.1em;
+   margin: 2px;
+}
+
+Counter QPushButton, CountDown QPushButton {
+   margin: 5px 0px;
+}
+
+

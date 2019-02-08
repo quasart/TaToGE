@@ -2,14 +2,14 @@
   {
     "Type": "Counter",
     "Name": "Verveine",
-    "Style": "* { color: hsl(50,100%,30%); } QPushButton { background-color: hsl(50,86%,90%);} ",
+    "Style": "* { color: hsl(50,100%,30%); } QPushButton:!hover { background-color: hsl(50,60%,98%);} ",
     "Value": 0,
     "Increments": [ 1, 5, 10 ]
   },
   {
     "Type": "Counter",
     "Name": "Wilfried",
-    "Style": "* { color: hsl(130,100%,30%); } QPushButton { background-color: hsl(130,86%,90%);} ",
+    "Style": "* { color: hsl(130,100%,30%); } QPushButton:!hover { background-color: hsl(130,60%,98%);} ",
     "Value": 0,
     "Increments": [ 1, 5, 10 ]
   },

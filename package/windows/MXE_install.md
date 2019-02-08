@@ -40,12 +40,3 @@ git clone https://github.com/mxe/mxe.git
 cd mxe
 make qtbase
 ```
-
-Then, to finalize build:
-```
-export PATH=../mxe/usr/bin/:$PATH
-i686-w64-mingw32.static-qmake-qt5
-make
-./package/windows/release_win_pkg.sh
-```
-

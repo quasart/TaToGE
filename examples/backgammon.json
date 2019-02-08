@@ -15,13 +15,13 @@
   },
   {
     "Type": "Counter",
-    "Style": "QPushButton::enabled, QLabel { color: darkred; }",
+    "Style": "color: darkred;",
     "Value": 0,
     "Increments": [ 1, 5, 10 ]
   },
   {
     "Type": "Dice",
-    "Style": "QPushButton::enabled{ color: darkred; }",
+    "Style": "color: darkred;",
     "NbSides": 6,
     "Count": 2
   }

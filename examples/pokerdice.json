@@ -1,5 +1,9 @@
 [
   {
+    "Type": "Label",
+    "Text" : "<center><b>Poker Dice</b></center>"
+  },
+  {
     "Type": "Sortition",
     "List": [ "9", "10", "Jack", "Queen", "King", "Ace" ]
   },

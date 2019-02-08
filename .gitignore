@@ -1,8 +1,7 @@
 .qmake.stash
 moc_*
 *.qm
-*.qrc
-qrc_qmake_qmake_immediate.cpp
+qrc_*.cpp
 *.o
 tatoge
 *~

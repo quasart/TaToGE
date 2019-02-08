@@ -13,14 +13,21 @@ HEADERS += widgets/Counter.h
 HEADERS += widgets/Dice.h
 HEADERS += widgets/Sequence.h
 HEADERS += widgets/Timer.h
+RESOURCES = tatoge.qrc
 
 VERSION = 0.2.0
 DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
+unix {
+  OBJECTS_DIR = .obj
+  MOC_DIR     = .moc
+  UI_DIR      = .ui
+}
+
+
 ### Translation ###
 
 TRANSLATIONS = i18n/tatoge_fr.ts
-RESOURCES   += i18n/tatoge_fr.qm
 
 LRELEASE_TARGET.target = i18n/tatoge_fr.qm
 LRELEASE_TARGET.depends = i18n/tatoge_fr.ts
@@ -31,22 +38,6 @@ PRE_TARGETDEPS += i18n/tatoge_fr.qm
 ### Icons ###
 
 RC_ICONS    += package/windows/tatoge.ico
-RESOURCES   += images/tatoge.svg
-
-RESOURCES   += images/8ball.png
-RESOURCES   += images/coin.png
-RESOURCES   += images/counter.png
-RESOURCES   += images/custom.png
-RESOURCES   += images/dice20.png
-RESOURCES   += images/dice2d6.png
-RESOURCES   += images/dice4df.png
-RESOURCES   += images/dice6.png
-RESOURCES   += images/dice8.png
-RESOURCES   += images/loto.png
-RESOURCES   += images/roulette.png
-RESOURCES   += images/sandtimer.png
-RESOURCES   += images/space.png
-RESOURCES   += images/videau.png
 ICO_TARGET.target= images/dice6.png
 ICO_TARGET.depends = images/icons.svg
 ICO_TARGET.commands = ./images/render.sh
@@ -62,22 +53,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000 # disables all the APIs depreca
 
 ### Install ###
 
-#target.path = build
-#INSTALLS += target
-
-license.path = build
-license.files = LICENSE
-INSTALLS += license
-
-examples.path = build/examples
-examples.files += ./examples/backgammon.json
-examples.files += ./examples/chiffres_lettres.json
-examples.files += ./examples/duo.json
-examples.files += ./examples/pokerdice.json
-INSTALLS += examples
-
-
-linux {
+unix {
   freedesktop.path = /usr/share/applications
   freedesktop.files = ./package/linux/tatoge.desktop
   INSTALLS += freedesktop
@@ -89,5 +65,12 @@ linux {
   install_bin.path = /usr/bin
   install_bin.files = ./tatoge
   INSTALLS += install_bin
+
+  examples.path = /usr/share/tatoge/examples
+  examples.files += ./examples/backgammon.json
+  examples.files += ./examples/chiffres_lettres.json
+  examples.files += ./examples/duo.json
+  examples.files += ./examples/pokerdice.json
+  INSTALLS += examples
 }
 

@@ -19,7 +19,7 @@ static const int LAST_ROW = 255; //row count arbitrary limitation to remove some
 
 
 Table::Table(QWidget * parent)
-	: QWidget(parent)
+	: QFrame(parent)
 	, m_Layout( * new QGridLayout(this) )
 	, m_AddButton( * new QPushButton( tr("Table is empty, click here to add widget.") ) )
 	, m_AddDialog(parent ? parent : this)
@@ -28,8 +28,11 @@ Table::Table(QWidget * parent)
 {
 	m_Layout.setSpacing(7);
 
+	QFrame::setFrameStyle(QFrame::NoFrame);
+
 	m_AddButton.setFlat(true);
-	m_AddButton.setStyleSheet("font-size: 10pt; color: gray;");
+	m_AddButton.setObjectName("AddWidgetButton");
+	m_AddButton.setStyleSheet( "font-size: 10pt;");
 	connect(&m_AddButton, &QPushButton::clicked, this, &Table::showAddDialog );
 	m_Layout.addWidget( &m_AddButton, LAST_ROW, 0, 1, 2 );
 }
@@ -87,7 +90,6 @@ void Table::clearTable()
 	{
 		deleteRow(row);
 	}
-	m_AddButton.show();
 	m_RowCount = 0;
 }
 

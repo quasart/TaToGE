@@ -1,11 +1,11 @@
 #pragma once
 
-#include <QWidget>
+#include <QFrame>
 
 #include "AddWidgetDialog.h"
 
 
-class Table : public QWidget
+class Table : public QFrame
 {
 Q_OBJECT
 

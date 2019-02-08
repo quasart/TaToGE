@@ -1,0 +1,21 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file>images/tatoge.svg</file>
+  <file>images/8ball.png</file>
+  <file>images/coin.png</file>
+  <file>images/counter.png</file>
+  <file>images/custom.png</file>
+  <file>images/dice20.png</file>
+  <file>images/dice2d6.png</file>
+  <file>images/dice4df.png</file>
+  <file>images/dice6.png</file>
+  <file>images/dice8.png</file>
+  <file>images/loto.png</file>
+  <file>images/roulette.png</file>
+  <file>images/sandtimer.png</file>
+  <file>images/space.png</file>
+  <file>images/videau.png</file>
+  <file>i18n/tatoge_fr.qm</file>
+  <file>tatoge.qss</file>
+</qresource>
+</RCC>

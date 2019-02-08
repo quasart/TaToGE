@@ -16,36 +16,35 @@ public:
 	explicit CountDown(size_t max_value, QWidget * parent = nullptr)
 		: QWidget(parent)
 		, m_Label(*new QLabel)
+		, m_Layout(*new QHBoxLayout(this))
 		, m_MaxValue(max_value)
 		, m_Value(max_value)
 	{
-		QWidget::setLayout(new QHBoxLayout(this));
+		QWidget::setLayout(&m_Layout);
 		QWidget::layout()->setSpacing(0);
 		QWidget::layout()->setContentsMargins(0,0,0,0);
 
 		{
-			QPushButton * btn = new QPushButton(parent);
-			btn->setIcon(style()->standardIcon(QStyle::SP_ArrowBack));
+			QPushButton * btn = new QPushButton("\302\253");
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-			btn->setFixedWidth(30);
-			btn->setFlat(true);
-			QWidget::layout()->addWidget(btn);
+			btn->setMinimumWidth(30);
+			btn->setStyleSheet("font-size: 10pt;");
+			m_Layout.addWidget(btn,5);
 			connect(btn, &QPushButton::clicked, this, &CountDown::previous);
 		}
 
 		{
 			m_Label.setAlignment(Qt::AlignCenter);
 			m_Label.setMinimumWidth(40);
-			QWidget::layout()->addWidget(&m_Label);
+			m_Layout.addWidget(&m_Label,90);
 		}
 
 		{
-			QPushButton * btn = new QPushButton(parent);
-			btn->setIcon(style()->standardIcon(QStyle::SP_ArrowForward));
+			QPushButton * btn = new QPushButton("\302\273");
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-			btn->setFixedWidth(30);
-			btn->setFlat(true);
-			QWidget::layout()->addWidget(btn);
+			btn->setMinimumWidth(30);
+			btn->setStyleSheet("font-size: 10pt;");
+			m_Layout.addWidget(btn,5);
 			connect(btn, &QPushButton::clicked, this, &CountDown::next);
 		}
 
@@ -58,6 +57,7 @@ public:
 
 protected:
 	QLabel & m_Label;
+	QHBoxLayout & m_Layout;
 	size_t m_MaxValue;
 	size_t m_Value;
 

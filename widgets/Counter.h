@@ -15,9 +15,10 @@ public:
 		, m_Value(init)
 		, m_ResetValue(init)
 		, m_Label(*new QLCDNumber)
+		, m_Layout(*new QHBoxLayout(this))
 	{
-		QWidget::setLayout(new QHBoxLayout(this));
-		QWidget::layout()->setSpacing(0);
+		QWidget::setLayout(&m_Layout);
+		QWidget::layout()->setSpacing(2);
 		QWidget::layout()->setContentsMargins(0,0,0,0);
 
 		for (int i : increments)
@@ -31,7 +32,9 @@ public:
 		m_Label.setSegmentStyle( QLCDNumber::Flat );
 		m_Label.setLineWidth(0);
 
-		QWidget::layout()->addWidget( &m_Label );
+		int const stretch_factor = increments.size() < 5 ? 100-10*increments.size() : 50;
+		m_Layout.addWidget( &m_Label, stretch_factor );
+
 		for (int i : increments)
 		{
 			addIncrButton(i);
@@ -44,10 +47,10 @@ public:
 	void setResetValue(int v) { m_ResetValue = v; }
 
 private:
-
 	int m_Value;
 	int m_ResetValue;
 	QLCDNumber & m_Label;
+	QHBoxLayout & m_Layout;
 
 protected:
 
@@ -59,10 +62,10 @@ protected:
 				txt = "+" + txt;
 			}
 			QPushButton * btn = new QPushButton(txt);
-			btn->setFixedWidth(35);
-			btn->setStyleSheet("font-size: 11pt;");
-
-			QWidget::layout()->addWidget(btn);
+			btn->setMinimumWidth(30);
+			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+			btn->setStyleSheet("font-size: 10pt;");
+			m_Layout.addWidget( btn, 5 );
 			connect(btn, &QPushButton::clicked, [=]{ this->updateValue(i); } );
 	}
 

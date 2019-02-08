@@ -82,6 +82,11 @@ public slots:
 		m_RollTime = 15;
 		setRandom();
 
+		for ( QPushButton * btn : m_Dices )
+		{
+			btn->setStyleSheet("font-weight : 100;");
+		}
+
 		using namespace std::literals::chrono_literals;
 		m_Timer.start(100ms);
 	}
@@ -130,6 +135,12 @@ public slots:
 				setToolTip( "" );
 			}
 		}
+		if (m_RollTime==0)
+		for ( QPushButton * btn : m_Dices )
+		{
+			btn->setStyleSheet("");
+		}
+
 	}
 
 };

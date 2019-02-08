@@ -13,7 +13,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - Widgets to generate random:
   - `Dice`
   - `CardDrawer` for draw without replacement (Note that draw *with* replacement can be performed in `Dice` widget by setting `Count` parameter greater than 1.)
-- Template file loading (in json format)
+- General status saving/loading (in json format)
 
 
 # Developer guide
@@ -21,14 +21,20 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 ## Improvement ideas
 
 - New widgets:
+   - Stopwatch
    - Score table
    - "Go" signal
 - Add sounds on events
 - General reset button
 - Tools dynamic delete/order
-- Dice graphics with dots
-- lock mode parameter (to hide admin menus)
+- Dice/Cards random values could be icons
+- Lock mode parameter (to hide admin menus)
 - Parameter for rolling/drawing time
+- Parameter for general Table color (command line ? json ?)
+
+## Known issues
+
+- Keyboard navigation does not trigger auto-scroll in AddWidgetDialog.
 
 ## Build dependency
 
