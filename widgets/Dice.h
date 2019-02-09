@@ -9,6 +9,7 @@
 #include <random>
 #include <exception>
 
+#include "widgets/common.h"
 
 class Dice : public QWidget
 {
@@ -20,7 +21,7 @@ public:
 		, m_FaceCount(face_nb)
 		, m_Timer(this)
 		, m_RollTime()
-		, m_Generator(std::random_device{}())
+		, m_Generator(getRandomSeed())
 	{
 		if (!face_nb)
 		{

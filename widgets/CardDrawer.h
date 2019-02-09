@@ -9,6 +9,7 @@
 #include <exception>
 #include <atomic>
 
+#include "widgets/common.h"
 
 class CardDrawer : public QWidget
 {
@@ -28,7 +29,7 @@ public:
 		, m_Slots()
 		, m_NextIndex(slot_nb)
 		, m_Timer(this)
-		, m_Generator(std::random_device{}())
+		, m_Generator(getRandomSeed())
 	{
 		if (deck_size==0)
 		{

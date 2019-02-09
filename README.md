@@ -38,7 +38,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 ## Build dependency
 
 Needs:
-- Qt5
+- Qt5.9
 - C++14 compiler
 - qmake to generate Makefile, and lrelease to generate translation file
 - Imagemagick to render icon files
