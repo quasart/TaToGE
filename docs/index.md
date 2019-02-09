@@ -27,3 +27,13 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 Don't hesitate to report bugs of ask for features in [project issue-tracking page](https://github.com/quasart/TaToGE/issues).
 
+## Screenshots
+
+![Screenshot](screenshots/pokerdice.png)
+
+![Screenshot](screenshots/AddDialog.png)
+
+![Screenshot](screenshots/backgammon.png)
+
+![Screenshot](screenshots/chiffres_lettres.png)
+
