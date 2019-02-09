@@ -6,7 +6,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 - When you have equipment missing, or when rolling real dice would be too noisy.
 - When you need custom random generator, for example to choose who will pay the beers.
-- When role-playing game master want a clean and customizable dashboard.
+- When role-playing game master wants a clean customizable dashboard.
 - When you want to project game status on big screen.
 
 ## Features
@@ -36,4 +36,5 @@ Don't hesitate to report bugs of ask for features in [project issue-tracking pag
 ![Screenshot](screenshots/backgammon.png)
 
 ![Screenshot](screenshots/chiffres_lettres.png)
+
 
