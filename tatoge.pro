@@ -13,6 +13,7 @@ HEADERS += widgets/Counter.h
 HEADERS += widgets/Dice.h
 HEADERS += widgets/Sequence.h
 HEADERS += widgets/Timer.h
+HEADERS += AppOptions.h
 RESOURCES = tatoge.qrc
 
 VERSION = 0.2.0

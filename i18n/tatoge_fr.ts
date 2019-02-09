@@ -368,121 +368,164 @@
     </message>
 </context>
 <context>
+    <name>AppOptions</name>
+    <message>
+        <location filename="../AppOptions.h" line="60"/>
+        <source>To specify locale to use.</source>
+        <translation>Pour spécifier la locale à utiliser.</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="60"/>
+        <source>locale</source>
+        <translation>locale</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="57"/>
+        <source>To specify table color.</source>
+        <translation>Pour spécifier la couleur de la table.</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="57"/>
+        <source>color</source>
+        <translation>couleur</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="58"/>
+        <source>Full-screen mode.</source>
+        <translation>Mode plein-écran.</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="59"/>
+        <source>To hide table administration, only when loading table from file.</source>
+        <translation>Pour cacher l&apos;administration de la table, uniquement quand la table est chargée depuis un fichier.</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="71"/>
+        <source>file</source>
+        <translation>fichier</translation>
+    </message>
+    <message>
+        <location filename="../AppOptions.h" line="71"/>
+        <source>Table setup file to load.</source>
+        <translation>Fichier de la table à charger.</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../MainWindow.cpp" line="19"/>
-        <location filename="../MainWindow.cpp" line="68"/>
+        <location filename="../MainWindow.cpp" line="21"/>
+        <location filename="../MainWindow.cpp" line="70"/>
         <source>TaToGE</source>
         <translation>TaToGE</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="21"/>
+        <location filename="../MainWindow.cpp" line="23"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="23"/>
+        <location filename="../MainWindow.cpp" line="25"/>
         <source>&amp;Load table from file...</source>
         <translation>&amp;Charger la table depuis un fichier...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="29"/>
+        <location filename="../MainWindow.cpp" line="31"/>
         <source>&amp;Save as...</source>
         <translation>&amp;Enregistrer sous...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="35"/>
+        <location filename="../MainWindow.cpp" line="37"/>
         <source>&amp;New empty table</source>
         <translation>&amp;Nouvelle table vide</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="42"/>
+        <location filename="../MainWindow.cpp" line="44"/>
         <source>&amp;Exit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="49"/>
+        <location filename="../MainWindow.cpp" line="51"/>
         <source>Add a &amp;widget</source>
         <translation>Ajouter un &amp;widget</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="54"/>
+        <location filename="../MainWindow.cpp" line="56"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="56"/>
+        <location filename="../MainWindow.cpp" line="58"/>
         <source>&amp;General description</source>
         <translation>Description &amp;générale</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="59"/>
+        <location filename="../MainWindow.cpp" line="61"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="60"/>
+        <location filename="../MainWindow.cpp" line="62"/>
         <source>TaToGE: Table-Top Game Equipement.</source>
         <translation>TaToGE, pour Table-Top Game Equipement.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="61"/>
+        <location filename="../MainWindow.cpp" line="63"/>
         <source>This application provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games.</source>
         <translation>Cette application fournit un ensemble de widgets simples permettant de simuler le matériel de jeu nécessaire pour jouer à des jeux de société ou de cartes.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="62"/>
+        <location filename="../MainWindow.cpp" line="64"/>
         <source>Click on &apos;Add a widget&apos; to set equipement on table before using them.</source>
         <translation>Cliquez sur &apos;Ajouter un widget&apos; pour placer le matériel sur la table afin de pouvoir l&apos;utiliser.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="65"/>
+        <location filename="../MainWindow.cpp" line="67"/>
         <source>&amp;About</source>
         <translation>À &amp;propos</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="67"/>
+        <location filename="../MainWindow.cpp" line="69"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="68"/>
+        <location filename="../MainWindow.cpp" line="70"/>
         <source>Version: </source>
         <translation>Version : </translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="69"/>
+        <location filename="../MainWindow.cpp" line="71"/>
         <source>Copyright &amp;copy;2019 Alfred Massard.</source>
         <translation>Copyright &amp;copy;2019 Alfred Massard.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="70"/>
+        <location filename="../MainWindow.cpp" line="72"/>
         <source>This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.</source>
         <translation>Ceci est un logiciel libre, vous pouvez librement le distribuer sous les conditions de la license GNU GPL v3.0.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="71"/>
+        <location filename="../MainWindow.cpp" line="73"/>
         <source>Report a bug</source>
         <translation>Rapporter un bug</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="72"/>
+        <location filename="../MainWindow.cpp" line="74"/>
         <source>Build: </source>
         <translation>Build : </translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="87"/>
+        <location filename="../MainWindow.cpp" line="98"/>
         <source>Save file</source>
         <translation>Enregistrer le fichier</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="89"/>
-        <location filename="../MainWindow.cpp" line="112"/>
+        <location filename="../MainWindow.cpp" line="100"/>
+        <location filename="../MainWindow.cpp" line="123"/>
         <source>JSON templates (*.json)</source>
         <translation>templates JSON (*.json)</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="110"/>
+        <location filename="../MainWindow.cpp" line="121"/>
         <source>Select file</source>
         <translation>Choisir le fichier</translation>
     </message>
@@ -490,12 +533,12 @@
 <context>
     <name>Table</name>
     <message>
-        <location filename="../Table.cpp" line="24"/>
+        <location filename="../Table.cpp" line="25"/>
         <source>Table is empty, click here to add widget.</source>
         <translation>La table est vide, cliquez ici pour ajouter un widget.</translation>
     </message>
     <message>
-        <location filename="../Table.cpp" line="59"/>
+        <location filename="../Table.cpp" line="63"/>
         <source>Add a widget</source>
         <translation>Ajouter un widget</translation>
     </message>

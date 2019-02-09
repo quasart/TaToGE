@@ -28,13 +28,12 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - General reset button
 - Tools dynamic delete/order
 - Dice/Cards random values could be icons
-- Lock mode parameter (to hide admin menus)
 - Parameter for rolling/drawing time
-- Parameter for general Table color (command line ? json ?)
 
 ## Known issues
 
 - Keyboard navigation does not trigger auto-scroll in AddWidgetDialog.
+- Command line help is not translated.
 
 ## Build dependency
 

@@ -11,6 +11,8 @@
 #include <QJsonDocument>
 #include <QFileDialog>
 
+#include "AppOptions.h"
+
 
 MainWindow::MainWindow()
 	: m_Table(this)
@@ -69,14 +71,23 @@ MainWindow::MainWindow()
 				"<p>" + tr("Copyright &copy;2019 Alfred Massard.") + "<br>" +
 				tr("This is free software, and you are welcome to redistribute it under GNU General Public License v3.0 conditions.")+ "</p>" +
 				"<p><a href='https://github.com/quasart/TaToGE/issues'>" + tr("Report a bug") + "</a>" +
-				" (" + tr("Build: ") + QCoreApplication::applicationVersion() + " " +  __DATE__ + " " +__TIME__ + ")"
+				" (" + tr("Build: ") + "v" + QCoreApplication::applicationVersion() + 
+				" q" + qVersion() +
+				" " +  __DATE__ + " " +__TIME__ + ")"
 				); }  );
 	}
 
-	QStringList args = QCoreApplication::arguments();
-	if (args.count() > 1)
+	QString const file = AppOptions::getInstance().getFileToLoad();
+	if (!file.isEmpty())
 	{
-		m_Table.loadJsonFile( args.at(1) );
+		m_Table.loadJsonFile(file);
+	}
+
+	menuBar()->setVisible( !AppOptions::getInstance().isAdminHidden() );
+
+	if (AppOptions::getInstance().isFullscreen())
+	{
+		setWindowState(windowState() | Qt::WindowFullScreen);
 	}
 }
 

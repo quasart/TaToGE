@@ -14,6 +14,7 @@
 #include <QJsonArray>
 
 #include "JsonCodec.h"
+#include "AppOptions.h"
 
 static const int LAST_ROW = 255; //row count arbitrary limitation to remove someday.
 
@@ -30,6 +31,7 @@ Table::Table(QWidget * parent)
 
 	QFrame::setFrameStyle(QFrame::NoFrame);
 
+	m_AddButton.setVisible( !AppOptions::getInstance().isAdminHidden() );
 	m_AddButton.setFlat(true);
 	m_AddButton.setObjectName("AddWidgetButton");
 	m_AddButton.setStyleSheet( "font-size: 10pt;");
