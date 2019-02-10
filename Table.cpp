@@ -22,7 +22,7 @@ static const int LAST_ROW = 255; //row count arbitrary limitation to remove some
 Table::Table(QWidget * parent)
 	: QFrame(parent)
 	, m_Layout( * new QGridLayout(this) )
-	, m_AddButton( * new QPushButton( tr("Table is empty, click here to add widget.") ) )
+	, m_AddButton( * new QPushButton( tr("Table is empty, click here to add game equipment.") ) )
 	, m_AddDialog(parent ? parent : this)
 	, m_RowCount(0)
 	, m_FontSize(1.2)
@@ -33,7 +33,7 @@ Table::Table(QWidget * parent)
 
 	m_AddButton.setVisible( !AppOptions::getInstance().isAdminHidden() );
 	m_AddButton.setFlat(true);
-	m_AddButton.setObjectName("AddWidgetButton");
+	m_AddButton.setObjectName("AddEquipmentButton");
 	m_AddButton.setStyleSheet( "font-size: 10pt;");
 	connect(&m_AddButton, &QPushButton::clicked, this, &Table::showAddDialog );
 	m_Layout.addWidget( &m_AddButton, LAST_ROW, 0, 1, 2 );
@@ -60,7 +60,7 @@ void Table::addRow(QWidget * w)
 		m_Layout.addWidget( l, m_RowCount, 0 );
 		m_Layout.addWidget( w, m_RowCount, 1 );
 	}
-	m_AddButton.setText( tr("Add a widget") );
+	m_AddButton.setText( tr("Add equipment") );
 	++m_RowCount;
 	
 	updateFontSize();

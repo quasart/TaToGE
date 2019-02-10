@@ -48,7 +48,7 @@ MainWindow::MainWindow()
 	}
 
 	{
-		QAction * addAction = menuBar()->addAction(tr("Add a &widget"));
+		QAction * addAction = menuBar()->addAction(tr("Add &equipment"));
 		connect(addAction, &QAction::triggered, &m_Table, &Table::showAddDialog );
 	}
 
@@ -59,9 +59,9 @@ MainWindow::MainWindow()
 		action->setShortcuts(QKeySequence::HelpContents);
 		action->setIcon(QIcon::fromTheme("help-contents"));
 		connect(action, &QAction::triggered, [this](){ QMessageBox::information(this, tr("Help"),
-				tr("TaToGE: Table-Top Game Equipement.") + "\n\n" +
+				tr("TaToGE: Table-Top Game Equipment.") + "\n\n" +
 				tr("This application provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games.") + "\n\n" +
-				tr("Click on 'Add a widget' to set equipement on table before using them.")); }  );
+				tr("Click on 'Add equipment' to set equipment on table before using them.")); }  );
 	}
 	{
 		QAction * action = helpMenu->addAction(tr("&About"));

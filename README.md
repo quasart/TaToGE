@@ -32,7 +32,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 ## Known issues
 
-- Keyboard navigation does not trigger auto-scroll in AddWidgetDialog.
+- Keyboard navigation does not trigger auto-scroll in AddEquipmentDialog.
 - Command line help is not translated.
 
 ## Build dependency

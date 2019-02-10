@@ -13,13 +13,13 @@
 #include <vector>
 
 
-class AddWidgetDialog : public QDialog
+class AddEquipmentDialog : public QDialog
 {
 Q_OBJECT
 
 public:
 
-	AddWidgetDialog(QWidget * parent);
+	AddEquipmentDialog(QWidget * parent);
 
 	QJsonObject getJsonOutput() const { return m_JsonOutput; }
 

@@ -2,7 +2,7 @@
 
 #include <QFrame>
 
-#include "AddWidgetDialog.h"
+#include "AddEquipmentDialog.h"
 
 
 class Table : public QFrame
@@ -15,7 +15,7 @@ public:
 private:
 	QGridLayout & m_Layout;
 	QPushButton & m_AddButton;
-	AddWidgetDialog m_AddDialog;
+	AddEquipmentDialog m_AddDialog;
 	int m_RowCount;
 	float m_FontSize;
 

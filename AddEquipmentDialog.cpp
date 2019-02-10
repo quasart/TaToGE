@@ -1,4 +1,4 @@
-#include "AddWidgetDialog.h"
+#include "AddEquipmentDialog.h"
 
 #include <QDialogButtonBox>
 #include <QDebug>
@@ -90,7 +90,7 @@ QJsonArray parseNameList(QString list_str, bool * ok)
 	return result;
 }
 
-void AddWidgetDialog::addSeparator()
+void AddEquipmentDialog::addSeparator()
 {
 	auto line = new QFrame;
 	line->setMinimumSize(QSize(0, 15));
@@ -99,7 +99,7 @@ void AddWidgetDialog::addSeparator()
 	m_RadioGridLayout->addWidget( line, m_RadioGridLayout->rowCount(), 0, 1, 3);
 }
 
-QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QString icon_name, QString description, QWidget * form)
+QRadioButton * AddEquipmentDialog::addRadio(QString name, QJsonObject result, QString icon_name, QString description, QWidget * form)
 {
 	int const row = m_RadioGridLayout->rowCount();
 
@@ -140,7 +140,7 @@ QRadioButton * AddWidgetDialog::addRadio(QString name, QJsonObject result, QStri
 }
 
 
-AddWidgetDialog::AddWidgetDialog(QWidget * parent)
+AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 	: QDialog(parent)
 	, m_RadioGridLayout(new QGridLayout)
 	, m_NameInput( new QLineEdit )
@@ -153,10 +153,10 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 {
 	// Build window
 
-	QWidget::setWindowTitle( tr("New Widget") );
+	QWidget::setWindowTitle( tr("Add Game Equipment") );
 	auto mainGridLayout = new QGridLayout(this);
 
-	mainGridLayout->addWidget( new QLabel(tr("Widget type")), 0,0 );
+	mainGridLayout->addWidget( new QLabel(tr("Equipment type")), 0,0 );
 
 	{
 		m_RadioGridLayout->setHorizontalSpacing(9);
@@ -177,7 +177,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 		mainGridLayout->addWidget( scrollArea, 1,0 );
 	}
 
-	mainGridLayout->addWidget( new QLabel(tr("Widget name")), 2,0 );
+	mainGridLayout->addWidget( new QLabel(tr("Equipment name")), 2,0 );
 
 	{
 		m_NameInput->setPlaceholderText( tr("this name is optional...") );
@@ -189,7 +189,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 													| QDialogButtonBox::Cancel);
 
 		mainGridLayout->addWidget( btn, 4,0 );
-		connect(btn, &QDialogButtonBox::accepted, this, &AddWidgetDialog::accept);
+		connect(btn, &QDialogButtonBox::accepted, this, &AddEquipmentDialog::accept);
 		connect(btn, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
 		QPushButton * ok_btn = btn->button(QDialogButtonBox::Ok);
@@ -279,7 +279,7 @@ AddWidgetDialog::AddWidgetDialog(QWidget * parent)
 }
 
 
-void AddWidgetDialog::accept()
+void AddEquipmentDialog::accept()
 {
 	bool ok = true;
 	QJsonObject out = m_RadioJson;

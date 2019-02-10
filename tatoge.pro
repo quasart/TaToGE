@@ -6,8 +6,8 @@ INCLUDEPATH += .
 QT += widgets
 
 SOURCES += main.cpp
-SOURCES += MainWindow.cpp Table.cpp AddWidgetDialog.cpp JsonCodec.cpp
-HEADERS += MainWindow.h   Table.h   AddWidgetDialog.h   JsonCodec.h
+SOURCES += MainWindow.cpp Table.cpp AddEquipmentDialog.cpp JsonCodec.cpp
+HEADERS += MainWindow.h   Table.h   AddEquipmentDialog.h   JsonCodec.h
 HEADERS += widgets/CardDrawer.h
 HEADERS += widgets/Counter.h
 HEADERS += widgets/Dice.h

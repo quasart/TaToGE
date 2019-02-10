@@ -15,10 +15,10 @@ Table QPushButton {
 Table QPushButton:hover {
    background-color: hsv(%1,40,100%);
 }
-Table QPushButton:pressed, #AddWidgetButton:pressed {
+Table QPushButton:pressed, #AddEquipmentButton:pressed {
    background-color: #da8;
 }
-#AddWidgetButton {
+#AddEquipmentButton {
    font-size: 10pt;
    color: hsv(%1,130,30%);
    padding: 0.5em;
@@ -27,7 +27,7 @@ Table QPushButton:pressed, #AddWidgetButton:pressed {
    border-color: transparent;
    background-color: transparent;
 }
-#AddWidgetButton:hover {
+#AddEquipmentButton:hover {
    color: black;
    border-color: hsv(%1,130,60%);
    background-color: transparent;
