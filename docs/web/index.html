@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TaToGE web</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+
+html, body {
+  margin:0px;
+  padding: 0px;
+  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+  color: black;
+  background-color: hsl(200, 59%, 70%);
+}
+
+header, footer {
+  background-color: rgba(0,0,0,60%);
+  color: #FFF;
+}
+
+header h1,
+footer p,
+.Options,
+#ttgeTable > *
+{
+  width: 20rem;
+  margin: 0px auto;
+}
+
+.Options {
+  padding: 1em;
+  background: rgba(255,255,255,80%);
+  margin: 1em auto;
+  border-radius: 2px;
+}
+
+footer {
+  padding: 2em 0;
+}
+
+#ttgeTable {
+  padding: 2rem;
+  min-height: 25vh;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.7em;
+}
+
+
+#ttgeTable > * {
+  width: 20rem;
+  height: 2rem;
+  margin-bottom: 5px;
+  border-width: 0px;
+  border-radius: 2px;
+  display: block;
+}
+
+.counter input {
+  width: 10%;
+  border-width: 0px;
+  font-size: 0.7em;
+  border-radius: 5px;
+  height: 100%;
+  padding: 0em;
+  margin: 0px;
+}
+.counter span {
+  display: inline-block;
+  text-align: center;
+  width: 40%;
+  margin: 0px;
+}
+
+.Options textarea {
+  width: 100%;
+  height: 3em;
+}
+
+#ttgeTable meter {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: rgba(0,0,0,30%);
+}
+
+#ttgeTable meter:hover {
+  background: rgba(0,0,0,40%);
+}
+
+#ttgeTable meter::-webkit-meter-optimum-value,
+#ttgeTable meter::-webkit-meter-suboptimum-value,
+#ttgeTable meter::-webkit-meter-even-less-good-value,
+#ttgeTable meter:-moz-meter-optimum::-moz-meter-bar,
+#ttgeTable meter:-moz-meter-sub-optimum::-moz-meter-bar,
+#ttgeTable meter:-moz-meter-sub-sub-optimum::-moz-meter-bar
+{
+  background: white;
+  border-radius: 2px;
+}
+
+#ttgeTable input[type=button] {
+  background: rgba(255,255,255,40%);
+  color: black;
+}
+
+#ttgeTable input[type=button]:hover {
+  background: white;
+}
+
+#ttgeTable input[type=button]:active {
+  background: #da8;
+}
+
+
+</style>
+<head>
+<body>
+  <header>
+    <h1>TaToGE <small>web</small></h1>
+  </header>
+
+  <form class='Options' id='AddEquipment'>
+    <div class="RadioGroup"></div>
+    <input type="button" onclick="add_equipment('#AddEquipment input[name=type]:checked')" value="Add game equipment" />
+  </form>
+
+  <div id="ttgeTable"> </div>
+
+  <form class='Options'>
+    <input type="button" onclick="clear_table()" value="Clear table" /><br>
+  </form>
+  <form class='Options'>
+    <textarea name="customJson" cols="40" rows="4">[
+ {"Type":"Dice", "NbSides":6},
+ {"Type":"Sortition", "List":["Rock","Paper","Scissors"]},
+ {"Type":"Timer", "Duration":30}
+]</textarea>
+    <input type="button" onclick="add_equipment('textarea[name=customJson]')" value="parse JSON" />
+  </form>
+
+  <footer>
+    <p>This tool was designed as part of <a href="https://quasart.github.io/TaToGE/">TaToGE</a> project.</p>
+  </footer>
+
+</body>
+</html>
+
+<script>
+
+  /* Widgets */
+
+  function new_dice(obj)
+  {
+    var inital_face = obj.NbSides;
+    var attr_list = "";
+    if (obj.List)
+    {
+      obj.NbSides = obj.List.length
+      inital_face = obj.List[obj.List.length-1]
+      attr_list = "data-list='"+JSON.stringify(obj.List)+"' "
+    }
+
+    return "<input type=button class='dice' " +
+      "id='" + obj.id + "' " +
+      "onclick='roll_dice(this)' " +
+      "data-nb-sides='" + obj.NbSides + "' " +
+      attr_list +
+      "value='" + inital_face + "' />";
+  }
+
+  function roll_dice(dice_id) {
+    var dice = $(dice_id);
+    dice.data("rollTime", "20");
+    if (!dice.data("interval-id")) // Check is not already rolling.
+    {
+      // Start rolling...
+      var intervalId = setInterval( function() {
+        var nb_faces = dice.data("nb-sides");
+        var randvalue = Math.floor(Math.random()*nb_faces);
+        var face_names = dice.data("list")
+        if (face_names)
+        {
+          dice.val(face_names[randvalue]);
+        }
+        else
+        {
+          dice.val(randvalue+1);
+        }
+
+        var roll_time = dice.data("rollTime");
+        roll_time--;
+        dice.data("rollTime", roll_time);
+
+        // Stop condition
+        if (roll_time == 0) {
+          clearInterval(dice.data("interval-id"));
+          dice.data("interval-id", null);
+        }
+      }, 100);
+      dice.data("interval-id", intervalId);
+    }
+  }
+
+
+  function new_timer(obj)
+  {
+    return "<meter class='timer' " +
+      "id='" + obj.id + "' " +
+      "onclick='start_timer(this)' " +
+      "data-duration='" + obj.Duration + "' " +
+      "max='100' " +
+      "value='0' />";
+  }
+
+  function start_timer(timer_id)
+  {
+    var timer = $(timer_id);
+    if (timer.data("interval-id")) {
+      timer.val(0)
+      clearInterval(timer.data("interval-id"));
+      timer.data("interval-id", null);
+    }
+    else
+    {
+      timer.val(100)
+      timer.data("beginTime", Date.now())
+
+      var duration_ms = timer.data("duration")*1000;
+      var refresh_time_ms = duration_ms / 500;
+      if (refresh_time_ms < 50) refresh_time_ms = 50;
+
+      var intervalId = setInterval( function() {
+        var millis = Date.now() - timer.data("beginTime");
+        var value = (duration_ms - millis) / duration_ms;
+        timer.val(Math.floor(value*100));
+
+        if (value <= 0)
+        {
+          clearInterval(timer.data("interval-id"));
+          timer.data("interval-id", null);
+        }
+      }, refresh_time_ms );
+      timer.data("interval-id", intervalId);
+    }
+  }
+
+
+  function new_counter(obj)
+  {
+    var html = "<form class='counter' id='" + obj.id + "'>"
+    html += "<input type=button value='-10' onclick='increment_counter(\"#" +obj.id+" span\",-10)'>"
+    html += "<input type=button value='-5'  onclick='increment_counter(\"#" +obj.id+" span\",-5)'>"
+    html += "<input type=button value='-1'  onclick='increment_counter(\"#" +obj.id+" span\",-1)'>"
+    html += "<span>0</span>"
+    html += "<input type=button value='+1'  onclick='increment_counter(\"#" +obj.id+" span\",1)'>"
+    html += "<input type=button value='+5'  onclick='increment_counter(\"#" +obj.id+" span\",5)'>"
+    html += "<input type=button value='+10' onclick='increment_counter(\"#" +obj.id+" span\",10)'>"
+    html += "</form>";
+    return html;
+  }
+
+  function increment_counter(counter,incr)
+  {
+      label = $(counter);
+      val = parseInt(label.html());
+      label.html(val+incr);
+  }
+
+
+
+/* Table management */
+
+  var EQUIPMENT_ID = 0;
+
+  function create_widget(json_obj)
+  {
+    if (Array.isArray(json_obj))
+    {
+       html = ""
+       json_obj.forEach(function(element) {
+          html += create_widget(element);
+       });
+       return html;
+    }
+
+    json_obj.id = "equipment"+EQUIPMENT_ID;
+    EQUIPMENT_ID++;
+
+    switch (json_obj.Type)
+    {
+      case "Dice": return new_dice(json_obj)
+      case "Sortition": return new_dice(json_obj)
+      case "Timer": return new_timer(json_obj)
+      case "Counter": return new_counter(json_obj)
+      case "Label": return "<div>"+json_obj.Text+"</div>"
+      case "Space": return "<div>&nbsp;</div>"
+    }
+    console.log("Invalid widget type: "+json_obj.Type)
+  }
+
+  function add_equipment(input)
+  {
+    var json_obj = JSON.parse( $(input).val() )
+    var html = create_widget(json_obj);
+    $("#ttgeTable").append(html)
+  }
+
+  function clear_table()
+  {
+    //if (confirm("Sure? (no undo)"))
+    {
+      $("#ttgeTable").html("")
+    }
+  }
+
+  function add_radio(name, value)
+  {
+    var html = "<label><input type='radio' name='type' " +
+      "value='" + JSON.stringify(value) + "'> " +
+      name + "</label><br>"
+    $("#AddEquipment .RadioGroup").append(html)
+  }
+
+  $(function(){
+
+    add_radio("Counter", {Type: "Counter"});
+    add_radio("6-sided dice", {Type: "Dice", NbSides: 6});
+    add_radio("8-sided dice", {Type: "Dice", NbSides: 8});
+    add_radio("20-sided dice", {Type: "Dice", NbSides: 20});
+    add_radio("Fudge dice", {Type: "Sortition", List:["-"," ","+"]});
+    add_radio("Poker dice", {Type: "Sortition", List:["9","10","Jack","Queen","King","Ace"]});
+    add_radio("30-second sandtimer", {Type: "Timer", Duration:30});
+    add_radio("1-minute sandtimer", {Type: "Timer", Duration:60});
+
+    var magic_list = [ "It is certain",
+                       "It is decidedly so",
+                       "Without a doubt",
+                       "Yes - definitely",
+                       "You may rely on it",
+                       "As I see it, yes",
+                       "Most likely",
+                       "Outlook good",
+                       "Yes",
+                       "Signs point to yes",
+                       "Don&rsquo;t count on it",
+                       "My reply is no",
+                       "My sources say no",
+                       "Outlook not so good",
+                       "Very doubtful",
+                       "Reply hazy, try again",
+                       "Ask again later",
+                       "Better not tell you now",
+                       "Cannot predict now",
+                       "Concentrate and ask again"];
+    add_radio("Magic 8 Ball", {Type: "Sortition", List: magic_list});
+    //add_radio("Space", {type: "Space"});
+  });
+
+</script>
