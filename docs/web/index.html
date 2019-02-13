@@ -16,7 +16,11 @@ html, body {
 }
 
 header, footer {
-  background-color: rgba(0,0,0,60%);
+  background-color: hsl(200, 59%, 30%);
+  color: #FFF;
+}
+
+header a, footer a {
   color: #FFF;
 }
 
@@ -31,7 +35,7 @@ footer p,
 
 .Options {
   padding: 1em;
-  background: rgba(255,255,255,80%);
+  background: hsl(200, 59%, 90%);
   margin: 1em auto;
   border-radius: 2px;
 }
@@ -47,7 +51,7 @@ footer {
 
 footer {
   text-align: center;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 
@@ -81,30 +85,24 @@ footer {
   height: 3em;
 }
 
-#ttgeTable meter {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: rgba(0,0,0,30%);
+.timer {
+  background: hsl(200, 59%, 40%);
 }
 
-#ttgeTable meter:hover {
-  background: rgba(0,0,0,40%);
+.timer:hover {
+  background: hsl(200, 59%, 30%);
 }
 
-#ttgeTable meter::-webkit-meter-optimum-value,
-#ttgeTable meter::-webkit-meter-suboptimum-value,
-#ttgeTable meter::-webkit-meter-even-less-good-value,
-#ttgeTable meter:-moz-meter-optimum::-moz-meter-bar,
-#ttgeTable meter:-moz-meter-sub-optimum::-moz-meter-bar,
-#ttgeTable meter:-moz-meter-sub-sub-optimum::-moz-meter-bar
+.timer > div
 {
   background: white;
   border-radius: 2px;
+  height: 100%;
+  width: 0;
 }
 
 #ttgeTable input[type=button] {
-  background: rgba(255,255,255,40%);
+  background: hsl(200, 59%, 80%);
   color: black;
 }
 
@@ -209,25 +207,24 @@ footer {
 
   function new_timer(obj)
   {
-    return "<meter class='timer' " +
+    return "<div class='timer' " +
       "id='" + obj.id + "' " +
       "onclick='start_timer(this)' " +
-      "data-duration='" + obj.Duration + "' " +
-      "max='100' " +
-      "value='0' />";
+      "data-duration='" + obj.Duration + "'><div></div></div>"
   }
 
   function start_timer(timer_id)
   {
     var timer = $(timer_id);
+    var chunk = timer.children("div")
     if (timer.data("interval-id")) {
-      timer.val(0)
+      chunk.width(0)
       clearInterval(timer.data("interval-id"));
       timer.data("interval-id", null);
     }
     else
     {
-      timer.val(100)
+      chunk.width("100%")
       timer.data("beginTime", Date.now())
 
       var duration_ms = timer.data("duration")*1000;
@@ -237,7 +234,7 @@ footer {
       var intervalId = setInterval( function() {
         var millis = Date.now() - timer.data("beginTime");
         var value = (duration_ms - millis) / duration_ms;
-        timer.val(Math.floor(value*100));
+        chunk.width(Math.floor(value*100) + "%");
 
         if (value <= 0)
         {
