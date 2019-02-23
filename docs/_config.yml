@@ -1,4 +1,6 @@
-theme: jekyll-theme-slate
+theme: jekyll-theme-slate # https://github.com/pages-themes/slate
+title: Table-Top Game Equipment
+description: a.k.a. TaToGE
 show_downloads: true
 github:
   zip_url: https://github.com/quasart/TaToGE/releases/latest

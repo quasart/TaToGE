@@ -1,4 +1,4 @@
-# TaToGE: TableTop Game Equipment
+# TableTop Game Equipment, a.k.a. TaToGE
 
 This project provides a bunch of simple widgets to emulate the common game equipment needed when playing board games or card games : Dice, sandtimers, score counters...
 
@@ -23,11 +23,13 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - New widgets:
    - Stopwatch
    - Score table
-   - "Go" signal
+   - random "Go" signal
 - Add sounds on events
 - General reset button
+- General roll button
 - Tools dynamic delete/order
 - Dice/Cards random values could be icons
+- Widget labels could be icons
 - Parameter for rolling/drawing time
 
 ## Known issues

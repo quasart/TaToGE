@@ -3,72 +3,140 @@
 <head>
   <title>TaToGE web</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no, user-scalable=0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <style>
+html {
+  position: relative;
+  min-height: 100%;
+}
 
-html, body {
-  margin:0px;
-  padding: 0px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+body {
   color: black;
   background-color: hsl(200, 59%, 70%);
+  padding-bottom: 2em;
+  margin-bottom: 4rem;
 }
 
 header, footer {
   background-color: hsl(200, 59%, 30%);
+  color: hsl(200, 59%, 90%);
+}
+
+header h1, footer a {
   color: #FFF;
 }
 
-header a, footer a {
-  color: #FFF;
+header a:hover, footer a:hover {
+  color: hsl(200, 89%, 50%);
 }
 
-header h1,
-footer p,
-.Options,
-#ttgeTable > *
-{
-  width: 20rem;
-  margin: 0px auto;
-}
-
-.Options {
-  padding: 1em;
-  background: hsl(200, 59%, 90%);
-  margin: 1em auto;
-  border-radius: 2px;
-}
-
-footer {
-  padding: 2em 0;
-}
-
-#ttgeTable {
-  padding: 2rem;
-  min-height: 25vh;
+header {
+  padding: 0.5em 0;
 }
 
 footer {
   text-align: center;
   font-size: 0.9em;
+  padding-top: 1em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 4rem;
 }
 
+
+textarea {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+#ttgeTable {
+  padding-top: 2em;
+  padding-bottom: 2em;
+ -webkit-touch-callout: none !important;
+ -webkit-user-select: none !important;
+}
 
 #ttgeTable > * {
-  width: 20rem;
-  height: 2rem;
-  margin-bottom: 5px;
-  border-width: 0px;
-  border-radius: 2px;
-  display: block;
+  font-size: 1em;
+  width: 30em;
+  height: 3em;
+  line-height: 100%;
 }
 
-.counter input {
+#AdminTable {
+  text-align: center;
+  line-height: 3;
+}
+
+.widget {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin: 0px auto 5px;
+  max-width: 95%;
+  position: relative;
+}
+
+.widget > * {
+  height: 100%;
+  font-size: inherit;
+  padding: 0;
+  transition: width 0.3s linear;
+  overflow: hidden;
+}
+.widget > .widget-content {
+  width: 18rem; /* Just in case flex is not supported. */
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  z-index: 1;
+}
+.widget > .control {
+  width: 3rem;
+  line-height: 1;
+  margin-left: 2px;
+  font-size: 1rem;
+}
+.widget > .control.control-hidden {
+  width: 0;
+  min-width: 0;
+  border: 0;
+  transition: none;
+}
+.widget > .label {
+  font-size: 1rem;
+  color: #355c69;
+  width: 4rem;
+  text-overflow: ellipsis;
+
+  line-height: 1;
+  position: relative;
+  top: 50%;
+  transform: translateY(-0.5em);
+}
+.widget > .label-over {
+  font-size: 0.7rem;
+  color: #355c69;
+  width: 0px;
+  z-index: 3;
+  position: absolute;
+  left: 0.5em;
+  top: 1em;
+  overflow: visible;
+}
+
+.counter button {
   width: 10%;
   border-width: 0px;
-  font-size: 0.7em;
-  border-radius: 5px;
+  font-size: 0.7rem;
   height: 100%;
   padding: 0em;
   margin: 0px;
@@ -78,42 +146,47 @@ footer {
   text-align: center;
   width: 40%;
   margin: 0px;
-}
-
-.Options textarea {
-  width: 100%;
-  height: 3em;
+  font-size: 2em;
+  vertical-align: middle;
 }
 
 .timer {
   background: hsl(200, 59%, 40%);
+  padding: 4px;
 }
-
 .timer:hover {
   background: hsl(200, 59%, 30%);
 }
-
-.timer > div
+.timer .progress-bar
 {
   background: white;
-  border-radius: 2px;
   height: 100%;
   width: 0;
+  transition: none;
 }
 
-#ttgeTable input[type=button] {
+.btn-table {
   background: hsl(200, 59%, 80%);
-  color: black;
+  transition: none;
+  padding: 0;
 }
 
-#ttgeTable input[type=button]:hover {
+.btn-table:hover {
   background: white;
 }
 
-#ttgeTable input[type=button]:active {
+.btn-table:active {
   background: #da8;
 }
 
+
+.dice {
+  color: black;
+  font-size: 2em;
+}
+.dice.rolling {
+  color: gray;
+}
 
 </style>
 <head>
@@ -122,27 +195,76 @@ footer {
     <h1>TaToGE <small>web</small></h1>
   </header>
 
-  <form class='Options' id='AddEquipment'>
-    <div class="RadioGroup"></div>
-    <input type="button" onclick="add_equipment('#AddEquipment input[name=type]:checked')" value="Add game equipment" />
-  </form>
+<!-- Modal -->
+<div class="modal" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddModalLabel">Add equipment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id='AddEquipment'></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_equipment('#AddEquipment input[name=type]:checked')">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="OptionsModal" tabindex="-1" role="dialog" aria-labelledby="OptionsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="OptionsModalLabel">Options</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <label class='form-check-label'> <input type="checkbox" name="admin_mode" onchange="apply_admin_mode()" />
+      Edit table mode</label> <br>
+
+    <input type="button" class="btn btn-danger" onclick="clear_table()" data-dismiss="modal" value="Clear table" />
+    <hr>
+    <textarea name="customJson" rows="4">[
+{"Type":"Counter", "Name":"Score"},
+
+{"Type":"Dice", "NbSides":6, "Name":"d6"},
+
+{"Type":"Sortition", "List":["Rock","Paper","Scissors"]},
+
+{"Type":"Timer", "Duration":30, "Name":"30s"}
+]</textarea>
+    <input type="button" class="btn btn-secondary" onclick="add_equipment('textarea[name=customJson]')" data-dismiss="modal" value="parse JSON" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <div id="ttgeTable"> </div>
 
-  <form class='Options'>
-    <input type="button" onclick="clear_table()" value="Clear table" /><br>
-  </form>
-  <form class='Options'>
-    <textarea name="customJson" cols="40" rows="4">[
- {"Type":"Dice", "NbSides":6},
- {"Type":"Sortition", "List":["Rock","Paper","Scissors"]},
- {"Type":"Timer", "Duration":30}
-]</textarea>
-    <input type="button" onclick="add_equipment('textarea[name=customJson]')" value="parse JSON" />
+  <form id="AdminTable">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">
+      Add equipment</button> <br>
+
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#OptionsModal">
+      More options...</button>
   </form>
 
   <footer>
-    <p>This tool was designed as part of <a href="https://quasart.github.io/TaToGE/">TaToGE</a> project.</p>
+    <p>TableTop Game Equipment, a.k.a. TaToGE, created by <a href='https://github.com/quasart'>Alfred&nbsp;Massard</a>.
+    <br><a href="https://quasart.github.io/TaToGE/">Project home page</a>
+    - <a href='https://github.com/quasart/TaToGE/issues'>Report a bug</a>.
   </footer>
 
 </body>
@@ -154,7 +276,7 @@ footer {
 
   function new_dice(obj)
   {
-    var inital_face = obj.NbSides;
+    var inital_face = ""
     var attr_list = "";
     if (obj.List)
     {
@@ -162,32 +284,43 @@ footer {
       inital_face = obj.List[obj.List.length-1]
       attr_list = "data-list='"+JSON.stringify(obj.List)+"' "
     }
+    else
+    {
+      inital_face += obj.NbSides;
+    }
 
-    return "<input type=button class='dice' " +
+    if (inital_face.length > 8)
+    {
+      attr_list += "style='font-size: 0.9em;' "
+    }
+
+    return "<button type=button class='dice btn btn-table widget-content' " +
       "id='" + obj.id + "' " +
       "onclick='roll_dice(this)' " +
       "data-nb-sides='" + obj.NbSides + "' " +
       attr_list +
-      "value='" + inital_face + "' />";
+      ">" + inital_face + "</button>";
   }
 
   function roll_dice(dice_id) {
     var dice = $(dice_id);
-    dice.data("rollTime", "20");
+    dice.data("rollTime", "15");
+    dice.addClass("rolling");
+
     if (!dice.data("interval-id")) // Check is not already rolling.
     {
       // Start rolling...
       var intervalId = setInterval( function() {
         var nb_faces = dice.data("nb-sides");
         var randvalue = Math.floor(Math.random()*nb_faces);
-        var face_names = dice.data("list")
+        var face_names = dice.data("list");
         if (face_names)
         {
-          dice.val(face_names[randvalue]);
+          dice.html(face_names[randvalue]);
         }
         else
         {
-          dice.val(randvalue+1);
+          dice.html(randvalue+1);
         }
 
         var roll_time = dice.data("rollTime");
@@ -198,6 +331,7 @@ footer {
         if (roll_time == 0) {
           clearInterval(dice.data("interval-id"));
           dice.data("interval-id", null);
+          dice.removeClass("rolling");
         }
       }, 100);
       dice.data("interval-id", intervalId);
@@ -207,10 +341,12 @@ footer {
 
   function new_timer(obj)
   {
-    return "<div class='timer' " +
+    return "<div class='timer progress widget-content' " +
       "id='" + obj.id + "' " +
       "onclick='start_timer(this)' " +
-      "data-duration='" + obj.Duration + "'><div></div></div>"
+      "data-duration='" + obj.Duration + "'>" +
+      "<div class='progress-bar' role='progressbar' ></div>" +
+      "</div>";
   }
 
   function start_timer(timer_id)
@@ -249,14 +385,14 @@ footer {
 
   function new_counter(obj)
   {
-    var html = "<form class='counter' id='" + obj.id + "'>"
-    html += "<input type=button value='-10' onclick='increment_counter(\"#" +obj.id+" span\",-10)'>"
-    html += "<input type=button value='-5'  onclick='increment_counter(\"#" +obj.id+" span\",-5)'>"
-    html += "<input type=button value='-1'  onclick='increment_counter(\"#" +obj.id+" span\",-1)'>"
+    var html = "<form class='counter widget-content' id='" + obj.id + "'>"
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",-10)'>-10</button>" 
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",-5)' >-5</button>"  
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",-1)' >-1</button>"  
     html += "<span>0</span>"
-    html += "<input type=button value='+1'  onclick='increment_counter(\"#" +obj.id+" span\",1)'>"
-    html += "<input type=button value='+5'  onclick='increment_counter(\"#" +obj.id+" span\",5)'>"
-    html += "<input type=button value='+10' onclick='increment_counter(\"#" +obj.id+" span\",10)'>"
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",1)'  >+1</button>"  
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",5)'  >+5</button>"  
+    html += "<button type=button class='btn btn-table' onclick='increment_counter(\"#" +obj.id+" span\",10)' >+10</button>" 
     html += "</form>";
     return html;
   }
@@ -288,51 +424,127 @@ footer {
     json_obj.id = "equipment"+EQUIPMENT_ID;
     EQUIPMENT_ID++;
 
+    html = '<div class="widget">';
+
+    var label_content = ""
+    //if (json_obj.Icon) label_content += "<img src='images/"+ json_obj.Icon +".png' />";
+    if (json_obj.Name) label_content += json_obj.Name;
+    html += '<div class="label label-over">' + label_content + '</div>';
+
     switch (json_obj.Type)
     {
-      case "Dice": return new_dice(json_obj)
-      case "Sortition": return new_dice(json_obj)
-      case "Timer": return new_timer(json_obj)
-      case "Counter": return new_counter(json_obj)
-      case "Label": return "<div>"+json_obj.Text+"</div>"
-      case "Space": return "<div>&nbsp;</div>"
+      case "Dice":      html += new_dice(json_obj); break;
+      case "Sortition": html += new_dice(json_obj); break;
+      case "Timer":     html += new_timer(json_obj); break;
+      case "Counter":   html += new_counter(json_obj); break;
+      case "Label":     html += "<div class='widget-content'>"+json_obj.Text+"</div>"; break;
+      case "Space":     html += "<div class='widget-content'></div>"; break;
+      default:
+        console.log("Invalid widget type: "+json_obj.Type)
     }
-    console.log("Invalid widget type: "+json_obj.Type)
+    html += '<button class="control btn btn-info" onclick="move_up_widget(this)" aria-label="Delete">&uarr;</button>';
+    html += '<button class="control btn btn-danger" onclick="delete_widget(this)" aria-label="Delete">&times;</button>';
+
+    html += '</div>'
+    return html;
+
+  }
+
+  function delete_widget(node)
+  {
+    $(node).parents(".widget").remove();
+    apply_responsive();
+  }
+
+  // TODO should use https://github.com/SortableJS/Sortable instead
+  function move_up_widget(node)
+  {
+    var w = $(node).parents(".widget");
+    var previous = w.prev();
+    if (previous) w.insertBefore(previous);
   }
 
   function add_equipment(input)
   {
-    var json_obj = JSON.parse( $(input).val() )
+    var json_obj = JSON.parse( $(input).val().replace(/'/g, '&apos;') )
     var html = create_widget(json_obj);
     $("#ttgeTable").append(html)
+    apply_responsive();
+    apply_admin_mode();
   }
 
   function clear_table()
   {
-    //if (confirm("Sure? (no undo)"))
+    $("#ttgeTable").html("")
+  }
+
+  function touch_table()
+  {
+      var timer = setTimeout(function(){
+          var checkbox = $("input[name=admin_mode]");
+          checkbox.prop("checked", !checkbox.prop("checked"));
+          checkbox.trigger("change");
+        },900);
+      $(this).data("timer", timer);
+  }
+
+  function untouch_table()
+  {
+    clearTimeout( $(this).data("timer") );
+  }
+
+  function apply_admin_mode() {
+    var is_admin_mode = $("input[name=admin_mode]").is(':checked')
+    if (is_admin_mode)
     {
-      $("#ttgeTable").html("")
+      $(".control").removeClass("control-hidden")
+    }
+    else
+    {
+      $(".control").addClass("control-hidden")
     }
   }
 
   function add_radio(name, value)
   {
-    var html = "<label><input type='radio' name='type' " +
+    var html = "<label class='form-check-label'><input type='radio' name='type' " +
       "value='" + JSON.stringify(value) + "'> " +
       name + "</label><br>"
-    $("#AddEquipment .RadioGroup").append(html)
+    $("#AddEquipment").append(html)
   }
 
-  $(function(){
 
-    add_radio("Counter", {Type: "Counter"});
-    add_radio("6-sided dice", {Type: "Dice", NbSides: 6});
-    add_radio("8-sided dice", {Type: "Dice", NbSides: 8});
-    add_radio("20-sided dice", {Type: "Dice", NbSides: 20});
-    add_radio("Fudge dice", {Type: "Sortition", List:["-"," ","+"]});
-    add_radio("Poker dice", {Type: "Sortition", List:["9","10","Jack","Queen","King","Ace"]});
-    add_radio("30-second sandtimer", {Type: "Timer", Duration:30});
-    add_radio("1-minute sandtimer", {Type: "Timer", Duration:60});
+  function apply_responsive() {
+    var widgets = $('#ttgeTable > *');
+    if (!widgets.length) return;
+
+    var winH = $(window).height();
+    var widgetH = winH / widgets.length * (0.9 - 0.2/widgets.length)
+    var marginH = 2+0.05*widgetH
+    widgets.css('height', (widgetH-marginH) + 'px');
+    widgets.css('margin-bottom', marginH + 'px');
+    widgets.css('width', (12*widgetH) + 'px');
+
+    var fontsize = 0.20*widgetH
+    widgets.css('font-size', fontsize + 'pt');
+  }
+
+  $(function() {
+
+    $(window).resize(apply_responsive);
+    $("#ttgeTable").on("mousedown touchstart",touch_table);
+    $("#ttgeTable").on("mouseup mouseleave touchend",untouch_table);
+
+    apply_admin_mode();
+
+    add_radio("Counter", {Type:"Counter"});
+    add_radio("6-sided dice", {Type:"Dice", NbSides:6, Name:"d6"});
+    add_radio("8-sided dice", {Type:"Dice", NbSides:8, Name:"d8"});
+    add_radio("20-sided dice", {Type:"Dice", NbSides:20, Name:"d20"});
+    add_radio("Fudge dice", {Type:"Sortition", List:["-"," ","+"], Name:"dF"});
+    add_radio("Poker dice", {Type:"Sortition", List:["9","10","Jack","Queen","King","Ace"], Name:"dP"});
+    add_radio("30-second sandtimer", {Type:"Timer", Duration:30, Name:"30s"});
+    add_radio("1-minute sandtimer", {Type:"Timer", Duration:60, Name:"1min"});
 
     var magic_list = [ "It is certain",
                        "It is decidedly so",
@@ -344,7 +556,7 @@ footer {
                        "Outlook good",
                        "Yes",
                        "Signs point to yes",
-                       "Don&rsquo;t count on it",
+                       "Don’t count on it",
                        "My reply is no",
                        "My sources say no",
                        "Outlook not so good",
@@ -354,8 +566,8 @@ footer {
                        "Better not tell you now",
                        "Cannot predict now",
                        "Concentrate and ask again"];
-    add_radio("Magic 8 Ball", {Type: "Sortition", List: magic_list});
-    //add_radio("Space", {type: "Space"});
+    add_radio("Magic 8 Ball", {Type:"Sortition", List:magic_list, Name:"8Ball"});
+    //add_radio("Space", {type:"Space"});
   });
 
 </script>
