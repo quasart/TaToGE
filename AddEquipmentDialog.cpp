@@ -139,6 +139,23 @@ QRadioButton * AddEquipmentDialog::addRadio(QString name, QJsonObject result, QS
 	return btn;
 }
 
+QJsonArray cards_array()
+{
+	QJsonArray card_array;
+	for (QString s : std::vector<QString>({
+			u8" \u2660",
+			u8" \u2665",
+			u8" \u2666",
+			u8" \u2663"
+			}))
+		for (QString r : std::vector<QString>({
+				"2", "3", "4", "5", "6", "7", "8", "9", "10",
+				"J", "Q", "K", "A"
+				}))
+			card_array.push_back( r + s );
+
+	return card_array;
+}
 
 AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 	: QDialog(parent)
@@ -221,7 +238,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 		addSeparator();
 
 		addRadio( tr("Coin flip"),     QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{tr("Head"),tr("Tail")}}}, "coin" );
-		addRadio( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"List",QJsonArray{"0",
+		addRadio( tr("Roulette"),      QJsonObject{{"Type","Sortition"}, {"RollDuration",5}, {"List",QJsonArray{"0",
 			 "1 " + tr("red odd low"    ),  "2 " + tr("black even low" ),  "3 " + tr("red odd low"    ),
 			 "4 " + tr("black even low" ),  "5 " + tr("red odd low"    ),  "6 " + tr("black even low" ),
 			 "7 " + tr("red odd low"    ),  "8 " + tr("black even low" ),  "9 " + tr("red odd low"    ),
@@ -262,6 +279,7 @@ AddEquipmentDialog::AddEquipmentDialog(QWidget * parent)
 		addRadio( tr("Sequence"), QJsonObject{{"Type","Sequence"}}, "custom", tr("List of steps, separated by semicolons (';')"), m_SequenceInput );
 		addSeparator();
 
+		addRadio( tr("Card deck"), QJsonObject{{"Type","CardDrawer"}, {"Cards",cards_array()}, {"NbDrawing",5}, {"DrawingTime",0}}, "cards" );
 		addRadio( tr("Loto"), QJsonObject{{"Type","CardDrawer"}, {"DeckSize",49}, {"NbDrawing",6}}, "loto" );
 		addRadio( tr("Snail racing"), QJsonObject{{"Type","CardDrawer"}, {"NbDrawing",5}}, "custom", tr("Names of snails, separated by semicolons (';')"), m_RacersInput );
 		addSeparator();

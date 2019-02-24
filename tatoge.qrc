@@ -2,6 +2,7 @@
 <qresource>
   <file>images/tatoge.svg</file>
   <file>images/8ball.png</file>
+  <file>images/cards.png</file>
   <file>images/coin.png</file>
   <file>images/counter.png</file>
   <file>images/custom.png</file>

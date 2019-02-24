@@ -6,6 +6,7 @@ convert -render -density 95 -verbose -background transparent images/icons.svg -c
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+256+0  +repage images/sandtimer.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+320+0  +repage images/videau.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+384+0  +repage images/space.png
+convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+448+0  +repage images/cards.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+0+64   +repage images/dice6.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+64+64  +repage images/dice8.png
 convert -render -density 95 -verbose -background transparent images/icons.svg -crop 32x32+128+64 +repage images/dice20.png

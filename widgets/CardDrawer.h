@@ -48,6 +48,7 @@ public:
 		QWidget::setLayout(new QHBoxLayout(this));
 		QWidget::layout()->setContentsMargins(0,0,0,0);
 
+		m_Timer.setInterval(300);
 		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
 
 		for (size_t i = 0; i < slot_nb && i < deck_size; ++i)
@@ -56,7 +57,7 @@ public:
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setMinimumWidth(5);
 
-			connect(btn, SIGNAL(clicked()), this, SLOT(draw()));
+			connect(btn, SIGNAL(clicked()), this, SLOT(update()));
 			m_Slots.push_back(btn);
 			QWidget::layout()->addWidget(btn);
 		}
@@ -64,9 +65,15 @@ public:
 
 	int deckSize() const { return m_DeckOrder.size(); }
 	int nbDrawing() const { return m_Slots.size(); }
+	int drawingTime() const { return m_Timer.interval(); }
 	std::vector<QString> const & cards() const { return m_CardNames; }
 
-private:
+	void setDrawingTime( int drawing_time_ms )
+	{
+		m_Timer.setInterval(drawing_time_ms);
+	}
+
+protected:
 	std::vector<QString> m_CardNames;
 	std::vector<size_t> m_DeckOrder;
 	std::vector<QPushButton*> m_Slots;
@@ -90,8 +97,10 @@ public slots:
 		}
 		emit update();
 
-		using namespace std::literals::chrono_literals;
-		m_Timer.start(300ms);
+		if (drawingTime() > 0)
+		{
+			m_Timer.start();
+		}
 	}
 
 	void update()
@@ -101,8 +110,11 @@ public slots:
 		if (current_index < m_Slots.size())
 		{
 			size_t const drawn_card = m_DeckOrder.at(current_index);
-			QString const txt = m_CardNames.empty() ? QString::number(drawn_card+1) : m_CardNames.at(drawn_card);
-			m_Slots[current_index]->setText(txt);
+			m_Slots[current_index]->setText( card_name(drawn_card) );
+		}
+		else // no draw in progress.
+		{
+			draw();
 		}
 
 		if (current_index == m_Slots.size()-1) // Was last slot.
@@ -112,6 +124,11 @@ public slots:
 	}
 
 protected:
+	QString card_name(size_t card_id) const
+	{
+		return m_CardNames.empty() ? QString::number(card_id+1) : m_CardNames.at(card_id);
+	}
+
 	void mixDeck()
 	{
 		std::uniform_real_distribution<float> distribution;

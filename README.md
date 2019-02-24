@@ -30,7 +30,6 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 - Tools dynamic delete/order
 - Dice/Cards random values could be icons
 - Widget labels could be icons
-- Parameter for rolling/drawing time
 
 ## Known issues
 
@@ -41,7 +40,7 @@ It focuses on simplicity, and on the idea it will be used as a companion during 
 
 Needs:
 - Qt5.9
-- C++14 compiler
+- C++11 compiler
 - qmake to generate Makefile, and lrelease to generate translation file
 - Imagemagick to render icon files
 

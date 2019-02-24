@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = tatoge
 DESTDIR = .
-CONFIG += c++14
+CONFIG += c++11
 INCLUDEPATH += .
 QT += widgets
 
@@ -16,7 +16,7 @@ HEADERS += widgets/Timer.h
 HEADERS += AppOptions.h
 RESOURCES = tatoge.qrc
 
-VERSION = 0.2.0
+VERSION = 0.2.1
 DEFINES += M_APP_VERSION=\\\"$$VERSION\\\"
 
 unix {

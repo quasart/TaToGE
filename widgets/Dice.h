@@ -20,7 +20,8 @@ public:
 		: QWidget(parent)
 		, m_FaceCount(face_nb)
 		, m_Timer(this)
-		, m_RollTime()
+		, m_RollCountdown(0)
+		, m_RollDuration_ms(1500)
 		, m_Generator(getRandomSeed())
 	{
 		if (!face_nb)
@@ -35,7 +36,8 @@ public:
 		QWidget::setLayout(new QHBoxLayout(this));
 		QWidget::layout()->setContentsMargins(0,0,0,0);
 
-		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(update()));
+		m_Timer.setInterval(100);
+		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(rollTick()));
 
 		for (size_t i = 0; i < dice_nb; ++i)
 		{
@@ -43,7 +45,7 @@ public:
 			btn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 			btn->setMinimumWidth(5);
 
-			connect(btn, SIGNAL(clicked()), this, SLOT(roll()));
+			connect(btn, SIGNAL(clicked()), this, SLOT(initRoll()));
 			m_Dices.push_back(btn);
 			QWidget::layout()->addWidget(btn);
 		}
@@ -62,7 +64,16 @@ public:
 
 	int nbSides() const { return m_FaceCount; }
 	int count() const { return m_Dices.size(); }
+	double rollDuration() const { return m_RollDuration_ms/1000.; }
 	std::vector<QString> const & faceLabels() const { return m_FaceLabels; }
+
+	void setRollDuration(double duration)
+	{
+		if (duration>=0)
+		{
+			m_RollDuration_ms = static_cast<size_t>(duration*1000.);
+		}
+	}
 
 private:
 	size_t m_FaceCount;
@@ -70,7 +81,8 @@ private:
 	std::vector<QPushButton*> m_Dices;
 
 	QTimer m_Timer;
-	std::atomic<size_t> m_RollTime;
+	std::atomic<size_t> m_RollCountdown;
+	size_t m_RollDuration_ms;
 	std::default_random_engine m_Generator;
 
 
@@ -78,29 +90,39 @@ signals:
 
 public slots:
 
-	void roll()
+	void initRoll()
 	{
-		m_RollTime = 15;
-		setRandom();
+		m_RollCountdown = m_RollDuration_ms / m_Timer.interval();
 
-		for ( QPushButton * btn : m_Dices )
+		if (m_RollCountdown>0)
 		{
-			btn->setStyleSheet("font-weight : 100;");
+			// stard rolling
+			for ( QPushButton * btn : m_Dices )
+			{
+				btn->setStyleSheet("font-weight : 100; color: #555;");
+			}
+
+			m_Timer.start();
 		}
 
-		using namespace std::literals::chrono_literals;
-		m_Timer.start(100ms);
+		setRandom();
 	}
 
-	void update()
+	void rollTick()
 	{
-		if (m_RollTime==0)
+		if (m_RollCountdown==0)
 		{
+			// stop rolling
+			for ( QPushButton * btn : m_Dices )
+			{
+				btn->setStyleSheet("");
+			}
+
 			m_Timer.stop();
 		}
 		else
 		{
-			m_RollTime--;
+			m_RollCountdown--;
 		}
 		setRandom();
 	}
@@ -127,7 +149,7 @@ public slots:
 		if ( m_Dices.size() > 1
 				&& m_FaceLabels.empty() )
 		{
-			if (m_RollTime==0)
+			if (m_RollCountdown==0)
 			{
 				setToolTip( QString::number(sum) );
 			}
@@ -136,12 +158,6 @@ public slots:
 				setToolTip( "" );
 			}
 		}
-		if (m_RollTime==0)
-		for ( QPushButton * btn : m_Dices )
-		{
-			btn->setStyleSheet("");
-		}
-
 	}
 
 };

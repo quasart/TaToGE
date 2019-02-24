@@ -79,6 +79,7 @@ QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 			item["List"] = makeQJsonArray( dice->faceLabels() );
 		}
 		item["Count"] = dice->count();
+		item["RollDuration"] = dice->rollDuration();
 	}
 	else if (Timer const * timer = qobject_cast<Timer const*>(&widget))
 	{
@@ -108,6 +109,7 @@ QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 	{
 		item["Type"] = "CardDrawer";
 		item["NbDrawing"] = drawer->nbDrawing();
+		item["DrawingTime"] = drawer->drawingTime();
 		if (drawer->cards().empty())
 		{
 			item["DeckSize"] = drawer->deckSize();
@@ -127,7 +129,7 @@ QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 	{
 		item["Name"] = widget.whatsThis();
 	}
-	
+
 	if (!widget.styleSheet().isEmpty())
 	{
 		item["Style"] = widget.styleSheet();
@@ -142,13 +144,17 @@ QWidget * JsonCodec::createWidget(QJsonObject const & item)
 	QString const type = item["Type"].toString("<UNDEFINED>");
 	if (type == "Dice")
 	{
-		pWidget = new Dice( item["NbSides"].toInt(6),
+		Dice * dice = new Dice( item["NbSides"].toInt(6),
 				item["Count"].toInt(1) );
+		dice->setRollDuration( item["RollDuration"].toDouble(1.5) );
+		pWidget = dice; 
 	}
 	else if (type == "Sortition")
 	{
-		pWidget = new Dice( asStringVector(item["List"]),
+		Dice * dice = new Dice( asStringVector(item["List"]),
 				item["Count"].toInt(1) );
+		dice->setRollDuration( item["RollDuration"].toDouble(1.5) );
+		pWidget = dice; 
 	}
 	else if (type == "Timer")
 	{
@@ -187,14 +193,17 @@ QWidget * JsonCodec::createWidget(QJsonObject const & item)
 	}
 	else if (type == "CardDrawer")
 	{
+		CardDrawer * drawer;
 		if (item.contains("Cards"))
 		{
-			pWidget = new CardDrawer( asStringVector(item["Cards"]), item["NbDrawing"].toInt(5) );
+			drawer = new CardDrawer( asStringVector(item["Cards"]), item["NbDrawing"].toInt(5) );
 		}
 		else
 		{
-			pWidget = new CardDrawer( item["DeckSize"].toInt(10), item["NbDrawing"].toInt(5) );
+			drawer = new CardDrawer( item["DeckSize"].toInt(10), item["NbDrawing"].toInt(5) );
 		}
+		drawer->setDrawingTime(item["DrawingTime"].toInt(300));
+		pWidget = drawer;
 	}
 	else if (type == "Label" || type == "Space")
 	{
