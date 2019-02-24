@@ -1,0 +1,178 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  color: black;
+  background-color: hsl(200, 59%, 70%);
+  padding-bottom: 2em;
+  margin-bottom: 4rem;
+}
+
+header, footer {
+  background-color: hsl(200, 59%, 30%);
+  color: hsl(200, 59%, 90%);
+}
+
+header h1, footer a {
+  color: #FFF;
+}
+
+header a:hover, footer a:hover {
+  color: hsl(200, 89%, 50%);
+}
+
+header {
+  padding: 0.5em 0;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  padding-top: 1em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 4rem;
+}
+
+
+textarea {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+#ttgeTable {
+  padding-top: 2em;
+  padding-bottom: 2em;
+ -webkit-touch-callout: none !important;
+ -webkit-user-select: none !important;
+}
+
+#ttgeTable > * {
+  font-size: 1em;
+  width: 30em;
+  height: 3em;
+  line-height: 100%;
+}
+
+#AdminTable {
+  text-align: center;
+  line-height: 3;
+}
+
+.widget {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin: 0px auto 5px;
+  max-width: 95%;
+  position: relative;
+}
+
+.widget > * {
+  height: 100%;
+  font-size: inherit;
+  padding: 0;
+  transition: width 0.3s linear;
+  overflow: hidden;
+}
+.widget > .widget-content {
+  width: 18rem; /* Just in case flex is not supported. */
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  z-index: 1;
+}
+.widget > .control {
+  width: 3rem;
+  line-height: 1;
+  margin-left: 2px;
+  font-size: 1rem;
+}
+.widget > .control.control-hidden {
+  width: 0;
+  min-width: 0;
+  border: 0;
+  transition: none;
+}
+.widget > .label {
+  font-size: 1rem;
+  color: #355c69;
+  width: 4rem;
+  text-overflow: ellipsis;
+
+  line-height: 1;
+  position: relative;
+  top: 50%;
+  transform: translateY(-0.5em);
+}
+.widget > .label-over {
+  font-size: 0.7rem;
+  color: #355c69;
+  width: 0px;
+  z-index: 3;
+  position: absolute;
+  left: 0.5em;
+  top: 1em;
+  overflow: visible;
+}
+
+.counter button {
+  width: 10%;
+  border-width: 0px;
+  font-size: 0.7rem;
+  height: 100%;
+  padding: 0em;
+  margin: 0px;
+}
+.counter span {
+  display: inline-block;
+  text-align: center;
+  width: 40%;
+  margin: 0px;
+  vertical-align: middle;
+}
+
+.timer {
+  background: hsl(200, 59%, 40%);
+  padding: 4px;
+}
+.timer:hover {
+  background: hsl(200, 59%, 30%);
+}
+.timer .progress-bar
+{
+  background: white;
+  height: 100%;
+  width: 0;
+  transition: none;
+}
+
+.btn-table {
+  background: hsl(200, 59%, 80%);
+  transition: none;
+  padding: 0;
+}
+
+.btn-table:hover {
+  background: white;
+}
+
+.btn-table:active {
+  background: #da8;
+}
+
+
+.dice {
+  color: black;
+}
+.dice.rolling {
+  color: gray;
+  font-weight: 100;
+}
+
