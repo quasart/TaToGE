@@ -126,7 +126,7 @@ QJsonObject JsonCodec::widgetJson(QWidget const & widget)
 		item["Type"] = "Counter";
 		item["Value"] = counter->value();
 		item["ResetValue"] = counter->getResetValue();
-//		item["Increments"] = makeQJsonArray(counter->increments());
+		item["Increments"] = makeQJsonArray(counter->increments());
 	}
 	else if (Sequence const * seq = qobject_cast<Sequence const*>(&widget))
 	{

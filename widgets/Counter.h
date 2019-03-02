@@ -16,6 +16,7 @@ public:
 		, m_ResetValue(init)
 		, m_Label(*new QLCDNumber)
 		, m_Layout(*new QHBoxLayout(this))
+		, m_Increments(increments)
 	{
 		QWidget::setLayout(&m_Layout);
 		QWidget::layout()->setSpacing(2);
@@ -46,11 +47,14 @@ public:
 	int getResetValue() const { return m_ResetValue; }
 	void setResetValue(int v) { m_ResetValue = v; }
 
+	std::vector<int> const & increments() const { return m_Increments; }
+
 private:
 	int m_Value;
 	int m_ResetValue;
 	QLCDNumber & m_Label;
 	QHBoxLayout & m_Layout;
+	std::vector<int> m_Increments;
 
 protected:
 
