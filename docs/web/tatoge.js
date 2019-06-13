@@ -263,7 +263,7 @@
 
     $(window).resize(apply_responsive);
     $("#ttgeTable").on("mousedown touchstart",touch_table);
-    $("#ttgeTable").on("mouseup mouseleave touchend",untouch_table);
+    $("#ttgeTable").on("mouseup mouseleave touchend touchmove touchcancel",untouch_table);
 
     apply_admin_mode();
 
