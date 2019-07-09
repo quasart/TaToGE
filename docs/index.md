@@ -1,19 +1,20 @@
-TaToGE allows you to emulate the common game equipment needed when playing board games or card games: Dice, sandtimers, score counters...
+TaToGE allows you to emulate the common game equipment needed when playing board games or card games (Dice, sandtimers, score counters...), and to gather them in a clean screen.
 
 It focuses on simplicity, and on the idea it will be used as a companion during "real" table-top gaming.
 
 ## Typical use
 
-- When you have equipment missing, or when rolling real dice would be too noisy.
+- When you have equipment lost or missing, or you want to simulate a game you don't have.
+- When rolling real dice would be too noisy.
 - When you need custom random generator, for example to choose who will pay the beers.
 - When role-playing game master wants a clean customizable dashboard.
 - When you want to project game status on big screen.
 
 ## Get started
 
-You can simply try [TaToGE web version here](https://quasart.github.io/TaToGE/web/).
+You can simply try [TaToGE web version here](https://quasart.github.io/TaToGE/web/) in your browser.
 
-Otherwise there is a Qt version you can [download for windows](https://github.com/quasart/TaToGE/releases/latest). For all other platforms supported by Qt5, you may build project from [source code](https://github.com/quasart/TaToGE).
+Otherwise there is a desktop Qt version you can [download for windows](https://github.com/quasart/TaToGE/releases/latest). For all other platforms supported by Qt5, you may build project from [source code](https://github.com/quasart/TaToGE).
 
 Don't hesitate to report bugs or to ask for features in [project issue-tracking page](https://github.com/quasart/TaToGE/issues).
 
