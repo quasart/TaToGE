@@ -65,6 +65,24 @@ h1 {
   line-height: 3;
 }
 
+#AddEquipment button {
+  width: 45%;
+  height: 6em;
+  border: 1px solid #ccc;
+  margin: 0 0.5em 1em;
+  box-shadow: 1px 1px 3px rgba(0,0,0,.15);
+}
+
+#AddEquipment button:hover {
+  background-color: #eee;
+}
+
+#AddEquipment button img {
+  display: block;
+  margin: 0 auto;
+  }
+
+
 .widget {
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -99,6 +117,10 @@ h1 {
   min-width: 0;
   border: 0;
   transition: none;
+}
+button:not(:disabled).handle {
+	cursor: move;
+	cursor: -webkit-grabbing;
 }
 .widget > .label {
   font-size: 1rem;

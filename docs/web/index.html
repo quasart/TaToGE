@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TaToGE web</title>
+  <title>TaToGE</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no, user-scalable=0">
+  <link rel="icon" href="icons/favicon.ico" />
+
+  <!--Dependancies: Bootstrap, JQuery, SortableJS, and FontAwesome.-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src='https://kit.fontawesome.com/128237f41f.js'></script>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.0-rc3/Sortable.min.js" integrity="sha256-mb+lIIsrJC1x8D7kxqUcNd0r4G5J1DQXT3UAkyrEljI=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 
   <link rel="stylesheet" href="tatoge.css">
   <script src="tatoge.js"></script>
-<head>
+</head>
 <body>
   <header>
-    <h1>TaToGE <small>web</small></h1>
+    <h1>TaToGE</h1>
   </header>
 
 <!-- Modal -->
@@ -32,7 +39,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_equipment('#AddEquipment input[name=type]:checked')">Add</button>
       </div>
     </div>
   </div>
@@ -49,10 +55,9 @@
         </button>
       </div>
       <div class="modal-body">
-    <label class='form-check-label'> <input type="checkbox" name="admin_mode" onchange="apply_admin_mode()" />
-      Edit table mode</label> <br>
+    <label class='form-check-label'> <input type="checkbox" name="admin_mode" checked onchange="apply_admin_mode()" />
+      Editable mode (toggle with long touch)</label> <br>
 
-    <input type="button" class="btn btn-danger" onclick="clear_table()" data-dismiss="modal" value="Clear table" />
     <hr>
     <textarea name="customJson" rows="4">[
 {"Type":"Counter", "Name":"Score"},
@@ -63,7 +68,7 @@
 
 {"Type":"Timer", "Duration":30, "Name":"30s"}
 ]</textarea>
-    <input type="button" class="btn btn-secondary" onclick="add_equipment('textarea[name=customJson]')" data-dismiss="modal" value="parse JSON" />
+    <input type="button" class="btn btn-secondary" onclick="add_equipment('textarea[name=customJson]')" data-dismiss="modal" value="Add from JSON" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -77,17 +82,22 @@
 
   <form id="AdminTable">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">
-      Add equipment</button> <br>
+      <i class="far fa-plus-square" aria-hidden="true"></i> Add equipment</button>
+    
+    <br>
 
-    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#OptionsModal">
-      More options...</button>
+    <button type="button" class="btn btn-danger" onclick="clear_table()">
+      <i class="fas fa-radiation-alt" aria-hidden="true"></i> Clear table</button>
+
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#OptionsModal">
+      <i class="fas fa-cog" aria-hidden="true"></i> More options...</button>
   </form>
 
   <footer>
     <p>TableTop Game Equipment, a.k.a. TaToGE, created by <a href='https://github.com/quasart'>Alfred&nbsp;Massard</a>.
     <br><a href="https://quasart.github.io/TaToGE/">Project home page</a>
     - <a href='https://github.com/quasart/TaToGE/issues'>Report a bug</a>.
-  </footer>
+ </footer>
 
 </body>
 </html>

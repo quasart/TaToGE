@@ -168,12 +168,12 @@
       case "Timer":     html += new_timer(json_obj); break;
       case "Counter":   html += new_counter(json_obj); break;
       case "Label":     html += "<div class='widget-content'>"+json_obj.Text+"</div>"; break;
-      case "Space":     html += "<div class='widget-content'></div>"; break;
+      case "Space":     html += "<div class='widget-content'>&nbsp;</div>"; break;
       default:
         console.log("Invalid widget type: "+json_obj.Type)
     }
-    html += '<button class="control btn btn-info" onclick="move_up_widget(this)" aria-label="Delete">&uarr;</button>';
-    html += '<button class="control btn btn-danger" onclick="delete_widget(this)" aria-label="Delete">&times;</button>';
+    html += '<button class="handle control btn btn-info" onclick="move_up_widget(this)" aria-label="Move"><i class="fas fa-arrows-alt"></i></button>';
+    html += '<button class="control btn btn-danger" onclick="delete_widget(this)" aria-label="Delete"><i class="far fa-trash-alt"></i></button>';
 
     html += '</div>'
     return html;
@@ -186,7 +186,6 @@
     apply_responsive();
   }
 
-  // TODO should use https://github.com/SortableJS/Sortable instead
   function move_up_widget(node)
   {
     var w = $(node).parents(".widget");
@@ -203,9 +202,26 @@
     apply_admin_mode();
   }
 
+  function apply_get_param()
+  {
+    window.location.search.substr(1)
+        .split("&")
+        .forEach(function (item) {
+            var pair = item.split("=");
+            if (pair[0] == "json")
+            {
+                var json_obj = JSON.parse( decodeURI(pair[1]) )
+                var html = create_widget(json_obj);
+                $("#ttgeTable").append(html)
+                apply_responsive();
+            }
+        } )
+  }
+
   function clear_table()
   {
-    $("#ttgeTable").html("")
+      if ( confirm("Removing all equipment. Are you Sure? (no undo)") )
+          $("#ttgeTable").html("")
   }
 
   function touch_table()
@@ -235,11 +251,17 @@
     }
   }
 
-  function add_radio(name, value)
+
+  function add_equipment_btn(name, value, icon=null)
   {
-    var html = "<label class='form-check-label'><input type='radio' name='type' " +
-      "value='" + JSON.stringify(value) + "'> " +
-      name + "</label><br>"
+    var html =
+          "<button type='button' class='btn' data-dismiss='modal'" +
+          "value='" + JSON.stringify(value) + "' " +
+          "onclick='add_equipment(this)'>";
+    if (icon)
+      html += "<img src='icons/" + icon + ".png'>"
+    html += name +"</button>"
+
     $("#AddEquipment").append(html)
   }
 
@@ -263,18 +285,21 @@
 
     $(window).resize(apply_responsive);
     $("#ttgeTable").on("mousedown touchstart",touch_table);
-    $("#ttgeTable").on("mouseup mouseleave touchend touchmove touchcancel",untouch_table);
+    $("#ttgeTable").on("mouseup mouseleave mousemove touchend touchmove touchcancel",untouch_table);
+    $('#ttgeTable').sortable({ handle:'.handle', delay: 0, animation: 200, touchStartThreshold: 0, forceFallback: true  });
 
+
+    apply_get_param();
     apply_admin_mode();
 
-    add_radio("Counter", {Type:"Counter"});
-    add_radio("6-sided dice", {Type:"Dice", NbSides:6, Name:"d6"});
-    add_radio("8-sided dice", {Type:"Dice", NbSides:8, Name:"d8"});
-    add_radio("20-sided dice", {Type:"Dice", NbSides:20, Name:"d20"});
-    add_radio("Fudge dice", {Type:"Dice", List:["-"," ","+"], Name:"dF"});
-    add_radio("Poker dice", {Type:"Dice", List:["9","10","Jack","Queen","King","Ace"], Name:"dP"});
-    add_radio("30-second sandtimer", {Type:"Timer", Duration:30, Name:"30s"});
-    add_radio("1-minute sandtimer", {Type:"Timer", Duration:60, Name:"1min"});
+    add_equipment_btn("Counter", {Type:"Counter"}, "counter");
+    add_equipment_btn("6-sided dice", {Type:"Dice", NbSides:6, Name:"d6"}, "dice6");
+    add_equipment_btn("8-sided dice", {Type:"Dice", NbSides:8, Name:"d8"}, "dice8");
+    add_equipment_btn("20-sided dice", {Type:"Dice", NbSides:20, Name:"d20"}, "dice20");
+    add_equipment_btn("Fudge dice", {Type:"Dice", List:["-"," ","+"], Name:"dF"});
+    add_equipment_btn("Poker dice", {Type:"Dice", List:["9","10","Jack","Queen","King","Ace"], Name:"dP"});
+    add_equipment_btn("30-second sandtimer", {Type:"Timer", Duration:30, Name:"30s"}, "sandtimer");
+    add_equipment_btn("1-minute sandtimer", {Type:"Timer", Duration:60, Name:"1min"}, "sandtimer");
 
     var magic_list = [ "It is certain",
                        "It is decidedly so",
@@ -296,8 +321,8 @@
                        "Better not tell you now",
                        "Cannot predict now",
                        "Concentrate and ask again"];
-    add_radio("Magic 8 Ball", {Type:"Dice", List:magic_list, Name:"8Ball"});
-    //add_radio("Space", {type:"Space"});
+    add_equipment_btn("Magic 8 Ball", {Type:"Dice", List:magic_list, Name:"8Ball"}, "8ball");
+    add_equipment_btn("Space", {Type:"Space"}, "space");
   });
 
 
