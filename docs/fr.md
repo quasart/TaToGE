@@ -1,6 +1,6 @@
-TaToGE permet de simuler les divers accessoires nécessaires pour jouer aux jeux de sociétés, de cartes ou aux jeux de rôles (Dés, sabliers, compteurs de score...), et de les regrouper sur un écran clair et épuré.
+TaToGE permet de simuler les divers accessoires nécessaires pour jouer aux jeux de sociétés, de cartes ou aux jeux de rôles (Dés, sabliers, compteurs de score...), regroupés ensemble sur un écran clair et épuré.
 
-Ce logiciel se veut simple et générique, et peut être utilisé pour accompagner une "vraie" partie sur table.
+Ce logiciel se veut simple et générique, et destiné à être utilisé pour accompagner une "vraie" partie sur table.
 
 ## Utilisation typique
 
@@ -12,7 +12,7 @@ Ce logiciel se veut simple et générique, et peut être utilisé pour accompagn
 
 ## Essayer
 
-Vous pouvez simplement essayer [la version TaToGE web](https://quasart.github.io/TaToGE/web/) dans votre navigateur.
+Vous pouvez simplement essayer [la version TaToGE web](https://quasart.github.io/TaToGE/web/) dans votre navigateur, ou sur un smartphone.
 
 Sinon, une version executable en Qt peut être [téléchargée ici pour windows](https://github.com/quasart/TaToGE/releases/latest). Pour les autres plateforme supportées par Qt5, vous pouvez compiler le projet à partir du [code source](https://github.com/quasart/TaToGE).
 

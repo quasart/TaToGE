@@ -172,7 +172,7 @@
       default:
         console.log("Invalid widget type: "+json_obj.Type)
     }
-    html += '<button class="handle control btn btn-info" onclick="move_up_widget(this)" aria-label="Move"><i class="fas fa-arrows-alt"></i></button>';
+    html += '<button class="handle control btn btn-info" aria-label="Move"><i class="fas fa-arrows-alt"></i></button>';
     html += '<button class="control btn btn-danger" onclick="delete_widget(this)" aria-label="Delete"><i class="far fa-trash-alt"></i></button>';
 
     html += '</div>'
@@ -184,13 +184,6 @@
   {
     $(node).parents(".widget").remove();
     apply_responsive();
-  }
-
-  function move_up_widget(node)
-  {
-    var w = $(node).parents(".widget");
-    var previous = w.prev();
-    if (previous) w.insertBefore(previous);
   }
 
   function add_equipment(input)
@@ -255,7 +248,7 @@
   function add_equipment_btn(name, value, icon=null)
   {
     var html =
-          "<button type='button' class='btn' data-dismiss='modal'" +
+          "<button type='button' class='btn' data-dismiss='modal' " +
           "value='" + JSON.stringify(value) + "' " +
           "onclick='add_equipment(this)'>";
     if (icon)

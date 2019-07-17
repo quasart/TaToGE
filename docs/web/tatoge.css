@@ -40,6 +40,7 @@ footer {
 
 textarea {
   width: 100%;
+  font-family: Monospace;
 }
 
 h1 {
@@ -66,10 +67,10 @@ h1 {
 }
 
 #AddEquipment button {
-  width: 45%;
+  width: 100%;
   height: 6em;
   border: 1px solid #ccc;
-  margin: 0 0.5em 1em;
+  margin: 0 0 1em;
   box-shadow: 1px 1px 3px rgba(0,0,0,.15);
 }
 
